@@ -1,0 +1,11 @@
+chatterbot >= 1.0.8
+plotpy >= 1.2.0
+pyqt5 >= 5.14.0
+pyttsx3 >= 2.90
+SpeechRecognition >= 3.8.1
+pyqt5-tools >= 5.15
+wheel >= 0.37.0
+spacy >= 2.1.9
+gTTS >= 2.2.3
+./packages/PyAudio-0.2.11-cp310-cp310-win_amd64.whl
+#./packages/PyAudio-0.2.11-cp310-cp310-win32.whl
