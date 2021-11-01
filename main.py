@@ -5,18 +5,28 @@ import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import time
-import unos
+from unos_plugin import UNOS
 
+unos = UNOS()
 unos.UNOSinitialize()
-unos.Verify()
-unos.StartupText()
-#unos.MainWindow()
+verification = unos.Verify()
 
-while True:
-    response = unos.RecognizeUNOS()
+def main():
+    while True:
+        activated = unos.RecognizeUNOS()
 
-    if response == "Continue":
-        #DO
+        if activated == "True":
+            
+            command = unos.RecognizeCommand()
 
-    else:
-        print(response)
+
+        else:
+            print("no")
+
+if verification == "True":
+    unos.StartupText()
+    main()
+    #unos.MainWindow()
+
+else:
+    exit()

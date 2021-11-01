@@ -19,33 +19,47 @@ class UNOS:
 
 
         #Initilisation of Recognition Systems
+        global speech
+        global recognizer
+        global mic
+
         speech = pyttsx3.init()
         recognizer = record.Recognizer()
         mic = record.Microphone()
 
     #Verification Before Launch
-    def Verify():
+    def Verify(self):
         continue_flag = input("Warning! UNOS is unstable in it's current state. Are you sure you want to continue? (y/N): ")
 
         if continue_flag == "y":
             print("Launching UNOS")
             time.sleep(3)
-            return True
+            return "True"
 
         else:
             print("Program Closing")
-            exit()
+            time.sleep(3)
+            return "False"
 
     #Startup Text
     def StartupText(self):
         print("""
         [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
 
-        Version: 0.1-alpha
+        Name: U.N.O.S
+        Version: 0.0.1-alpha
         Codename: Ultron
         Status: Unstable
         """)
         print("UNOS: System Ready for Inquiry")
+        speech.say("System is ready for Inquiry")
+        speech.runAndWait()
+        time.sleep(2)
+
+    #Saying Speech
+    def speak(text):
+        speech.say(text)
+        speech.runAndWait()
 
     #Main User Interface Loop
     def MainWindow():
@@ -62,7 +76,7 @@ class UNOS:
         window.showMaximized()
         sys.exit(qapp.exec_())
 
-    def RecognizeUNOS():
+    def RecognizeUNOS(self):
         #Recognition of Voice Commands
         with mic as source:
             recognizer.adjust_for_ambient_noise(source)
@@ -74,10 +88,12 @@ class UNOS:
             # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             # instead of `r.recognize_google(audio)`
             user_response = recognizer.recognize_google(audio)
-            print("UNOS: Recognised --> " + user_response)
 
             if user_response == "Uno's" or "who knows" or "nos" or "nose":
-                return "Continue"    
+                return "True"
+
+            else:
+                return "False"
 
         except record.UnknownValueError:
             return "UnknownValueError"
@@ -85,7 +101,7 @@ class UNOS:
         except record.RequestError as e:
             return "RequestError"
 
-    def RecognizeCommand():
+    def RecognizeCommand(self):
         #Recognition of Voice Commands
         with mic as source:
             recognizer.adjust_for_ambient_noise(source)
@@ -97,10 +113,8 @@ class UNOS:
             # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             # instead of `r.recognize_google(audio)`
             user_response = recognizer.recognize_google(audio)
-            print("UNOS: Recognised --> " + user_response)
 
-            if user_response == "Uno's" or "who knows" or "nos" or "nose":
-                return "Continue"    
+            return user_response  
 
         except record.UnknownValueError:
             return "UnknownValueError"
