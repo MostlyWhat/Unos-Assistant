@@ -2,19 +2,21 @@
 import speech_recognition as record
 import pyttsx3
 import sys
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
+# from chatterbot import ChatBot
+# from chatterbot.trainers import ChatterBotCorpusTrainer
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import time
-import UNOS
+import os
 
 class UNOS:
     #Run the initial settings
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
+        self.UNOSinitialize()
+
+    def UNOSinitialize(self):
         #Main Configurations
-        activated = True #Toggle on/off
-        unos = ChatBot('UNOS') #Name of the Assistant
+
 
         #Initilisation of Recognition Systems
         speech = pyttsx3.init()
@@ -28,7 +30,7 @@ class UNOS:
         if continue_flag == "y":
             print("Launching UNOS")
             time.sleep(3)
-            UnosSystems()
+            return True
 
         else:
             print("Program Closing")
@@ -60,11 +62,11 @@ class UNOS:
         window.showMaximized()
         sys.exit(qapp.exec_())
 
-    def Recognition():
+    def RecognizeUNOS():
         #Recognition of Voice Commands
         with mic as source:
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source)
+            recognizer.adjust_for_ambient_noise(source)
+            audio = recognizer.listen(source)
 
         try:
             # Recognize speech using Google Speech Recognition
@@ -75,15 +77,33 @@ class UNOS:
             print("UNOS: Recognised --> " + user_response)
 
             if user_response == "Uno's" or "who knows" or "nos" or "nose":
-                speech.say("Hello Unknown User!")
-                speech.runAndWait()    
+                return "Continue"    
 
-            except record.UnknownValueError:
-                print("UNOS: Error Recognising the Speech, Please Try Again")
-                speech.say("Error Recognising the Speech, Please Try Again")
-                speech.runAndWait()
+        except record.UnknownValueError:
+            return "UnknownValueError"
 
-            except record.RequestError as e:
-                print("UNOS: Error Requesting Data From Google API; {0}".format(e))
-                speech.say("Error Requesting Data From Google API, Is the internet connection is not available?")
-                speech.runAndWait()
+        except record.RequestError as e:
+            return "RequestError"
+
+    def RecognizeCommand():
+        #Recognition of Voice Commands
+        with mic as source:
+            recognizer.adjust_for_ambient_noise(source)
+            audio = recognizer.listen(source)
+
+        try:
+            # Recognize speech using Google Speech Recognition
+            # For testing purposes, we're just using the default API key
+            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+            # instead of `r.recognize_google(audio)`
+            user_response = recognizer.recognize_google(audio)
+            print("UNOS: Recognised --> " + user_response)
+
+            if user_response == "Uno's" or "who knows" or "nos" or "nose":
+                return "Continue"    
+
+        except record.UnknownValueError:
+            return "UnknownValueError"
+
+        except record.RequestError as e:
+            return "RequestError"
