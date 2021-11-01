@@ -7,6 +7,7 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import time
+import UNOS
 
 #Main Configurations
 activated = True #Toggle on/off
@@ -48,9 +49,9 @@ def Verify():
 #Unos Speech Systems
 def UnosSystems():
     print("""
-    [ UNIFIED NEURAL-ENGINE-ASSISTANT OPEN-SOURCE SYSTEM ]
+    [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
 
-    Version: 0.1
+    Version: 0.1-alpha
     Codename: Ultron
     Status: Unstable
     """)
@@ -60,9 +61,10 @@ def UnosSystems():
         recognizer.adjust_for_ambient_noise(source)
         audio = recognizer.listen(source)
 
-        # recognize speech using Google Speech Recognition
+        
     try:
-        # for testing purposes, we're just using the default API key
+        # Recognize speech using Google Speech Recognition
+        # For testing purposes, we're just using the default API key
         # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
         # instead of `r.recognize_google(audio)`
         user_response = recognizer.recognize_google(audio)
@@ -70,7 +72,7 @@ def UnosSystems():
 
         if user_response == "Uno's" or "who knows" or "nos" or "nose":
             speech.say("Hello Unknown User!")
-            speech.runAndWait()
+            speech.runAndWait()    
 
     except record.UnknownValueError:
         print("UNOS: Error Recognising the Speech, Please Try Again")
