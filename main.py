@@ -13,13 +13,14 @@ def main():
 
         if activated == "True":
             unos.runningCommand()
+            print("UNOS: Activated ( Reason: " + activated + " )")
 
         else:
             print("UNOS: Not Activated ( Reason: " + activated + " )")
 
 #Check before launching
 if verification == "True":
-    unos.StartupText()
+    #unos.StartupText()
     main()
     #unos.MainWindow()
 

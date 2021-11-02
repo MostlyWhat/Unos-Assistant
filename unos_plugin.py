@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import time
 import os
+import random
 
 class UNOS:
     #Run the initial settings
@@ -19,6 +20,7 @@ class UNOS:
         global recognizer
         global mic
         global API_KEY
+        global WAKE
         global WAKEUP_COMMANDS
         global EXIT_COMMANDS
 
@@ -26,8 +28,9 @@ class UNOS:
         API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
 
         #Voice Commands
-        WAKEUP_COMMANDS = ["Uno's", "who knows", "nos", "nose"]
-        EXIT_COMMANDS = ["Exit", "Quit", "Log off", "Log out", "Sign out"]
+        WAKE = "hey john"
+        WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey Uno's", "hey who knows", "hey nos", "hey nose"]
+        EXIT_COMMANDS = ["exit", "quit", "log off", "log out", "sign out"]
 
         #Initilisation of Recognition Systems
         speech = pyttsx3.init()
@@ -50,6 +53,22 @@ class UNOS:
 
     #Startup Text
     def StartupText(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        boot_sequence = open("boot_sequence.txt")
+        boot_text = boot_sequence.readlines()
+        for line in boot_text:
+            print(line)
+            time.sleep(random.random())
+        
+        print("""
+        
+        Boot Complete
+
+        """)
+        time.sleep(5)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("""
         [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
 
@@ -63,7 +82,7 @@ class UNOS:
         speech.runAndWait()
 
     #Saying Speech
-    def speak(text):
+    def speak(self, text):
         speech.say(text)
         speech.runAndWait()
 
@@ -90,13 +109,13 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google(audio,key=API_KEY)
+            user_response = recognizer.recognize_google(audio)
 
-            if user_response in WAKEUP_COMMANDS:
+            if user_response.lower() == WAKE:
                 return "True"
 
             else:
-                return user_response.ToString()
+                return str(user_response.lower())
 
         except record.UnknownValueError:
             return "UnknownValueError"
@@ -112,9 +131,9 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google(audio, key=API_KEY)
+            user_response = recognizer.recognize_google(audio)
 
-            return user_response.lower() 
+            return str(user_response.lower())
 
         except record.UnknownValueError:
             return "UnknownValueError"
@@ -122,11 +141,11 @@ class UNOS:
         except record.RequestError as e:
             return "RequestError"
 
-    def runningCommand(self, command):
+    def runningCommand(self):
         print("UNOS: Command Please!")
         self.speak("Command Please!")
         command = self.RecognizeAudio()
 
-        for phrases in EXIT_COMMANDS:
-            if phrases in command:
+        for exit_commands in EXIT_COMMANDS:
+            if exit_commands in command:
                 exit()
