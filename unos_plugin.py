@@ -1,9 +1,8 @@
 #Modules Importer
+from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
 import speech_recognition as record
 import pyttsx3
 import sys
-# from chatterbot import ChatBot
-# from chatterbot.trainers import ChatterBotCorpusTrainer
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import time
@@ -16,7 +15,9 @@ class UNOS:
 
     def UNOSinitialize(self):
         #Main Configurations
+        global APIKEY
 
+        API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
 
         #Initilisation of Recognition Systems
         global speech
@@ -86,7 +87,7 @@ class UNOS:
             # For testing purposes, we're just using the default API key
             # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             # instead of `r.recognize_google(audio)`
-            user_response = recognizer.recognize_google(audio)
+            user_response = recognizer.recognize_google(audio,key=API_KEY)
 
             if user_response == "Uno's" or "who knows" or "nos" or "nose":
                 return "True"
@@ -111,7 +112,7 @@ class UNOS:
             # For testing purposes, we're just using the default API key
             # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             # instead of `r.recognize_google(audio)`
-            user_response = recognizer.recognize_google(audio)
+            user_response = recognizer.recognize_google(audio, key=API_KEY)
 
             return user_response.lower() 
 
