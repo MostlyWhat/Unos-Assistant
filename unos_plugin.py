@@ -123,3 +123,8 @@ class UNOS:
             return "RequestError"
 
     def runningCommand(self, command):
+        command = self.RecognizeAudio()
+
+        for phrases in EXIT_COMMANDS:
+            if phrases in command:
+                exit()

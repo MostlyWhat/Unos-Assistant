@@ -16,14 +16,7 @@ def main():
         activated = unos.RecognizeUNOS()
 
         if activated == "True":
-            command = unos.RecognizeAudio()
-
-            if command == "quit":
-                exit()
-
-            else:
-                unos.speak("Unknown Command, Please try again.")
-                print("UNOS: Unknown Command, Please try again.")
+            unos.runningCommand()
 
         else:
             print("UNOS: Not Activated")
