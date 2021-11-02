@@ -1,16 +1,12 @@
 #Modules Importer
-import speech_recognition as record
-import pyttsx3
-import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import *
-import time
 from unos_plugin import UNOS
 
+#Initilisation
 unos = UNOS()
 unos.UNOSinitialize()
 verification = unos.Verify()
 
+#Main Loop
 def main():
     while True:
         activated = unos.RecognizeUNOS()
@@ -19,8 +15,9 @@ def main():
             unos.runningCommand()
 
         else:
-            print("UNOS: Not Activated")
+            print("UNOS: Not Activated ( Reason: " + activated + " )")
 
+#Check before launching
 if verification == "True":
     unos.StartupText()
     main()

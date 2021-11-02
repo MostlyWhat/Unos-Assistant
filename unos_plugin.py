@@ -92,11 +92,11 @@ class UNOS:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             user_response = recognizer.recognize_google(audio,key=API_KEY)
 
-            if user_response.count(WAKEUP_COMMANDS) > 0:
+            if user_response in WAKEUP_COMMANDS:
                 return "True"
 
             else:
-                return "False"
+                return user_response.ToString()
 
         except record.UnknownValueError:
             return "UnknownValueError"
@@ -123,6 +123,8 @@ class UNOS:
             return "RequestError"
 
     def runningCommand(self, command):
+        print("UNOS: Command Please!")
+        self.speak("Command Please!")
         command = self.RecognizeAudio()
 
         for phrases in EXIT_COMMANDS:
