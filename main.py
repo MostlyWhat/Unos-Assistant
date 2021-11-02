@@ -16,7 +16,7 @@ def main():
         activated = unos.RecognizeUNOS()
 
         if activated == "True":
-            command = unos.RecognizeCommand()
+            command = unos.RecognizeAudio()
 
             if command == "quit":
                 exit()

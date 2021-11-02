@@ -14,16 +14,22 @@ class UNOS:
         self.UNOSinitialize()
 
     def UNOSinitialize(self):
-        #Main Configurations
-        global APIKEY
-
-        API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
-
-        #Initilisation of Recognition Systems
+        #Make Variables Global
         global speech
         global recognizer
         global mic
+        global API_KEY
+        global WAKEUP_COMMANDS
+        global EXIT_COMMANDS
 
+        #Main Configurations
+        API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
+
+        #Voice Commands
+        WAKEUP_COMMANDS = ["Uno's", "who knows", "nos", "nose"]
+        EXIT_COMMANDS = ["Exit", "Quit", "Log off", "Log out", "Sign out"]
+
+        #Initilisation of Recognition Systems
         speech = pyttsx3.init()
         recognizer = record.Recognizer()
         mic = record.Microphone()
@@ -83,13 +89,10 @@ class UNOS:
             audio = recognizer.listen(source)
 
         try:
-            # Recognize speech using Google Speech Recognition
-            # For testing purposes, we're just using the default API key
-            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            # instead of `r.recognize_google(audio)`
+            #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             user_response = recognizer.recognize_google(audio,key=API_KEY)
 
-            if user_response == "Uno's" or "who knows" or "nos" or "nose":
+            if user_response.count(WAKEUP_COMMANDS) > 0:
                 return "True"
 
             else:
@@ -101,17 +104,14 @@ class UNOS:
         except record.RequestError as e:
             return "RequestError"
 
-    def RecognizeCommand(self):
+    def RecognizeAudio(self):
         #Recognition of Voice Commands
         with mic as source:
             recognizer.adjust_for_ambient_noise(source)
             audio = recognizer.listen(source)
 
         try:
-            # Recognize speech using Google Speech Recognition
-            # For testing purposes, we're just using the default API key
-            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            # instead of `r.recognize_google(audio)`
+            #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
             user_response = recognizer.recognize_google(audio, key=API_KEY)
 
             return user_response.lower() 
@@ -121,3 +121,5 @@ class UNOS:
 
         except record.RequestError as e:
             return "RequestError"
+
+    def runningCommand(self, command):
