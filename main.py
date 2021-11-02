@@ -16,12 +16,17 @@ def main():
         activated = unos.RecognizeUNOS()
 
         if activated == "True":
-            
             command = unos.RecognizeCommand()
 
+            if command == "quit":
+                exit()
+
+            else:
+                unos.speak("Unknown Command, Please try again.")
+                print("UNOS: Unknown Command, Please try again.")
 
         else:
-            print("no")
+            print("UNOS: Not Activated")
 
 if verification == "True":
     unos.StartupText()

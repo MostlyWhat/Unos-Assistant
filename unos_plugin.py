@@ -54,7 +54,6 @@ class UNOS:
         print("UNOS: System Ready for Inquiry")
         speech.say("System is ready for Inquiry")
         speech.runAndWait()
-        time.sleep(2)
 
     #Saying Speech
     def speak(text):
@@ -114,7 +113,7 @@ class UNOS:
             # instead of `r.recognize_google(audio)`
             user_response = recognizer.recognize_google(audio)
 
-            return user_response  
+            return user_response.lower() 
 
         except record.UnknownValueError:
             return "UnknownValueError"
