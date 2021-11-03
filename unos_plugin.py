@@ -58,7 +58,7 @@ class UNOS:
         boot_sequence = open("boot_sequence.txt")
         boot_text = boot_sequence.readlines()
         for line in boot_text:
-            print(line)
+            print(line, end="")
             time.sleep(random.random())
         
         print("""
