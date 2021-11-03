@@ -20,7 +20,7 @@ def main():
 
 #Check before launching
 if verification == "True":
-    #unos.StartupText()
+    unos.StartupText()
     main()
     #unos.MainWindow()
 

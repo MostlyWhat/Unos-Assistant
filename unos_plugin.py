@@ -59,7 +59,7 @@ class UNOS:
         boot_text = boot_sequence.readlines()
         for line in boot_text:
             print(line, end="")
-            time.sleep(random.random())
+            time.sleep(random.uniform(0,0.25))
         
         print("""
         
@@ -149,3 +149,6 @@ class UNOS:
         for exit_commands in EXIT_COMMANDS:
             if exit_commands in command:
                 exit()
+
+            else:
+                print("UNOS: ERROR ( Reason: I don't understand the command )")
