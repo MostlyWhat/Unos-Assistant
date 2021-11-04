@@ -31,7 +31,6 @@ class UNOS:
         global INTRO_RESPONSE
 
         #Main Configurations
-        API_KEY = ""
         config = dict(language_code="en-US")
 
         #Start Voice Commands
@@ -45,7 +44,7 @@ class UNOS:
 
         #Initilisation of Recognition Systems
         speech = pyttsx3.init()
-        recognizer = speech.SpeechClient()
+        recognizer = record.SpeechClient()
         mic = record.Microphone()
 
     #Verification Before Launch
@@ -128,13 +127,9 @@ class UNOS:
         sys.exit(qapp.exec_())
 
     def RecognizeUNOS(self):
-        #Recognition of Voice Commands
-        with mic as source:
-            audio = 
-
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize(config=config, audio=source)
+            user_response = recognizer.recognize(config=config, audio=mic)
 
             if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
                 return "True"
@@ -149,14 +144,9 @@ class UNOS:
             return "RequestError"
 
     def RecognizeAudio(self):
-        #Recognition of Voice Commands
-        with mic as source:
-            recognizer.adjust_for_ambient_noise(source)
-            audio = recognizer.listen(source)
-
+        #Recognition of UNOS
         try:
-            #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
+            user_response = recognizer.recognize(config=config, audio=mic)
 
             return str(user_response.lower())
 
@@ -167,6 +157,7 @@ class UNOS:
             return "RequestError"
 
     def runningCommand(self):
+        #Recognition of Voice Commands
         print("UNOS: Command Please!")
         self.speak("Command Please!")
         command = self.RecognizeAudio()
