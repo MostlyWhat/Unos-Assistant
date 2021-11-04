@@ -1,6 +1,6 @@
 #Modules Importer
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
-import speech_recognition as record
+from google.cloud import speech as record
 import pyttsx3
 import sys
 from PyQt5 import QtWidgets
@@ -21,6 +21,7 @@ class UNOS:
         global speech
         global recognizer
         global mic
+        global config
         global API_KEY
         global GOOGLE_CLOUD_SPEECH_CREDENTIALS
         global WAKE
@@ -31,7 +32,7 @@ class UNOS:
 
         #Main Configurations
         API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
-        GOOGLE_CLOUD_SPEECH_CREDENTIALS = r"""{"type": "service_account","project_id": "persuasive-zoo-330804","private_key_id": "2e370ea964d728511eff9877eb8025887f7ba9f1","private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDSan6uWTxiDSPo\no1OeEHENBDZ3RHGUGiEARHkzdqESMg0oU1nnpaPCLQEq8Y6eBdEzzrmvyUc4ckFE\nSA9OzIMvOARkKFU6IKHP8tvDFrPUgaKxILN1pltDk8ltnYta9opYQlnGhjXOCzlY\nypw0og/WKyuikDFy5CQ2oUuSyDJxZDFKc2BG7NxL2MmV8OxRrzK8q8YhtfUtiPNb\nawRC3B6K19T97icxRLkgBZPx0mo0+yxLO5Pvi9LgLpY/OIIZHteN02ZYedYa7JBJ\ntL06NFz4q8u+Ho79YrHg27wBNo0XiJEb5OmyaCawKJ7MPgnbjGHl1ocK1VqKE+W0\nf+J4a1unAgMBAAECggEADFNerlnd1qSMaPFAUa8G4EtR4XSp7pIFQt2/98rILqet\n66HOT2p9iD9YpSpXP1x5374JVInG2UCgIB7UfrouKRLv9uoB7BDDScohI3FuAVHC\ntPuEZ6ziBbhfgUNMSXzNp9PjLGTqO/KeXlwoAFFJ+jK3MKOfseo5UNXr9mIxykCI\nCRJbX7m+XH2FvXCsOyx6cxiRXWdlRfaK4DTQ+0Lyc/prRU/oYaHRZIp3S4+Y4uBE\nTO6T0NBdmgDgcWe38Cf2hDm7IRt00xiXMaWSsG/4DhVDNpeVqiQ3i7x/d2o3fqV7\naaneif7cNZ7id1rIWY88B1ZxtMxqTMdrNU7yC7v7KQKBgQDwtxkVO8hT0EWd5Jgj\nkFa1cAv+j5vP42axyXQQIT4l52RLYGJYiE6nym6CdTUbYUtRzz4JdzYxtMkqDoGw\nUGttJdOrRYAQIf9eJdfaBvDasbXOu3EHsVY1o3G2Gm10ubt9mciD/CiTKtBRA9Ya\nVv/VBTIOXeKAPZ23fTY9mu4ZIwKBgQDfxt+QlueUAOJPK9Fe8BxMg9Zc8eBaJWc3\n2d7eQPadBQTCP4J977Mdg3pntRpgmZhNXh/EQk7u9xWBYIQMzsaTZ4QCGnjPms7E\nwy/A23awfFqHMIDVRNrTmV5W/r8IK9s1kvaS7sUQY1RuLOHajmEZiuwFOrX2sXCl\niCpHZUGVrQKBgDosJZWqEumeZZSYz+OYWDwUzfFBB2igDgtdIf1b60cBuo00x8+Z\ncVi/ZSGF7cWmJ6unp9hlxOUSSaMuSk0vwiZog9TaQO6lKK+5+YYpMz/GvqctSU2Q\nn8LqsupNTLJuyE68QWcUI0IdkKZjhPRsnfr+/G/YZIqVWW4khl0w+eV9AoGARVvl\nxXIQex4/Bt0E+xEfJFQkqBBMQoSfVn9QBcFK7uY0UGTQ9GnMMZSj5usKLvDMdQZ8\ngB8xSf4Ji1038KRShjOqheBgm7BW8EOzVGpxgkg44vgUpoW98aHyzLIO0eCOBC/1\n/xrEt8yhybhdlJlW3Uzi1MgayEi9KoFm4VQwHM0CgYBzSa1UKioMRjDp0pWq7SB5\nYBxnMas1MOlQNguaZ9gie/zDo42ngNykir2B7moH/syluOBjq7aesD7T6K0fGrSt\n8BEg3P9/m/Iqj/nf950Q9iIlzyWSynGJkB4oc0sjNqCl+Kp6Lc6QZ6rg1avYpktT\nywajofTPeKREkKmSSRzdxQ==\n-----END PRIVATE KEY-----\n","client_email": "unos-system@persuasive-zoo-330804.iam.gserviceaccount.com","client_id": "107214931271927791902","auth_uri": "https://accounts.google.com/o/oauth2/auth","token_uri": "https://oauth2.googleapis.com/token","auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs","client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/unos-system%40persuasive-zoo-330804.iam.gserviceaccount.com"}"""
+        config = dict(language_code="en-US")
 
         #Start Voice Commands
         WAKE = "hey uno's"
@@ -44,7 +45,7 @@ class UNOS:
 
         #Initilisation of Recognition Systems
         speech = pyttsx3.init()
-        recognizer = record.Recognizer()
+        recognizer = speech.SpeechClient()
         mic = record.Microphone()
 
     #Verification Before Launch
@@ -129,12 +130,11 @@ class UNOS:
     def RecognizeUNOS(self):
         #Recognition of Voice Commands
         with mic as source:
-            recognizer.adjust_for_ambient_noise(source)
-            audio = recognizer.listen(source)
+            audio = 
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google_cloud(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
+            user_response = recognizer.recognize(config=config, audio=source)
 
             if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
                 return "True"
