@@ -31,7 +31,7 @@ class UNOS:
         global INTRO_RESPONSE
 
         #Main Configurations
-        API_KEY = "AIzaSyDQuH9vvuKi9fL9KD8VWzDX2_p5G24UJQo"
+        API_KEY = ""
         config = dict(language_code="en-US")
 
         #Start Voice Commands
