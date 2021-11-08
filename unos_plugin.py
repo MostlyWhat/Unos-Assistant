@@ -1,5 +1,6 @@
 #Modules Importer
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
+from google.auth.credentials import Credentials
 import speech_recognition as record
 import pyttsx3
 import sys
@@ -31,6 +32,8 @@ class UNOS:
 
         #Main Configurations
         API_KEY = ""
+        CREDENTIALS_FILE = open("credentials.json")
+        GOOGLE_CLOUD_SPEECH_CREDENTIALS = json.load(CREDENTIALS_FILE)
 
         #Start Voice Commands
         WAKE = "hey uno's"
@@ -133,7 +136,7 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google_cloud(audio)
+            user_response = recognizer.recognize_google_cloud(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
 
             if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
                 return "True"
@@ -155,7 +158,7 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google(audio)
+            user_response = recognizer.recognize_google_cloud(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
 
             return str(user_response.lower())
 
