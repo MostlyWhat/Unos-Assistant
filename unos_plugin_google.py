@@ -45,7 +45,6 @@ class UNOS:
         #Initilisation of Recognition Systems
         speech = pyttsx3.init()
         recognizer = record.SpeechClient()
-        mic = record.Microphone()
 
     #Verification Before Launch
     def Verify(self):
@@ -127,21 +126,13 @@ class UNOS:
         sys.exit(qapp.exec_())
 
     def RecognizeUNOS(self):
-        try:
-            #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize(config=config, audio=mic)
+        user_response = recognizer.recognize(config=config, audio=mic)
 
-            if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
-                return "True"
+        if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
+            return "True"
 
-            else:
-                return str(user_response.lower())
-
-        except record.UnknownValueError:
-            return "UnknownValueError"
-
-        except record.RequestError as e:
-            return "RequestError"
+        else:
+            return str(user_response.lower())
 
     def RecognizeAudio(self):
         #Recognition of UNOS
