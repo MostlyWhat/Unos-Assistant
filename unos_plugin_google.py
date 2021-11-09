@@ -1,4 +1,5 @@
 #Modules Importer
+from __future__ import division
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
 import pyttsx3
 import sys
@@ -8,7 +9,6 @@ import time
 import os
 import random
 import json
-from __future__ import division
 import re
 import sys
 from google.cloud import speech
@@ -30,6 +30,7 @@ class UNOS:
         global recognizer
         global mic
         global config
+        global pspeech
         global RATE
         global CHUNK
         global API_KEY
@@ -57,7 +58,7 @@ class UNOS:
         INTRO_RESPONSE = ["hello", "greetings", "hi", "bon jour", "ello", "hello there"]
 
         #Initilisation of Recognition Systems
-        speech = pyttsx3.init()
+        pspeech = pyttsx3.init()
         language_code = "en-US"  # a BCP-47 language tag
 
         client = speech.SpeechClient()
@@ -127,13 +128,13 @@ class UNOS:
 
         """)
         print("UNOS: System Ready for Inquiry")
-        speech.say("System is ready for Inquiry")
-        speech.runAndWait()
+        pspeech.say("System is ready for Inquiry")
+        pspeech.runAndWait()
 
     #Saying Speech
     def speak(self, text):
-        speech.say(text)
-        speech.runAndWait()
+        pspeech.say(text)
+        pspeech.runAndWait()
 
     #Main User Interface Loop
     def MainWindow():
@@ -162,7 +163,7 @@ class UNOS:
 
             # Now, put the transcription responses to use.
             for response in responses:
-            user_response = response.results[0]
+                user_response = response.results[0]
  
     # def RecognizeAudio(self):
     #     #Recognition of UNOS

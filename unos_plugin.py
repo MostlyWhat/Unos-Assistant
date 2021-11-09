@@ -136,7 +136,7 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google_cloud(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
+            user_response = recognizer.recognize_google(audio)
 
             if WAKEUP_COMMANDS.count(user_response.lower()) > 0:
                 return "True"
@@ -158,7 +158,7 @@ class UNOS:
 
         try:
             #To use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            user_response = recognizer.recognize_google_cloud(audio, credentials_json=GOOGLE_CLOUD_SPEECH_CREDENTIALS)
+            user_response = recognizer.recognize_google(audio)
 
             return str(user_response.lower())
 
