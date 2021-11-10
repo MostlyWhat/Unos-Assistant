@@ -186,7 +186,7 @@ Boot Complete
 
                         for user_responses in user_response:
                             for wake_words in WAKEUP_COMMANDS:
-                                unos_check = bool(re.match(f"{user_responses}", wake_words))):
+                                unos_check = bool(re.match(f"{user_responses}", wake_words)):
 
                                 if unos_check == True:
                                     return True
