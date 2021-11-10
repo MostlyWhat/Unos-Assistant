@@ -13,10 +13,13 @@ import json
 import re
 import sys
 from google.cloud import speech
+from google.cloud import texttospeech as tts
 import pyaudio
 from six.moves import queue
 import re
-
+import wave
+from pydub import AudioSegment
+from pydub.playback import play
 
 class UNOS:
     #Run the initial settings
@@ -33,6 +36,7 @@ class UNOS:
         global mic
         global config
         global pspeech
+        global voice_name
         global RATE
         global CHUNK
         global API_KEY
@@ -63,6 +67,7 @@ class UNOS:
         #Initilisation of Recognition Systems
         pspeech = pyttsx3.init()
         language_code = "en-US"  # a BCP-47 language tag
+        voice_name = "en-US-Wavenet-D"
 
         client = speech.SpeechClient()
         config = speech.RecognitionConfig(
@@ -131,13 +136,42 @@ Boot Complete
 
         """)
         print("UNOS: System Ready for Inquiry")
-        pspeech.say("System is ready for Inquiry")
-        pspeech.runAndWait()
+        self.speak("System is ready for Inquiry")
 
     #Saying Speech
-    def speak(self, text):
-        pspeech.say(text)
-        pspeech.runAndWait()
+    def speak(self, text_input: str):
+        # Instantiates a client
+        client = tts.TextToSpeechClient()
+
+        # Set the text input to be synthesized
+        synthesis_input = tts.SynthesisInput(text=text_input)
+
+        # Build the voice request, select the language code ("en-US") and the ssml
+        # voice gender ("neutral")
+        voice = tts.VoiceSelectionParams(
+            language_code="en-US-Wavenet-D", ssml_gender=tts.SsmlVoiceGender.MALE
+        )
+
+        # Select the type of audio file you want returned
+        audio_config = tts.AudioConfig(
+            audio_encoding=tts.AudioEncoding.MP3
+        )
+
+        # Perform the text-to-speech request on the text input with the selected
+        # voice parameters and audio file type
+        response = client.synthesize_speech(
+            input=synthesis_input, voice=voice, audio_config=audio_config
+        )
+
+        # The response's audio_content is binary.
+        with open("output.mp3", "wb") as out:
+            # Write the response to the output file.
+            out.write(response.audio_content)
+            print('Audio content written to file "output.mp3"')
+
+        filename = r"output.mp3"
+        sound = AudioSegment.from_wav(filename)
+        play(sound)
 
     #Main User Interface Loop
     def MainWindow():
