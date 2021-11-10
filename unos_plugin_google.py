@@ -1,6 +1,7 @@
 #Modules Importer
 from __future__ import division
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
+from pkg_resources import yield_lines
 import pyttsx3
 import sys
 from PyQt5 import QtWidgets
@@ -183,14 +184,15 @@ Boot Complete
                     else:
                         user_response = (transcript + overwrite_chars)
 
-                        for wakeup in WAKEUP_COMMANDS:
-                            unos_check = bool(re.search(rf"/B({wakeup})/B", user_response, re.IGNORECASE))
-                        
-                        if unos_check == True :
-                                return True
+                        for user_responses in user_response:
+                            for wake_words in WAKEUP_COMMANDS:
+                                unos_check = bool(re.match(f"{user_responses}", wake_words))):
 
-                        else:
-                            return str(user_response.lower())
+                                if unos_check == True:
+                                    return True
+
+                                else:
+                                    return str(user_response.lower())                 
         
     def RecognizeAudio(self):
         #Recognition of Audio requests
@@ -231,7 +233,7 @@ Boot Complete
         command = self.RecognizeAudio()
 
         for intro_commands in INTRO_COMMANDS:
-            intro_check = bool(re.search(rf"*{intro_commands}", command, re.IGNORECASE))
+            intro_check = bool(re.search(rf"*{intro_commands}", command, re.I))
             if intro_check in command:
                 print("UNOS: Detected Greetings, Responding")
                 self.speak(random.choice(INTRO_RESPONSE))
@@ -239,7 +241,7 @@ Boot Complete
                 return None
 
         for exit_commands in EXIT_COMMANDS:
-            exit_check = bool(re.search(rf"*{exit_commands}", command, re.IGNORECASE))
+            exit_check = bool(re.search(rf"*{exit_commands}", command, re.I))
             if exit_check == True:
                 print("UNOS: Shutting Down System")
                 self.speak("shutting down system")
