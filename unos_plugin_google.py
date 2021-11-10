@@ -53,7 +53,7 @@ class UNOS:
         #Start Voice Commands
         WAKE = "hey uno's"
         WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey Uno's", "hey who knows", "hey nos", "hey nose"]
-        INTRO_COMMANDS = ["hello", "hi", "",]
+        INTRO_COMMANDS = ["hello", "hi", "bon jour",]
         EXIT_COMMANDS = ["exit", "quit", "log off", "log out", "sign out"]
 
         #Response Voice Command
@@ -183,7 +183,8 @@ Boot Complete
                     else:
                         user_response = (transcript + overwrite_chars)
 
-                        unos_check = re.search("^The.*Spain$", user_response)
+                        for wakeup in WAKEUP_COMMANDS:
+                            unos_check = bool(re.search(rf"/B({wakeup})/B", user_response, re.IGNORECASE))
                         
                         if unos_check == True :
                                 return True
@@ -230,14 +231,16 @@ Boot Complete
         command = self.RecognizeAudio()
 
         for intro_commands in INTRO_COMMANDS:
-            if intro_commands in command:
+            intro_check = bool(re.search(rf"*{intro_commands}", command, re.IGNORECASE))
+            if intro_check in command:
                 print("UNOS: Detected Greetings, Responding")
                 self.speak(random.choice(INTRO_RESPONSE))
 
                 return None
 
         for exit_commands in EXIT_COMMANDS:
-            if exit_commands in command:
+            exit_check = bool(re.search(rf"*{exit_commands}", command, re.IGNORECASE))
+            if exit_check == True:
                 print("UNOS: Shutting Down System")
                 self.speak("shutting down system")
                 exit()
