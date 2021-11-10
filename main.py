@@ -11,7 +11,7 @@ def main():
     while True:
         activated = unos.RecognizeUNOS()
 
-        if activated == "True":
+        if activated == True:
             print("UNOS: Activated ( Reason: " + activated + " )")
             unos.runningCommand()
 

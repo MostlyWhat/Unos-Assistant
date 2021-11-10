@@ -14,6 +14,7 @@ import sys
 from google.cloud import speech
 import pyaudio
 from six.moves import queue
+import re
 
 
 class UNOS:
@@ -43,6 +44,7 @@ class UNOS:
 
         #Main Configurations
         config = dict(language_code="en-US")
+        #config = dict(language_code="ru-RU")
 
         # Audio Recording Parameters
         RATE = 16000
@@ -94,11 +96,11 @@ class UNOS:
         boot_text = boot_sequence.readlines()
         for line in boot_text:
             print(line, end="")
-            time.sleep(random.uniform(0,0.25))
+            time.sleep(random.uniform(0,0.10))
         
         print("""
         
-    Boot Complete
+Boot Complete
 
         """)
         time.sleep(5)
@@ -161,22 +163,65 @@ class UNOS:
 
             responses = client.streaming_recognize(streaming_config, requests)
 
+            num_chars_printed = 0
+
             # Now, put the transcription responses to use.
             for response in responses:
-                user_response = response.results[0]
- 
-    # def RecognizeAudio(self):
-    #     #Recognition of UNOS
-    #     try:
-    #         user_response = recognizer.recognize(config=config, audio=mic)
+                # Once the transcription has settled, the first result will contain the
+                # is_final result. The other results will be for subsequent portions of
+                # the audio.
+                for result in response.results:
+                    transcript = (result.alternatives[0].transcript)
+                    overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-    #         return str(user_response.lower())
+                    if not result.is_final:
+                        sys.stdout.write(transcript + overwrite_chars + "\r")
+                        sys.stdout.flush()
 
-    #     except record.UnknownValueError:
-    #         return "UnknownValueError"
+                        num_chars_printed = len(transcript)
 
-    #     except record.RequestError as e:
-    #         return "RequestError"
+                    else:
+                        user_response = (transcript + overwrite_chars)
+
+                        unos_check = re.search("^The.*Spain$", user_response)
+                        
+                        if unos_check == True :
+                                return True
+
+                        else:
+                            return str(user_response.lower())
+        
+    def RecognizeAudio(self):
+        #Recognition of Audio requests
+        with MicrophoneStream(RATE, CHUNK) as stream:
+            audio_generator = stream.generator()
+            requests = (
+                speech.StreamingRecognizeRequest(audio_content=content)
+                for content in audio_generator
+            )
+
+            responses = client.streaming_recognize(streaming_config, requests)
+
+            num_chars_printed = 0
+
+            # Now, put the transcription responses to use.
+            for response in responses:
+                # Once the transcription has settled, the first result will contain the
+                # is_final result. The other results will be for subsequent portions of
+                # the audio.
+                for result in response.results:
+                    transcript = (result.alternatives[0].transcript)
+                    overwrite_chars = " " * (num_chars_printed - len(transcript))
+
+                    if not result.is_final:
+                        sys.stdout.write(transcript + overwrite_chars + "\r")
+                        sys.stdout.flush()
+
+                        num_chars_printed = len(transcript)
+
+                    else:
+                        user_response = (transcript + overwrite_chars)
+                        return str(user_response.lower())
 
     def runningCommand(self):
         #Recognition of Voice Commands
