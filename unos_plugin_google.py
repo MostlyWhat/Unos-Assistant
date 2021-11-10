@@ -179,7 +179,7 @@ Boot Complete
                         user_response = (transcript + overwrite_chars)
 
                         for user_responses in user_response:
-                            unos_check = bool(re.match(r"\b(who knows)\b", transcript, re.I))
+                            unos_check = bool(re.match(r"\b(who knows|hey who knows|uno's|hey uno's)\b", transcript, re.I))
 
                             if unos_check == True:
                                 return True
@@ -209,24 +209,18 @@ Boot Complete
                     transcript = (result.alternatives[0].transcript)
                     overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-                    if not result.is_final:
-                        sys.stdout.write(transcript + overwrite_chars + "\r")
-                        sys.stdout.flush()
-
-                        num_chars_printed = len(transcript)
-
-                    else:
+                    if result.is_final:
                         user_response = (transcript + overwrite_chars)
                         return str(user_response.lower())
 
     def runningCommand(self):
         #Recognition of Voice Commands
-        print("UNOS: Command Please!")
+        print("UNOS: Command Input")
         self.speak("Command Please!")
         command = self.RecognizeAudio()
 
-        for intro_commands in INTRO_COMMANDS:
-            intro_check = bool(re.search(rf"*{intro_commands}", command, re.I))
+        for intro_commands in command:
+            intro_check = bool(re.match(r"\b(hello|greetings|hi)\b", command, re.I))
             if intro_check == True:
                 print("UNOS: Detected Greetings, Responding")
                 self.speak(random.choice(INTRO_RESPONSE))
@@ -234,7 +228,7 @@ Boot Complete
                 return None
 
         for exit_commands in EXIT_COMMANDS:
-            exit_check = bool(re.search(rf"*{exit_commands}", command, re.I))
+            exit_check = bool(re.match(r"\b(exit|quit|end|log out)\b", command, re.I))
             if exit_check == True:
                 print("UNOS: Shutting Down System")
                 self.speak("shutting down system")
