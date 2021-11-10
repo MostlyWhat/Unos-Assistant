@@ -12,7 +12,7 @@ def main():
         activated = unos.RecognizeUNOS()
 
         if activated == True:
-            print("UNOS: Activated ( Reason: " + activated + " )")
+            print("UNOS: Activated ( Reason: True")
             unos.runningCommand()
 
         else:
