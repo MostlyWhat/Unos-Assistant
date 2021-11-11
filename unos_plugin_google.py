@@ -18,8 +18,8 @@ import pyaudio
 from six.moves import queue
 import re
 import wave
-from pydub import AudioSegment
-from pydub.playback import play
+from audioplayer import AudioPlayer
+from google.cloud import texttospeech
 
 class UNOS:
     #Run the initial settings
@@ -66,8 +66,7 @@ class UNOS:
 
         #Initilisation of Recognition Systems
         pspeech = pyttsx3.init()
-        language_code = "en-US"  # a BCP-47 language tag
-        voice_name = "en-US-Wavenet-D"
+        language_code = "en-US"
 
         client = speech.SpeechClient()
         config = speech.RecognitionConfig(
@@ -129,49 +128,37 @@ Boot Complete
     [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
 
     Name: U.N.O.S
-    Version: 0.2.1-alpha
+    Version: 0.0.1-alpha
     Codename: Ultron
     Status: Unstable
-    Previous Interation: SKYNET v0.1.1-alpha
+    Previous Interation: SKYNET v0.0.1-alpha
 
         """)
         print("UNOS: System Ready for Inquiry")
-        self.speak("System is ready for Inquiry")
+        self.speak("Systems_Ready")
 
     #Saying Speech
-    def speak(self, text_input: str):
-        # Instantiates a client
-        client = tts.TextToSpeechClient()
+    def speak(self, audio: str):
+        if audio == "E":
+            AudioPlayer("output.mp3").play(block=True)
+            return None
+        
+        elif audio == "Systems_Ready":
+            AudioPlayer("audio/Systems_Ready.mp3").play(block=True)
+            return None
+            
+        elif audio == "Ready_Inquiry":
+            AudioPlayer("audio/Ready_Inquiry.mp3").play(block=True)
+            return None
 
-        # Set the text input to be synthesized
-        synthesis_input = tts.SynthesisInput(text=text_input)
+        #Generate Audio if not Specified by Pre-Recorded Audio
+        else:
+            self.create_audio_tts(audio)
+            AudioPlayer("audio/output.mp3").play(block=True)
 
-        # Build the voice request, select the language code ("en-US") and the ssml
-        # voice gender ("neutral")
-        voice = tts.VoiceSelectionParams(
-            language_code="en-US-Wavenet-D", ssml_gender=tts.SsmlVoiceGender.MALE
-        )
-
-        # Select the type of audio file you want returned
-        audio_config = tts.AudioConfig(
-            audio_encoding=tts.AudioEncoding.MP3
-        )
-
-        # Perform the text-to-speech request on the text input with the selected
-        # voice parameters and audio file type
-        response = client.synthesize_speech(
-            input=synthesis_input, voice=voice, audio_config=audio_config
-        )
-
-        # The response's audio_content is binary.
-        with open("output.mp3", "wb") as out:
-            # Write the response to the output file.
-            out.write(response.audio_content)
-            print('Audio content written to file "output.mp3"')
-
-        filename = r"output.mp3"
-        sound = AudioSegment.from_wav(filename)
-        play(sound)
+        # else:
+        #     AudioPlayer("audio/Unknown_Audio.mp3").play(block=True)
+        #     return None
 
     #Main User Interface Loop
     def MainWindow():
@@ -187,6 +174,27 @@ Boot Complete
 
         window.showMaximized()
         sys.exit(qapp.exec_())
+
+    def create_audio_tts(self, text):
+        """Synthesizes speech from the input string of text."""
+        client = texttospeech.TextToSpeechClient()
+        input_text = texttospeech.SynthesisInput(text=text)
+        # Note: the voice can also be specified by name.
+        # Names of voices can be retrieved with client.list_voices().
+        voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US",
+        name="en-US-Wavenet-D",
+        ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+        )
+        audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+        )
+        response = client.synthesize_speech(
+        request={"input": input_text, "voice": voice, "audio_config": audio_config}
+        )
+        # The response's audio_content is binary.
+        with open("audio/output.mp3", "wb") as out:
+            out.write(response.audio_content)
 
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -249,8 +257,8 @@ Boot Complete
 
     def runningCommand(self):
         #Recognition of Voice Commands
+        self.speak("Ready_Inquiry")
         print("UNOS: Command Input")
-        self.speak("Command Please!")
         command = self.RecognizeAudio()
 
         for intro_commands in command:
@@ -268,6 +276,7 @@ Boot Complete
                 self.speak("shutting down system")
                 exit()
 
+#Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
 
