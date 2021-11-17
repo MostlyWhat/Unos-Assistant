@@ -11,6 +11,12 @@ chatbot = ChatBot("UNOS",
             "import_path": "chatterbot.logic.BestMatch", 
             "statement_comparison_function": LevenshteinDistance, 
             "response_selection_method": get_first_response
+        },
+        {
+            "import_path": "chatterbot.logic.MathematicalEvaluation"
+        },
+        {
+            "import_path": "chatterbot.logic.TimeLogicAdapter"
         }
     ]
 )
