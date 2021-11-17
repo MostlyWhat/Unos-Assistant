@@ -26,8 +26,7 @@ trainer = ChatterBotCorpusTrainer(chatbot)
 
 # Train the chatbot based on the english corpus
 trainer.train(
-    "chatterbot.corpus.english.greetings",
-    "chatterbot.corpus.english.conversations"
+    "chatterbot.corpus.english"
     )
 
 # Get a response to an input statement
