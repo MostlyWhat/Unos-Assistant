@@ -25,11 +25,7 @@ chatbot = ChatBot("UNOS",
 trainer = ChatterBotCorpusTrainer(chatbot)
 
 # Train the chatbot based on the english corpus
-trainer.train(
-    "chatterbot.corpus.english"
-    )
-
-# Get a response to an input statement
-user_input = input("Question: ")
-response = str(chatbot.get_response(user_input))
-print("Answer: " + response)
+while True:
+    trainer.train(
+        "chatterbot.corpus.english"
+        )

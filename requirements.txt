@@ -11,10 +11,10 @@ google-cloud-speech >= 2.11.1
 google-cloud-texttospeech >= 2.7.1
 ffmpeg-python >= 0.2.0
 pydub >= 0.25.1
-pygame >= 2.1.0
 audioplayer >= 0.6
 nltk >= 3.6.5
 pyyaml >= 6.0
 spacy >= 3.2.0
-./packages/PyAudio-0.2.11-cp37-cp37-win_amd64.whl
+./packages/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
+#https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 #./packages/PyAudio-0.2.11-cp310-cp310-win32.whl
