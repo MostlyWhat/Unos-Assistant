@@ -3,26 +3,30 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to UNOS documentation!
-==========================================
-**UNOS** (Unified Non-Inteligent-Assistant Open-Sourced System) is a Python System for anyone
-that wants to create their own assistants easily with easy integration with many different systems 
-and APIs.
+UNOS Documentation
+================================================================
 
-Current Status
-------------------------------------------------------------------------
-**UNOS** is currently **under heavy development** and **there is many bugs** that need to be fixed.
+Welcome to the Official UNOS Documentation! Here you will find all of the information about the UNOS Assistant!
 
-Quick Links
-------------------------------------------------------------------------
-
+.. :ref:`Main Page <home>`
 
 .. toctree::
+   :caption: Information
    :maxdepth: 1
    :titlesonly:
    :hidden:
 
-   Home <index>
+   Home <home>
    contribute
    development
    licenses
+
+.. toctree::
+   :caption: Technical Info
+   :maxdepth: 1
+   :titlesonly:
+   :hidden:
+
+   Overview <overview>
+   classes
+   functions

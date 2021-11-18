@@ -31,16 +31,6 @@ class UNOS:
     """UNOS's main class that handles everything from booting to executing commands."""
     #Run the initial settings
     def __init__(self):
-        """
-        Return a list of random ingredients as strings.
-
-        :param kind: Optional "kind" of ingredients.
-        :type kind: list[str] or None
-        :raise lumache.InvalidKindError: If the kind is invalid.
-        :return: The ingredients list.
-        :rtype: list[str]
-
-        """
         self.UNOSinitialize()
 
     def UNOSinitialize(self):
