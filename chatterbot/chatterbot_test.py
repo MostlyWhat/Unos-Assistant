@@ -30,6 +30,7 @@ trainer.train(
     )
 
 # Get a response to an input statement
-user_input = input("Question: ")
-response = str(chatbot.get_response(user_input))
-print("Answer: " + response)
+while True:
+    user_input = input("Question: ")
+    response = str(chatbot.get_response(user_input))
+    print("Answer: " + response)
