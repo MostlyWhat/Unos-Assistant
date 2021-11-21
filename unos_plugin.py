@@ -257,14 +257,20 @@ Boot Complete
                     if result.is_final:
                         user_response = (transcript + overwrite_chars)
 
-                        for user_responses in user_response:
-                            unos_check = bool(re.match(r"\b(who knows|hey who knows|uno's|hey uno's)\b", transcript, re.I))
+                        # for user_responses in user_response:
+                        #     unos_check = bool(re.match(r"\b(who knows|hey who knows|uno's|hey uno's)\b", transcript, re.I))
 
-                            if unos_check == True:
-                                return True
+                        #     if unos_check == True:
+                        #         return True
 
-                            else:
-                                return str(user_response.lower())
+                        #     else:
+                        #         return str(user_response.lower())
+
+                        if user_response in WAKEUP_COMMANDS:
+                            return True
+
+                        else:
+                            return str(user_response.lower())
         
     def RecognizeAudio(self):
         #Recognition of Audio requests
