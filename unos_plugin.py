@@ -65,7 +65,7 @@ class UNOS:
 
         #Start Voice Commands
         WAKE = "hey who knows"
-        WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey Uno's", "hey who knows", "hey nos", "hey nose"]
+        WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey uno's", "hey who knows", "hey nos", "hey nose"]
         INTRO_COMMANDS = ["hello", "hi", "bon jour",]
         EXIT_COMMANDS = ["exit", "quit", "log off", "log out", "sign out"]
 
@@ -138,29 +138,18 @@ Boot Complete
         time.sleep(5)
 
         os.system('cls' if os.name == 'nt' else 'clear')
-        print("""
 
-          ___           ___           ___           ___     
-         /\__\         /\__\         /\  \         /\  \    
-        /:/  /        /::|  |       /::\  \       /::\  \   
-       /:/  /        /:|:|  |      /:/\:\  \     /:/\ \  \  
-      /:/  /  ___   /:/|:|  |__   /:/  \:\  \   _\:\~\ \  \ 
-     /:/__/  /\__\ /:/ |:| /\__\ /:/__/ \:\__\ /\ \:\ \ \__\
-     \:\  \ /:/  / \/__|:|/:/  / \:\  \ /:/  / \:\ \:\ \/__/
-      \:\  /:/  /      |:/:/  /   \:\  /:/  /   \:\ \:\__\  
-       \:\/:/  /       |::/  /     \:\/:/  /     \:\/:/  /  
-        \::/  /        /:/  /       \::/  /       \::/  /   
-         \/__/         \/__/         \/__/         \/__/    
-
-    [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
-
-    Name: U.N.O.S
-    Version: 0.0.1-alpha
-    Codename: Ultron
-    Status: Unstable
-    Previous Interation: SKYNET v0.0.1-alpha
-
-        """)
+        print(" ")                               
+        print("[ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]")
+        print(" ")    
+        print("Developed by MostlyWhat under S.K.Y.N.E.T Assistant Program")
+        print(" ")
+        print("Name: U.N.O.S") #Put in Variables Please!
+        print("Version: 0.0.2-beta") #Put in Variables Please!
+        print("Codename: Megatron") #Put in Variables Please!
+        print("Status: Partially Stable") #Put in Variables Please!
+        print("Previous Interation: SKYNET v0.0.1-alpha") #Put in Variables Please!
+        print(" ")    
         print("UNOS: System Ready for Inquiry")
         self.speak("Systems_Ready")
 
