@@ -292,6 +292,7 @@ Boot Complete
         self.speak("Ready_Inquiry")
         print("UNOS: Command Input")
         command = self.RecognizeAudio()
+        print("UNOS: Command Detected ( " + command + " )")
 
         for exit_commands in EXIT_COMMANDS:
             exit_check = bool(re.match(r"\b(exit|quit|end|log out)\b", command, re.I))
