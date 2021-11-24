@@ -26,6 +26,67 @@ from chatterbot.response_selection import get_first_response
 from chatterbot.logic import BestMatch
 from chatterbot.comparisons import LevenshteinDistance
 from chatterbot.logic import LogicAdapter
+import wikipedia
+import requests
+
+class BootLoader:
+    #Verification Before Launch
+    def Verify(self):
+        continue_flag = input("Warning! UNOS is unstable in it's current state. Are you sure you want to continue? (y/N): ")
+
+        if continue_flag == "y":
+            print("BootLoader: Launching UNOS")
+            time.sleep(3)
+            return True
+
+        else:
+            print("BootLoader: Startup Failed")
+            time.sleep(3)
+            return False
+
+    #Startup Text
+    def StartupText(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        boot_sequence = open("boot_sequence.txt")
+        boot_text = boot_sequence.readlines()
+        for line in boot_text:
+            print(line, end="")
+            time.sleep(random.uniform(0,0.10))
+        
+        print(" ")
+        print("BootLoader: Boot Complete")
+        print(" ")
+        time.sleep(5)
+
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        print(" ")                               
+        print("[ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]")
+        print(" ")    
+        print("Developed by MostlyWhat under S.K.Y.N.E.T Assistant Program")
+        print(" ")
+        print("Name: U.N.O.S") #Put in Variables Please!
+        print("Version: 0.0.2-beta") #Put in Variables Please!
+        print("Codename: Megatron") #Put in Variables Please!
+        print("Status: Partially Stable") #Put in Variables Please!
+        print("Previous Interation: SKYNET v0.0.1-alpha") #Put in Variables Please!
+        print(" ")    
+        print("UNOS: System Ready for Inquiry")
+        AudioPlayer("audio/Systems_Ready.mp3").play(block=True)
+
+    def InternetCheck(self):
+        #Check Internet Connection
+        url = "https://ismyinternetworking.com"
+        timeout = 5
+        try:
+            request = requests.get(url, timeout=timeout)
+            print("BootLoader: Connected to the Internet")
+            return True
+            
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            print("BootLoader: No Internet Connection.")
+            return False
 
 class UNOS:
     """UNOS's main class that handles everything from booting to executing commands."""
@@ -57,7 +118,6 @@ class UNOS:
 
         #Main Configurations
         config = dict(language_code="en-US")
-        #config = dict(language_code="ru-RU")
 
         # Audio Recording Parameters
         RATE = 16000
@@ -106,61 +166,10 @@ class UNOS:
             ]
         )
 
-    #Verification Before Launch
-    def Verify(self):
-        continue_flag = input("Warning! UNOS is unstable in it's current state. Are you sure you want to continue? (y/N): ")
-
-        if continue_flag == "y":
-            print("Launching UNOS")
-            time.sleep(3)
-            return "True"
-
-        else:
-            print("Program Closing")
-            time.sleep(3)
-            return "False"
-
-    #Startup Text
-    def StartupText(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-        boot_sequence = open("boot_sequence.txt")
-        boot_text = boot_sequence.readlines()
-        for line in boot_text:
-            print(line, end="")
-            time.sleep(random.uniform(0,0.10))
-        
-        print("""
-        
-Boot Complete
-
-        """)
-        time.sleep(5)
-
-        os.system('cls' if os.name == 'nt' else 'clear')
-
-        print(" ")                               
-        print("[ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]")
-        print(" ")    
-        print("Developed by MostlyWhat under S.K.Y.N.E.T Assistant Program")
-        print(" ")
-        print("Name: U.N.O.S") #Put in Variables Please!
-        print("Version: 0.0.2-beta") #Put in Variables Please!
-        print("Codename: Megatron") #Put in Variables Please!
-        print("Status: Partially Stable") #Put in Variables Please!
-        print("Previous Interation: SKYNET v0.0.1-alpha") #Put in Variables Please!
-        print(" ")    
-        print("UNOS: System Ready for Inquiry")
-        self.speak("Systems_Ready")
-
     #Saying Speech
     def speak(self, audio: str):
         if audio == "E":
             AudioPlayer("output.mp3").play(block=True)
-            return None
-        
-        elif audio == "Systems_Ready":
-            AudioPlayer("audio/Systems_Ready.mp3").play(block=True)
             return None
             
         elif audio == "Ready_Inquiry":
@@ -233,27 +242,8 @@ Boot Complete
                     transcript = (result.alternatives[0].transcript)
                     overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-                    # if result.is_final:
-                    #     user_response = (transcript + overwrite_chars)
-
-                    #     for wakeup_commands in WAKEUP_COMMANDS:
-                    #         if user_response in wakeup_commands:
-                    #             return True
-
-                    #         else:
-                    #             return str(user_response.lower())
-
                     if result.is_final:
                         user_response = (transcript + overwrite_chars)
-
-                        # for user_responses in user_response:
-                        #     unos_check = bool(re.match(r"\b(who knows|hey who knows|uno's|hey uno's)\b", transcript, re.I))
-
-                        #     if unos_check == True:
-                        #         return True
-
-                        #     else:
-                        #         return str(user_response.lower())
 
                         if user_response in WAKEUP_COMMANDS:
                             return True
@@ -291,20 +281,42 @@ Boot Complete
         #Recognition of Voice Commands
         self.speak("Ready_Inquiry")
         print("UNOS: Command Input")
-        command = self.RecognizeAudio()
+        command = (self.RecognizeAudio()).lower()
         print("UNOS: Command Detected ( " + command + " )")
 
-        for exit_commands in EXIT_COMMANDS:
-            exit_check = bool(re.match(r"\b(exit|quit|end|log out)\b", command, re.I))
-            if exit_check == True:
-                print("UNOS: Shutting Down System")
-                self.speak("shutting down system")
-                exit()
+        # for exit_commands in EXIT_COMMANDS:
+        #     exit_check = bool(re.match(r"\b(exit|quit|end|log out)\b", command, re.I))
+        #     if exit_check == True:
+        #         print("UNOS: Shutting Down System")
+        #         self.speak("shutting down system")
+        #         exit()
+
+        if command in EXIT_COMMANDS:
+            print("UNOS: Shutting Down System")
+            self.speak("shutting down system")
+            exit()
+
+        elif "search" in command:
+            try:
+                #remove the word "search" and use wikipedia to search
+                search_subject = command.replace("search", "")
+                searched_data = wikipedia.summary(search_subject, sentences=2)
+                print("UNOS: Data Collected")
+                print(searched_data)
+                self.speak(searched_data)
+
+            except wikipedia.exceptions.WikipediaException:
+                print("UNOS: Article Not Found or Unable to Connect to Wikipedia API")
+                self.speak("article not found or unable to connect to wikipedia API")
+
+            finally:
+                print("UNOS: Command Finished")
 
         else:
             response = str(chatbot.get_response(command))
             print("UNOS: " + response)
             self.speak(response)
+            print("UNOS: Command Finished")
 
 #Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):

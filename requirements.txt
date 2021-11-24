@@ -15,6 +15,7 @@ audioplayer >= 0.6
 nltk >= 3.6.5
 pyyaml >= 6.0
 spacy >= 3.2.0
+wikipedia >= 1.4.0
 ./packages/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
 #https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 #./packages/PyAudio-0.2.11-cp310-cp310-win32.whl

@@ -1,11 +1,11 @@
 #Modules Importer
-from unos_plugin import UNOS
+from unos_plugin import UNOS, BootLoader
 import google.cloud
 
-#Initilisation
+#Initilisation and Config
 unos = UNOS()
+boot = BootLoader()
 unos.UNOSinitialize()
-verification = unos.Verify()
 
 #Main Loop
 def main():
@@ -19,20 +19,34 @@ def main():
         else:
             print("UNOS: Not Activated ( Reason: " + activated + " )")
 
-#Check before launching
-if verification == "True":
-    unos.StartupText()
-    while True:
-        try:
-            main()
-        
-        except google.api_core.exceptions.OutOfRange:
-            main()
+#Check before Launching
+verification = boot.Verify()
+if verification == True:
 
-        finally:
-            print("UNOS: System Ended Successfully")
+    #Internet Connection Check
+    connected = boot.InternetCheck()
+
+    if connected == True:
+        #Boot Sequence
+        boot.StartupText()
+
+        #Main Loop
+        while True:
+            try:
+                main()
             
-    #unos.MainWindow()
+            except google.api_core.exceptions.OutOfRange:
+                main()
+
+            finally:
+                print("UNOS: System Ended Successfully")
+                
+        #unos.MainWindow()
+
+    else:
+        print("BootLoader: Program Closing ( Reason: Internet is Offline )")
+        exit()
 
 else:
+    print("BootLoader: Program Closing ( Reason: Continue is False )")
     exit()
