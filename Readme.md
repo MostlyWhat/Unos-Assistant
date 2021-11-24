@@ -3,7 +3,11 @@
 ## Info & About
 Unos Assistant is an open-source assistant designed to be extendable, run on any system and is fully customisable to the user's likings.
 
-## Version and Release
+## Future Feature Implementations
+- Weather Data Report
+- User Config and Data
+
+## Version and Release List
 a.b.c | a is for Major Release > b is for Minor Release > c is for Patches
 
 ## Pull Requests
