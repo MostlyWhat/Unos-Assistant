@@ -82,6 +82,7 @@ class BootLoader:
         try:
             request = requests.get(url, timeout=timeout)
             print("BootLoader: Connected to the Internet")
+            time.sleep(3)
             return True
             
         except (requests.ConnectionError, requests.Timeout) as exception:
@@ -180,10 +181,6 @@ class UNOS:
         else:
             self.create_audio_tts(audio)
             AudioPlayer("audio/output.mp3").play(block=True)
-
-        # else:
-        #     AudioPlayer("audio/Unknown_Audio.mp3").play(block=True)
-        #     return None
 
     #Main User Interface Loop
     def MainWindow():
