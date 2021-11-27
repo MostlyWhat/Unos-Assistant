@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import time
 
 
 class Ui_UNOSwindow(object):
@@ -32,6 +33,8 @@ class Ui_UNOSwindow(object):
         font.setPointSize(22)
         self.activateButton.setFont(font)
         self.activateButton.setObjectName("activateButton")
+        self.activateButton.setCheckable(True)
+        self.activateButton.clicked.connect(self.activationToggle)
         self.unosOutput = QtWidgets.QTextBrowser(self.centralwidget)
         self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 351))
         self.unosOutput.setObjectName("unosOutput")
@@ -98,6 +101,12 @@ class Ui_UNOSwindow(object):
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
 
+    def activationToggle(self):
+        if self.activateButton.isChecked():
+            self.statusLabel.setText("ACTIVATED")
+
+        else:
+            self.statusLabel.setText("DEACTIVATED")
 
 if __name__ == "__main__":
     import sys

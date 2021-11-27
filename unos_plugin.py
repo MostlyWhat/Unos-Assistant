@@ -125,7 +125,6 @@ class UNOS:
         CHUNK = int(RATE / 10)  # 100ms
 
         #Start Voice Commands
-        WAKE = "hey who knows"
         WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey uno's", "hey who knows", "hey nos", "hey nose"]
         INTRO_COMMANDS = ["hello", "hi", "bon jour",]
         EXIT_COMMANDS = ["exit", "quit", "log off", "log out", "sign out"]

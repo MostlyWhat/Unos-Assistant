@@ -13,10 +13,13 @@ import json
 import re
 import sys
 from google.cloud import speech
+from google.cloud import texttospeech as tts
 import pyaudio
 from six.moves import queue
 import re
-
+import wave
+from audioplayer import AudioPlayer
+from google.cloud import texttospeech
 
 class UNOS:
     #Run the initial settings
@@ -33,6 +36,7 @@ class UNOS:
         global mic
         global config
         global pspeech
+        global voice_name
         global RATE
         global CHUNK
         global API_KEY
@@ -62,7 +66,7 @@ class UNOS:
 
         #Initilisation of Recognition Systems
         pspeech = pyttsx3.init()
-        language_code = "en-US"  # a BCP-47 language tag
+        language_code = "en-US"
 
         client = speech.SpeechClient()
         config = speech.RecognitionConfig(
@@ -124,20 +128,37 @@ Boot Complete
     [ UNIFIED NON-INTELLIGENT-ASSISTANT OPEN-SOURCED SYSTEM ]
 
     Name: U.N.O.S
-    Version: 0.2.1-alpha
+    Version: 0.0.1-alpha
     Codename: Ultron
     Status: Unstable
-    Previous Interation: SKYNET v0.1.1-alpha
+    Previous Interation: SKYNET v0.0.1-alpha
 
         """)
         print("UNOS: System Ready for Inquiry")
-        pspeech.say("System is ready for Inquiry")
-        pspeech.runAndWait()
+        self.speak("Systems_Ready")
 
     #Saying Speech
-    def speak(self, text):
-        pspeech.say(text)
-        pspeech.runAndWait()
+    def speak(self, audio: str):
+        if audio == "E":
+            AudioPlayer("output.mp3").play(block=True)
+            return None
+        
+        elif audio == "Systems_Ready":
+            AudioPlayer("audio/Systems_Ready.mp3").play(block=True)
+            return None
+            
+        elif audio == "Ready_Inquiry":
+            AudioPlayer("audio/Ready_Inquiry.mp3").play(block=True)
+            return None
+
+        #Generate Audio if not Specified by Pre-Recorded Audio
+        else:
+            self.create_audio_tts(audio)
+            AudioPlayer("audio/output.mp3").play(block=True)
+
+        # else:
+        #     AudioPlayer("audio/Unknown_Audio.mp3").play(block=True)
+        #     return None
 
     #Main User Interface Loop
     def MainWindow():
@@ -153,6 +174,27 @@ Boot Complete
 
         window.showMaximized()
         sys.exit(qapp.exec_())
+
+    def create_audio_tts(self, text):
+        """Synthesizes speech from the input string of text."""
+        client = texttospeech.TextToSpeechClient()
+        input_text = texttospeech.SynthesisInput(text=text)
+        # Note: the voice can also be specified by name.
+        # Names of voices can be retrieved with client.list_voices().
+        voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US",
+        name="en-US-Wavenet-D",
+        ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+        )
+        audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+        )
+        response = client.synthesize_speech(
+        request={"input": input_text, "voice": voice, "audio_config": audio_config}
+        )
+        # The response's audio_content is binary.
+        with open("audio/output.mp3", "wb") as out:
+            out.write(response.audio_content)
 
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -179,7 +221,7 @@ Boot Complete
                         user_response = (transcript + overwrite_chars)
 
                         for user_responses in user_response:
-                            unos_check = bool(re.match(r"\b(who knows)\b", transcript, re.I))
+                            unos_check = bool(re.match(r"\b(who knows|hey who knows|uno's|hey uno's)\b", transcript, re.I))
 
                             if unos_check == True:
                                 return True
@@ -209,24 +251,18 @@ Boot Complete
                     transcript = (result.alternatives[0].transcript)
                     overwrite_chars = " " * (num_chars_printed - len(transcript))
 
-                    if not result.is_final:
-                        sys.stdout.write(transcript + overwrite_chars + "\r")
-                        sys.stdout.flush()
-
-                        num_chars_printed = len(transcript)
-
-                    else:
+                    if result.is_final:
                         user_response = (transcript + overwrite_chars)
                         return str(user_response.lower())
 
     def runningCommand(self):
         #Recognition of Voice Commands
-        print("UNOS: Command Please!")
-        self.speak("Command Please!")
+        self.speak("Ready_Inquiry")
+        print("UNOS: Command Input")
         command = self.RecognizeAudio()
 
-        for intro_commands in INTRO_COMMANDS:
-            intro_check = bool(re.search(rf"*{intro_commands}", command, re.I))
+        for intro_commands in command:
+            intro_check = bool(re.match(r"\b(hello|greetings|hi)\b", command, re.I))
             if intro_check == True:
                 print("UNOS: Detected Greetings, Responding")
                 self.speak(random.choice(INTRO_RESPONSE))
@@ -234,12 +270,13 @@ Boot Complete
                 return None
 
         for exit_commands in EXIT_COMMANDS:
-            exit_check = bool(re.search(rf"*{exit_commands}", command, re.I))
+            exit_check = bool(re.match(r"\b(exit|quit|end|log out)\b", command, re.I))
             if exit_check == True:
                 print("UNOS: Shutting Down System")
                 self.speak("shutting down system")
                 exit()
 
+#Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
 
