@@ -160,7 +160,7 @@ class UNOS:
                     "import_path": "chatterbot.logic.BestMatch", 
                     "statement_comparison_function": LevenshteinDistance, 
                     "response_selection_method": get_first_response,
-                    'maximum_similarity_threshold': 0.5,
+                    'maximum_similarity_threshold': 0.90,
                     'default_response': "I'm sorry, but I don't understand the question"
                 }
             ]

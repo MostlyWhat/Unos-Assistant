@@ -1,0 +1,16 @@
+{
+    "config": {
+        "unos_config":
+        {
+            "name": "UNOS", 
+            "version": "0.0.2",
+            "stability": "Partially Stable",
+            "codename": "Megatron",
+            "previous_interation": "SkyNET"
+        },
+        "user_config":
+        {
+            "default_username": "Anonymous"
+        }
+    }
+}

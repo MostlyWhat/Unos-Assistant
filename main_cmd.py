@@ -1,5 +1,5 @@
 #Modules Importer
-from unos_plugin import UNOS, BootLoader
+from unos_plugin_cmd import UNOS, BootLoader
 import google.cloud
 
 #Initilisation and Config

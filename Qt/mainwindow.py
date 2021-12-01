@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import time
 
 
 class Ui_UNOSwindow(object):
@@ -33,10 +32,8 @@ class Ui_UNOSwindow(object):
         font.setPointSize(22)
         self.activateButton.setFont(font)
         self.activateButton.setObjectName("activateButton")
-        self.activateButton.setCheckable(True)
-        self.activateButton.clicked.connect(self.activationToggle)
         self.unosOutput = QtWidgets.QTextBrowser(self.centralwidget)
-        self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 351))
+        self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 231))
         self.unosOutput.setObjectName("unosOutput")
         self.configOutput = QtWidgets.QTextBrowser(self.centralwidget)
         self.configOutput.setGeometry(QtCore.QRect(30, 70, 251, 231))
@@ -57,6 +54,37 @@ class Ui_UNOSwindow(object):
         self.statusLabel.setFont(font)
         self.statusLabel.setAlignment(QtCore.Qt.AlignCenter)
         self.statusLabel.setObjectName("statusLabel")
+        self.currentText = QtWidgets.QLabel(self.centralwidget)
+        self.currentText.setGeometry(QtCore.QRect(300, 310, 221, 31))
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(14)
+        self.currentText.setFont(font)
+        self.currentText.setAlignment(QtCore.Qt.AlignCenter)
+        self.currentText.setObjectName("currentText")
+        self.processLabel = QtWidgets.QLabel(self.centralwidget)
+        self.processLabel.setGeometry(QtCore.QRect(520, 310, 261, 31))
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(14)
+        self.processLabel.setFont(font)
+        self.processLabel.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.processLabel.setObjectName("processLabel")
+        self.submitButton = QtWidgets.QPushButton(self.centralwidget)
+        self.submitButton.setGeometry(QtCore.QRect(610, 350, 171, 71))
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(22)
+        self.submitButton.setFont(font)
+        self.submitButton.setObjectName("submitButton")
+        self.manualInput = QtWidgets.QLineEdit(self.centralwidget)
+        self.manualInput.setGeometry(QtCore.QRect(300, 350, 311, 71))
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(22)
+        self.manualInput.setFont(font)
+        self.manualInput.setText("")
+        self.manualInput.setObjectName("manualInput")
         UNOSwindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(UNOSwindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
@@ -94,25 +122,12 @@ class Ui_UNOSwindow(object):
         self.activateButton.setText(_translate("UNOSwindow", "ON / OFF"))
         self.statusText.setText(_translate("UNOSwindow", "STATUS: "))
         self.statusLabel.setText(_translate("UNOSwindow", "DEACTIVATED"))
+        self.currentText.setText(_translate("UNOSwindow", "CURRENT PROCESS: "))
+        self.processLabel.setText(_translate("UNOSwindow", "IDLE"))
+        self.submitButton.setText(_translate("UNOSwindow", " SUBMIT"))
         self.systemMenu.setTitle(_translate("UNOSwindow", "System"))
         self.helpMenu.setTitle(_translate("UNOSwindow", "Help"))
         self.actionAbout_UNOS.setText(_translate("UNOSwindow", "About UNOS"))
         self.preferencesButton.setText(_translate("UNOSwindow", "Preferences"))
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
-
-    def activationToggle(self):
-        if self.activateButton.isChecked():
-            self.statusLabel.setText("ACTIVATED")
-
-        else:
-            self.statusLabel.setText("DEACTIVATED")
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    UNOSwindow = QtWidgets.QMainWindow()
-    ui = Ui_UNOSwindow()
-    ui.setupUi(UNOSwindow)
-    UNOSwindow.show()
-    sys.exit(app.exec_())
