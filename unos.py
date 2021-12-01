@@ -36,6 +36,10 @@ class BootLoader:
         self.BootConfig()
 
     def BootConfig(self):
+        #Main Configurations
+        global ACTIVATED
+        ACTIVATED = False
+
         #Loading Configuration Files
         global config_file
         global database
@@ -123,7 +127,7 @@ class BootLoader:
 
 #Handles the Interface and Showing Status
 class Interface(object):
-        def setupUi(self, UNOSwindow):
+    def setupUi(self, UNOSwindow):
         UNOSwindow.setObjectName("UNOSwindow")
         UNOSwindow.resize(800, 480)
         self.centralwidget = QtWidgets.QWidget(UNOSwindow)

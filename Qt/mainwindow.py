@@ -131,3 +131,12 @@ class Ui_UNOSwindow(object):
         self.preferencesButton.setText(_translate("UNOSwindow", "Preferences"))
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    UNOSwindow = QtWidgets.QMainWindow()
+    ui = Ui_UNOSwindow()
+    ui.setupUi(UNOSwindow)
+    UNOSwindow.show()
+    sys.exit(app.exec_())
