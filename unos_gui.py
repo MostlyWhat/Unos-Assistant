@@ -1,34 +1,34 @@
 #Modules Importer
 from __future__ import division
-from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
-from pkg_resources import yield_lines
-import pyttsx3
-import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import *
-import time
-import time
+
+import json
 import os
 import random
-import json
 import re
 import sys
-from google.cloud import speech
-from google.cloud import texttospeech as tts
-import pyaudio
-from six.moves import queue
-import re
+import time
 import wave
-from audioplayer import AudioPlayer
-from google.cloud import texttospeech
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_first_response
-from chatterbot.logic import BestMatch
-from chatterbot.comparisons import LevenshteinDistance
-from chatterbot.logic import LogicAdapter
-import wikipedia
+from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
+
+import pyaudio
+import pyttsx3
 import requests
+import wikipedia
+from audioplayer import AudioPlayer
+from google.cloud import speech
+from google.cloud import texttospeech
+from google.cloud import texttospeech as tts
+from pkg_resources import yield_lines
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
+from six.moves import queue
+
+from chatterbot import ChatBot
+from chatterbot.comparisons import LevenshteinDistance
+from chatterbot.logic import BestMatch, LogicAdapter
+from chatterbot.response_selection import get_first_response
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
 
 class BootLoader:
     #Verification Before Launch
@@ -186,21 +186,6 @@ class UNOS:
         else:
             self.create_audio_tts(audio)
             AudioPlayer("audio/output.mp3").play(block=True)
-
-    #Main User Interface Loop
-    def MainWindow():
-        #SettingUpWindow
-        qapp = QApplication(sys.argv)
-        window = QMainWindow()
-        window.setGeometry(200,200,300,300) # sets the windows x, y, width, height
-        window.setWindowTitle("UNOS Assistant Version 0.1 (Not Production Ready)") # setting the window title
-
-        label = QLabel(window)
-        label.setText("my first label")
-        label.move(50, 50) 
-
-        window.showMaximized()
-        sys.exit(qapp.exec_())
 
     def create_audio_tts(self, text):
         """Synthesizes speech from the input string of text."""
@@ -387,99 +372,3 @@ class MicrophoneStream(object):
                     break
 
             yield b"".join(data)
-
-class Interface:
-    def setupUi(self, UNOSwindow):
-        UNOSwindow.setObjectName("UNOSwindow")
-        UNOSwindow.resize(800, 480)
-        self.centralwidget = QtWidgets.QWidget(UNOSwindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.titleLabel = QtWidgets.QLabel(self.centralwidget)
-        self.titleLabel.setGeometry(QtCore.QRect(0, 0, 801, 61))
-        font = QtGui.QFont()
-        font.setFamily("Industry-Book")
-        font.setPointSize(21)
-        self.titleLabel.setFont(font)
-        self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.titleLabel.setObjectName("titleLabel")
-        self.activateButton = QtWidgets.QPushButton(self.centralwidget)
-        self.activateButton.setGeometry(QtCore.QRect(30, 350, 251, 71))
-        font = QtGui.QFont()
-        font.setFamily("Industry-Book")
-        font.setPointSize(22)
-        self.activateButton.setFont(font)
-        self.activateButton.setObjectName("activateButton")
-        self.activateButton.setCheckable(True)
-        self.activateButton.clicked.connect(self.activationToggle)
-        self.unosOutput = QtWidgets.QTextBrowser(self.centralwidget)
-        self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 351))
-        self.unosOutput.setObjectName("unosOutput")
-        self.configOutput = QtWidgets.QTextBrowser(self.centralwidget)
-        self.configOutput.setGeometry(QtCore.QRect(30, 70, 251, 231))
-        self.configOutput.setObjectName("configOutput")
-        self.statusText = QtWidgets.QLabel(self.centralwidget)
-        self.statusText.setGeometry(QtCore.QRect(30, 310, 91, 31))
-        font = QtGui.QFont()
-        font.setFamily("Industry-Book")
-        font.setPointSize(14)
-        self.statusText.setFont(font)
-        self.statusText.setAlignment(QtCore.Qt.AlignCenter)
-        self.statusText.setObjectName("statusText")
-        self.statusLabel = QtWidgets.QLabel(self.centralwidget)
-        self.statusLabel.setGeometry(QtCore.QRect(120, 310, 161, 31))
-        font = QtGui.QFont()
-        font.setFamily("Industry-Book")
-        font.setPointSize(14)
-        self.statusLabel.setFont(font)
-        self.statusLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.statusLabel.setObjectName("statusLabel")
-        UNOSwindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(UNOSwindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 26))
-        self.menubar.setObjectName("menubar")
-        self.systemMenu = QtWidgets.QMenu(self.menubar)
-        self.systemMenu.setObjectName("systemMenu")
-        self.helpMenu = QtWidgets.QMenu(self.menubar)
-        self.helpMenu.setObjectName("helpMenu")
-        UNOSwindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(UNOSwindow)
-        self.statusbar.setObjectName("statusbar")
-        UNOSwindow.setStatusBar(self.statusbar)
-        self.actionAbout_UNOS = QtWidgets.QAction(UNOSwindow)
-        self.actionAbout_UNOS.setObjectName("actionAbout_UNOS")
-        self.preferencesButton = QtWidgets.QAction(UNOSwindow)
-        self.preferencesButton.setObjectName("preferencesButton")
-        self.aboutButton = QtWidgets.QAction(UNOSwindow)
-        self.aboutButton.setObjectName("aboutButton")
-        self.troubleshootingButton = QtWidgets.QAction(UNOSwindow)
-        self.troubleshootingButton.setObjectName("troubleshootingButton")
-        self.systemMenu.addAction(self.preferencesButton)
-        self.helpMenu.addAction(self.aboutButton)
-        self.helpMenu.addSeparator()
-        self.helpMenu.addAction(self.troubleshootingButton)
-        self.menubar.addAction(self.systemMenu.menuAction())
-        self.menubar.addAction(self.helpMenu.menuAction())
-
-        self.retranslateUi(UNOSwindow)
-        QtCore.QMetaObject.connectSlotsByName(UNOSwindow)
-
-    def retranslateUi(self, UNOSwindow):
-        _translate = QtCore.QCoreApplication.translate
-        UNOSwindow.setWindowTitle(_translate("UNOSwindow", "UNOS Assistant Launch Center"))
-        self.titleLabel.setText(_translate("UNOSwindow", "UNOS Assistant Launch Center ( Version 0.0.3 )"))
-        self.activateButton.setText(_translate("UNOSwindow", "ON / OFF"))
-        self.statusText.setText(_translate("UNOSwindow", "STATUS: "))
-        self.statusLabel.setText(_translate("UNOSwindow", "DEACTIVATED"))
-        self.systemMenu.setTitle(_translate("UNOSwindow", "System"))
-        self.helpMenu.setTitle(_translate("UNOSwindow", "Help"))
-        self.actionAbout_UNOS.setText(_translate("UNOSwindow", "About UNOS"))
-        self.preferencesButton.setText(_translate("UNOSwindow", "Preferences"))
-        self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
-        self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
-
-    def activationToggle(self):
-        if self.activateButton.isChecked():
-            self.statusLabel.setText("ACTIVATED")
-
-        else:
-            self.statusLabel.setText("DEACTIVATED")

@@ -93,19 +93,21 @@ class BootLoader:
             ]
         )
 
-    def BootVariables():
+    def BootVariables(self):
         #Setting Config Variables Read from Configuation Files
         global unos_name
         global unos_version
         global unos_stability
         global unos_codename
         global unos_previous_interation
+        global username
 
         unos_name = database.get("config").get("unos_config").get("name")
         unos_version = database.get("config").get("unos_config").get("version")
         unos_stability = database.get("config").get("unos_config").get("stability")
         unos_codename = database.get("config").get("unos_config").get("codename")
         unos_previous_interation = database.get("config").get("unos_config").get("previous_interation")
+        username = database.get("config").get("user_config").get("username")
 
         #Voice Commands
         global WAKEUP_COMMANDS
@@ -147,10 +149,20 @@ class Interface(object):
         font.setPointSize(22)
         self.activateButton.setFont(font)
         self.activateButton.setObjectName("activateButton")
+        self.activateButton.setCheckable(True)
+        self.activateButton.clicked.connect(self.changeState)
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(12)
         self.unosOutput = QtWidgets.QTextBrowser(self.centralwidget)
+        self.unosOutput.setFont(font)
         self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 231))
         self.unosOutput.setObjectName("unosOutput")
+        font = QtGui.QFont()
+        font.setFamily("Industry-Book")
+        font.setPointSize(12)
         self.configOutput = QtWidgets.QTextBrowser(self.centralwidget)
+        self.configOutput.setFont(font)
         self.configOutput.setGeometry(QtCore.QRect(30, 70, 251, 231))
         self.configOutput.setObjectName("configOutput")
         self.statusText = QtWidgets.QLabel(self.centralwidget)
@@ -247,10 +259,32 @@ class Interface(object):
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
 
+    def changeState(self):
+        if self.activateButton.isChecked():
+            ACTIVATED = True
+            self.statusLabel.setText("ACTIVATED")
+            self.unosOutput.append("UNOS: System is Activated")
+
+        else:
+            ACTIVATED = False
+            self.statusLabel.setText("DEACTIVATED")
+            self.unosOutput.append("UNOS: System is Deactivated")
+
+    def initConfig(self):
+        self.configOutput.append("UNOS Configuration")
+        self.configOutput.append("AI Name: " + unos_name)
+        self.configOutput.append("Version: " + unos_version)
+        self.configOutput.append("Stability: " + unos_stability)
+        self.configOutput.append("Codename: " + unos_codename)
+        self.configOutput.append("Old-Interation: " + unos_previous_interation)
+        self.configOutput.append(" ")
+        self.configOutput.append("Username: " + username)
 
 #Handles Voice Recognition to Running Commands
-class UNOS:
-
+# class UNOS:
+#     def main():
+#         while ACTIVATED == True:
+#             try:
 
 #Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):
@@ -319,3 +353,24 @@ class MicrophoneStream(object):
                     break
 
             yield b"".join(data)
+
+        # unos_name = database.get("config").get("unos_config").get("name")
+        # unos_version = database.get("config").get("unos_config").get("version")
+        # unos_stability = database.get("config").get("unos_config").get("stability")
+        # unos_codename = database.get("config").get("unos_config").get("codename")
+        # unos_previous_interation = database.get("config").get("unos_config").get("previous_interation")
+
+#Init
+boot = BootLoader()
+boot.BootConfig()
+boot.BootVariables()
+
+#Window Startup (Temp)
+app = QtWidgets.QApplication(sys.argv)
+UNOSwindow = QtWidgets.QMainWindow()
+ui = Interface()
+ui.setupUi(UNOSwindow)
+UNOSwindow.show()
+
+ui.initConfig()
+sys.exit(app.exec_())

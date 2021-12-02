@@ -136,7 +136,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     UNOSwindow = QtWidgets.QMainWindow()
-    ui = Ui_UNOSwindow()
+    ui = Interface()
     ui.setupUi(UNOSwindow)
     UNOSwindow.show()
     sys.exit(app.exec_())

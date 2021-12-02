@@ -10,7 +10,7 @@
         },
         "user_config":
         {
-            "default_username": "Anonymous"
+            "username": "Anonymous"
         }
     }
 }
