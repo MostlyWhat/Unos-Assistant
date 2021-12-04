@@ -10,8 +10,8 @@ import time
 import wave
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
 
+import google.cloud
 import pyaudio
-import pyttsx3
 import requests
 import wikipedia
 from audioplayer import AudioPlayer
@@ -29,6 +29,9 @@ from chatterbot.logic import BestMatch, LogicAdapter
 from chatterbot.response_selection import get_first_response
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
+#Main Configurations
+global activated
+activated = False
 
 #Handles Startup and Loading Configs
 class BootLoader:
@@ -36,10 +39,6 @@ class BootLoader:
         self.BootConfig()
 
     def BootConfig(self):
-        #Main Configurations
-        global ACTIVATED
-        ACTIVATED = False
-
         #Loading Configuration Files
         global config_file
         global database
@@ -204,6 +203,7 @@ class Interface(object):
         font.setPointSize(22)
         self.submitButton.setFont(font)
         self.submitButton.setObjectName("submitButton")
+        self.submitButton.clicked.connect(self.manualCommandSubmit)
         self.manualInput = QtWidgets.QLineEdit(self.centralwidget)
         self.manualInput.setGeometry(QtCore.QRect(300, 350, 311, 71))
         font = QtGui.QFont()
@@ -248,7 +248,7 @@ class Interface(object):
         self.titleLabel.setText(_translate("UNOSwindow", "UNOS Assistant Launch Center ( Version 0.0.3 )"))
         self.activateButton.setText(_translate("UNOSwindow", "ON / OFF"))
         self.statusText.setText(_translate("UNOSwindow", "STATUS: "))
-        self.statusLabel.setText(_translate("UNOSwindow", "DEACTIVATED"))
+        self.statusLabel.setText(_translate("UNOSwindow", "DEactivated"))
         self.currentText.setText(_translate("UNOSwindow", "CURRENT PROCESS: "))
         self.processLabel.setText(_translate("UNOSwindow", "IDLE"))
         self.submitButton.setText(_translate("UNOSwindow", " SUBMIT"))
@@ -261,13 +261,13 @@ class Interface(object):
 
     def changeState(self):
         if self.activateButton.isChecked():
-            ACTIVATED = True
-            self.statusLabel.setText("ACTIVATED")
+            activated = True
+            self.statusLabel.setText("Activated")
             self.unosOutput.append("UNOS: System is Activated")
 
         else:
-            ACTIVATED = False
-            self.statusLabel.setText("DEACTIVATED")
+            activated = False
+            self.statusLabel.setText("Deactivated")
             self.unosOutput.append("UNOS: System is Deactivated")
 
     def initConfig(self):
@@ -280,11 +280,168 @@ class Interface(object):
         self.configOutput.append(" ")
         self.configOutput.append("Username: " + username)
 
+    def manualCommandSubmit(self):
+        manualCommand = str(self.manualInput.text())
+        if activated == True:
+            UNOS.runningCommand(manualCommand)
+
+        else:
+            self.unosOutput.append("BootLoader: System is OFFLINE")
+
 #Handles Voice Recognition to Running Commands
-# class UNOS:
-#     def main():
-#         while ACTIVATED == True:
-#             try:
+class UNOS:
+    def main(self):
+        while activated == True:
+            try:
+                self.mainProcess()
+            
+            except google.api_core.exceptions.OutOfRange:
+                self.mainProcess()
+
+            finally:
+                print("UNOS: System Ended Successfully")
+
+    def mainProcess(self):
+        while True:
+            unosActivated = self.RecognizeUNOS()
+
+            if unosActivated == True:
+                Interface.unosOutput.append("UNOS: activated ( Reason: Triggered by a User )")
+                command = self.recognisingCommand()
+                self.runningCommand(command)
+
+            else:
+                Interface.unosOutput.append("UNOS: Not activated ( Reason: " + activated + " )")
+            
+    def RecognizeUNOS(self):
+        with MicrophoneStream(RATE, CHUNK) as stream:
+            audio_generator = stream.generator()
+            requests = (
+                speech.StreamingRecognizeRequest(audio_content=content)
+                for content in audio_generator
+            )
+
+            responses = client.streaming_recognize(streaming_config, requests)
+
+            num_chars_printed = 0
+
+            # Now, put the transcription responses to use.
+            for response in responses:
+                # Once the transcription has settled, the first result will contain the
+                # is_final result. The other results will be for subsequent portions of
+                # the audio.
+                for result in response.results:
+                    transcript = (result.alternatives[0].transcript)
+                    overwrite_chars = " " * (num_chars_printed - len(transcript))
+
+                    if result.is_final:
+                        user_response = (transcript + overwrite_chars)
+
+                        if user_response in WAKEUP_COMMANDS:
+                            return True
+
+                        else:
+                            return str(user_response.lower())
+        
+    def RecognizeAudio(self):
+        #Recognition of Audio requests
+        with MicrophoneStream(RATE, CHUNK) as stream:
+            audio_generator = stream.generator()
+            requests = (
+                speech.StreamingRecognizeRequest(audio_content=content)
+                for content in audio_generator
+            )
+
+            responses = client.streaming_recognize(streaming_config, requests)
+
+            num_chars_printed = 0
+
+            # Now, put the transcription responses to use.
+            for response in responses:
+                # Once the transcription has settled, the first result will contain the
+                # is_final result. The other results will be for subsequent portions of
+                # the audio.
+                for result in response.results:
+                    transcript = (result.alternatives[0].transcript)
+                    overwrite_chars = " " * (num_chars_printed - len(transcript))
+
+                    if result.is_final:
+                        user_response = (transcript + overwrite_chars)
+                        return str(user_response.lower())
+
+    def recognisingCommand(self):
+        #Recognition of Voice Commands
+        self.speak("Ready_Inquiry")
+        Interface.unosOutput.append("UNOS: Command Input")
+        command = (self.RecognizeAudio())
+        Interface.unosOutput.append("UNOS: Command Detected ( " + command + " )")
+
+        return command
+
+    def runningCommand(self, command: str):
+        if command in EXIT_COMMANDS:
+            Interface.unosOutput.append("UNOS: Shutting Down System")
+            self.speak("shutting down system")
+            exit()
+
+        elif "search" in command:
+            try:
+                #remove the word "search" and use wikipedia to search
+                search_subject = command.replace("search", "")
+                searched_data = wikipedia.summary(search_subject, sentences=2)
+                Interface.unosOutput.append("UNOS: Data Collected")
+                Interface.unosOutput.append(searched_data)
+                self.speak(searched_data)
+
+            except wikipedia.exceptions.WikipediaException:
+                Interface.unosOutput.append("UNOS: Article Not Found or Unable to Connect to Wikipedia API")
+                self.speak("article not found or unable to connect to wikipedia API")
+
+            finally:
+                Interface.unosOutput.append("UNOS: Command Finished")
+
+        else:
+            response = str(chatbot.get_response(command))
+            Interface.unosOutput.append("UNOS: " + response)
+            self.speak(response)
+            Interface.unosOutput.append("UNOS: Command Finished")
+
+        #Saying Speech
+    def speak(self, audio: str):
+        if audio == "E":
+            AudioPlayer("output.mp3").play(block=True)
+            return None
+            
+        elif audio == "Ready_Inquiry":
+            AudioPlayer("audio/Ready_Inquiry.mp3").play(block=True)
+            return None
+
+        #Generate Audio if not Specified by Pre-Recorded Audio
+        else:
+            self.create_audio_tts(audio)
+            AudioPlayer("audio/output.mp3").play(block=True)
+
+    #Creates Audio
+    def create_audio_tts(self, text):
+        """Synthesizes speech from the input string of text."""
+        client = texttospeech.TextToSpeechClient()
+        input_text = texttospeech.SynthesisInput(text=text)
+        # Note: the voice can also be specified by name.
+        # Names of voices can be retrieved with client.list_voices().
+        voice = texttospeech.VoiceSelectionParams(
+        language_code="en-US",
+        name="en-US-Wavenet-D",
+        ssml_gender=texttospeech.SsmlVoiceGender.MALE,
+        )
+        audio_config = texttospeech.AudioConfig(
+        audio_encoding=texttospeech.AudioEncoding.MP3
+        )
+        response = client.synthesize_speech(
+        request={"input": input_text, "voice": voice, "audio_config": audio_config}
+        )
+        # The response's audio_content is binary.
+        with open("audio/output.mp3", "wb") as out:
+            out.write(response.audio_content)
 
 #Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):
@@ -354,13 +511,7 @@ class MicrophoneStream(object):
 
             yield b"".join(data)
 
-        # unos_name = database.get("config").get("unos_config").get("name")
-        # unos_version = database.get("config").get("unos_config").get("version")
-        # unos_stability = database.get("config").get("unos_config").get("stability")
-        # unos_codename = database.get("config").get("unos_config").get("codename")
-        # unos_previous_interation = database.get("config").get("unos_config").get("previous_interation")
-
-#Init
+#Init Variables
 boot = BootLoader()
 boot.BootConfig()
 boot.BootVariables()
