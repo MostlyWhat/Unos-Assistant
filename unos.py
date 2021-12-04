@@ -248,7 +248,7 @@ class Interface(object):
         self.titleLabel.setText(_translate("UNOSwindow", "UNOS Assistant Launch Center ( Version 0.0.3 )"))
         self.activateButton.setText(_translate("UNOSwindow", "ON / OFF"))
         self.statusText.setText(_translate("UNOSwindow", "STATUS: "))
-        self.statusLabel.setText(_translate("UNOSwindow", "DEactivated"))
+        self.statusLabel.setText(_translate("UNOSwindow", "DEACTIVATED"))
         self.currentText.setText(_translate("UNOSwindow", "CURRENT PROCESS: "))
         self.processLabel.setText(_translate("UNOSwindow", "IDLE"))
         self.submitButton.setText(_translate("UNOSwindow", " SUBMIT"))
@@ -262,13 +262,13 @@ class Interface(object):
     def changeState(self):
         if self.activateButton.isChecked():
             activated = True
-            self.statusLabel.setText("Activated")
-            self.unosOutput.append("UNOS: System is Activated")
+            self.statusLabel.setText("ACTIVATED")
+            self.unosOutput.append(f"{unos_name}: System is Activated")
 
         else:
             activated = False
-            self.statusLabel.setText("Deactivated")
-            self.unosOutput.append("UNOS: System is Deactivated")
+            self.statusLabel.setText("DEACTIVATED")
+            self.unosOutput.append(f"{unos_name}: System is Deactivated")
 
     def initConfig(self):
         self.configOutput.append("UNOS Configuration")
@@ -283,7 +283,11 @@ class Interface(object):
     def manualCommandSubmit(self):
         manualCommand = str(self.manualInput.text())
         if activated == True:
-            UNOS.runningCommand(manualCommand)
+            if manualCommand == "":
+                UNOS.runningCommand(manualCommand)
+
+            else:
+                self.unosOutput.append(f"{unos_name}: Command Cannot be Blank!")
 
         else:
             self.unosOutput.append("BootLoader: System is OFFLINE")
@@ -299,19 +303,19 @@ class UNOS:
                 self.mainProcess()
 
             finally:
-                print("UNOS: System Ended Successfully")
+                print(f"{unos_name}: System Ended Successfully")
 
     def mainProcess(self):
         while True:
             unosActivated = self.RecognizeUNOS()
 
             if unosActivated == True:
-                Interface.unosOutput.append("UNOS: activated ( Reason: Triggered by a User )")
+                Interface.unosOutput.append(f"{unos_name}: Activated ( Reason: Triggered by a User )")
                 command = self.recognisingCommand()
                 self.runningCommand(command)
 
             else:
-                Interface.unosOutput.append("UNOS: Not activated ( Reason: " + activated + " )")
+                Interface.unosOutput.append(f"{unos_name}: Not Activated ( Reason: " + activated + " )")
             
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -372,15 +376,15 @@ class UNOS:
     def recognisingCommand(self):
         #Recognition of Voice Commands
         self.speak("Ready_Inquiry")
-        Interface.unosOutput.append("UNOS: Command Input")
+        Interface.unosOutput.append(f"{unos_name}: Command Input")
         command = (self.RecognizeAudio())
-        Interface.unosOutput.append("UNOS: Command Detected ( " + command + " )")
+        Interface.unosOutput.append(f"{unos_name}: Command Detected ( " + command + " )")
 
         return command
 
     def runningCommand(self, command: str):
         if command in EXIT_COMMANDS:
-            Interface.unosOutput.append("UNOS: Shutting Down System")
+            Interface.unosOutput.append(f"{unos_name}: Shutting Down System")
             self.speak("shutting down system")
             exit()
 
@@ -389,22 +393,22 @@ class UNOS:
                 #remove the word "search" and use wikipedia to search
                 search_subject = command.replace("search", "")
                 searched_data = wikipedia.summary(search_subject, sentences=2)
-                Interface.unosOutput.append("UNOS: Data Collected")
+                Interface.unosOutput.append(f"{unos_name}: Data Collected")
                 Interface.unosOutput.append(searched_data)
                 self.speak(searched_data)
 
             except wikipedia.exceptions.WikipediaException:
-                Interface.unosOutput.append("UNOS: Article Not Found or Unable to Connect to Wikipedia API")
+                Interface.unosOutput.append(f"{unos_name}: Article Not Found or Unable to Connect to Wikipedia API")
                 self.speak("article not found or unable to connect to wikipedia API")
 
             finally:
-                Interface.unosOutput.append("UNOS: Command Finished")
+                Interface.unosOutput.append(f"{unos_name}: Command Finished")
 
         else:
             response = str(chatbot.get_response(command))
-            Interface.unosOutput.append("UNOS: " + response)
+            Interface.unosOutput.append(f"{unos_name}: " + response)
             self.speak(response)
-            Interface.unosOutput.append("UNOS: Command Finished")
+            Interface.unosOutput.append(f"{unos_name}: Command Finished")
 
         #Saying Speech
     def speak(self, audio: str):
