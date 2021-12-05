@@ -6,7 +6,7 @@
 [![forthebadge](https://forthebadge.com/images/badges/designed-in-ms-paint.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)\
 [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/powered-by-qt.svg)](https://forthebadge.com)\
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-qt.svg)](https://forthebadge.com)
 
 ## Info & About
 Unos Assistant is an open-source assistant designed to be extendable, run on any system and is fully customisable to the user's likings.
@@ -24,6 +24,6 @@ To create a pull request, please ensure that you have built the binaries, test t
 ## Licenses and Copyright
 Please read the [LICENSE](https://github.com/MostlyWhat/Unos-Assistant/blob/main/LICENSE) file before modifying, installing and using the program.
 
-## Open-Source Licenses
-
-### TBD
+## Open-Source Projects Used
+PyQt5
+Google Cloud Speech Recognition and Synthesis
