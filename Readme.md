@@ -1,8 +1,7 @@
 # Unos-Assistant
-[![forthebadge](https://forthebadge.com/images/badges/works-on-my-machine.svg)](https://forthebadge.com)\
 [![forthebadge](https://forthebadge.com/images/badges/0-percent-optimized.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)\
+[![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)\
 [![forthebadge](https://forthebadge.com/images/badges/designed-in-ms-paint.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)\
 [![forthebadge](https://forthebadge.com/images/badges/open-source.svg)](https://forthebadge.com)
@@ -25,5 +24,5 @@ To create a pull request, please ensure that you have built the binaries, test t
 Please read the [LICENSE](https://github.com/MostlyWhat/Unos-Assistant/blob/main/LICENSE) file before modifying, installing and using the program.
 
 ## Open-Source Projects Used
-PyQt5
+PyQt5\
 Google Cloud Speech Recognition and Synthesis
