@@ -266,6 +266,7 @@ class Interface(object):
             activated = True
             self.statusLabel.setText("ACTIVATED")
             self.unosOutput.append("BootLoader: System is Activated")
+            unos.main()
 
         else:
             activated = False
@@ -287,7 +288,7 @@ class Interface(object):
         manualCommand = str(self.manualInput.text())
         if activated == True:
             if manualCommand != "":
-                self.unosOutput.append(f"{unos_name}: Executing Command")
+                self.unosOutput.append(f"{unos_name}: Executing Manual Command")
                 UNOS.runningCommand(manualCommand)
 
             else:
@@ -316,10 +317,10 @@ class UNOS:
             if unosActivated == True:
                 ui.unosOutput.append( f"{unos_name}: Activated ( Reason: Triggered by a User )")
                 command = self.recognisingCommand()
-                self.runningCommand(command)
+                unos.runningCommand(command)
 
             else:
-                ui.unosOutput.append( f"{unos_name}: Not Activated ( Reason: " + activated + " )")
+                ui.unosOutput.append(f"{unos_name}: Not Activated ( Reason: {activated} )")
             
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -388,7 +389,8 @@ class UNOS:
 
     def runningCommand(command: str):
         if command in EXIT_COMMANDS:
-            ui.unosOutput.append(f"{unos_name}: Shutting Down System")
+            ui.unosOutput.append("BootLoader: Shutting Down System")
+            time.sleep(0.2)
             unos.speak("shutting down system")
             exit()
 
@@ -399,10 +401,12 @@ class UNOS:
                 searched_data = wikipedia.summary(search_subject, sentences=2)
                 ui.unosOutput.append(f"{unos_name}: Data Collected")
                 ui.unosOutput.append(searched_data)
+                time.sleep(0.2)
                 unos.speak(searched_data)
 
             except wikipedia.exceptions.WikipediaException:
                 ui.unosOutput.append(f"{unos_name}: Article Not Found or Unable to Connect to Wikipedia API")
+                time.sleep(0.2)
                 unos.speak("article not found or unable to connect to wikipedia API")
 
             finally:
@@ -411,6 +415,7 @@ class UNOS:
         else:
             response = str(chatbot.get_response(command))
             ui.unosOutput.append( f"{unos_name}: " + response)
+            time.sleep(0.2)
             unos.speak(response)
             ui.unosOutput.append( f"{unos_name}: Command Finished")
 
