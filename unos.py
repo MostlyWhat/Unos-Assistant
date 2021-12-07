@@ -136,7 +136,7 @@ class Interface(object):
         self.titleLabel = QtWidgets.QLabel(self.centralwidget)
         self.titleLabel.setGeometry(QtCore.QRect(0, 0, 801, 61))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(21)
         self.titleLabel.setFont(font)
         self.titleLabel.setAlignment(QtCore.Qt.AlignCenter)
@@ -144,21 +144,21 @@ class Interface(object):
         self.activateButton = QtWidgets.QPushButton(self.centralwidget)
         self.activateButton.setGeometry(QtCore.QRect(30, 350, 251, 71))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(22)
         self.activateButton.setFont(font)
         self.activateButton.setObjectName("activateButton")
         self.activateButton.setCheckable(True)
         self.activateButton.clicked.connect(self.changeState)
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(12)
         self.unosOutput = QtWidgets.QTextBrowser(self.centralwidget)
         self.unosOutput.setFont(font)
         self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 231))
         self.unosOutput.setObjectName("unosOutput")
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(12)
         self.configOutput = QtWidgets.QTextBrowser(self.centralwidget)
         self.configOutput.setFont(font)
@@ -167,7 +167,7 @@ class Interface(object):
         self.statusText = QtWidgets.QLabel(self.centralwidget)
         self.statusText.setGeometry(QtCore.QRect(30, 310, 91, 31))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(14)
         self.statusText.setFont(font)
         self.statusText.setAlignment(QtCore.Qt.AlignCenter)
@@ -175,7 +175,7 @@ class Interface(object):
         self.statusLabel = QtWidgets.QLabel(self.centralwidget)
         self.statusLabel.setGeometry(QtCore.QRect(120, 310, 161, 31))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(14)
         self.statusLabel.setFont(font)
         self.statusLabel.setAlignment(QtCore.Qt.AlignCenter)
@@ -183,7 +183,7 @@ class Interface(object):
         self.currentText = QtWidgets.QLabel(self.centralwidget)
         self.currentText.setGeometry(QtCore.QRect(300, 310, 221, 31))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(14)
         self.currentText.setFont(font)
         self.currentText.setAlignment(QtCore.Qt.AlignCenter)
@@ -191,7 +191,7 @@ class Interface(object):
         self.processLabel = QtWidgets.QLabel(self.centralwidget)
         self.processLabel.setGeometry(QtCore.QRect(520, 310, 261, 31))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(14)
         self.processLabel.setFont(font)
         self.processLabel.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
@@ -199,7 +199,7 @@ class Interface(object):
         self.submitButton = QtWidgets.QPushButton(self.centralwidget)
         self.submitButton.setGeometry(QtCore.QRect(610, 350, 171, 71))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(22)
         self.submitButton.setFont(font)
         self.submitButton.setObjectName("submitButton")
@@ -207,7 +207,7 @@ class Interface(object):
         self.manualInput = QtWidgets.QLineEdit(self.centralwidget)
         self.manualInput.setGeometry(QtCore.QRect(300, 350, 311, 71))
         font = QtGui.QFont()
-        font.setFamily("Industry-Book")
+        font.setFamily("Industry")
         font.setPointSize(22)
         self.manualInput.setFont(font)
         self.manualInput.setText("")
@@ -260,15 +260,17 @@ class Interface(object):
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
 
     def changeState(self):
+        global activated
+        
         if self.activateButton.isChecked():
             activated = True
             self.statusLabel.setText("ACTIVATED")
-            self.unosOutput.append(f"{unos_name}: System is Activated")
+            self.unosOutput.append("BootLoader: System is Activated")
 
         else:
             activated = False
             self.statusLabel.setText("DEACTIVATED")
-            self.unosOutput.append(f"{unos_name}: System is Deactivated")
+            self.unosOutput.append("BootLoader: System is Deactivated")
 
     def initConfig(self):
         self.configOutput.append("UNOS Configuration")
@@ -281,16 +283,18 @@ class Interface(object):
         self.configOutput.append("Username: " + username)
 
     def manualCommandSubmit(self):
+        global manualCommand
         manualCommand = str(self.manualInput.text())
         if activated == True:
-            if manualCommand == "":
+            if manualCommand != "":
+                self.unosOutput.append(f"{unos_name}: Executing Command")
                 UNOS.runningCommand(manualCommand)
 
             else:
                 self.unosOutput.append(f"{unos_name}: Command Cannot be Blank!")
 
         else:
-            self.unosOutput.append("BootLoader: System is OFFLINE")
+            self.unosOutput.append("BootLoader: System is Currently Deativated!")
 
 #Handles Voice Recognition to Running Commands
 class UNOS:
@@ -310,12 +314,12 @@ class UNOS:
             unosActivated = self.RecognizeUNOS()
 
             if unosActivated == True:
-                Interface.unosOutput.append(f"{unos_name}: Activated ( Reason: Triggered by a User )")
+                ui.unosOutput.append( f"{unos_name}: Activated ( Reason: Triggered by a User )")
                 command = self.recognisingCommand()
                 self.runningCommand(command)
 
             else:
-                Interface.unosOutput.append(f"{unos_name}: Not Activated ( Reason: " + activated + " )")
+                ui.unosOutput.append( f"{unos_name}: Not Activated ( Reason: " + activated + " )")
             
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -376,16 +380,16 @@ class UNOS:
     def recognisingCommand(self):
         #Recognition of Voice Commands
         self.speak("Ready_Inquiry")
-        Interface.unosOutput.append(f"{unos_name}: Command Input")
+        ui.unosOutput.append( f"{unos_name}: Command Input")
         command = (self.RecognizeAudio())
-        Interface.unosOutput.append(f"{unos_name}: Command Detected ( " + command + " )")
+        ui.unosOutput.append( f"{unos_name}: Command Detected ( " + command + " )")
 
         return command
 
-    def runningCommand(self, command: str):
+    def runningCommand(command: str):
         if command in EXIT_COMMANDS:
-            Interface.unosOutput.append(f"{unos_name}: Shutting Down System")
-            self.speak("shutting down system")
+            ui.unosOutput.append(f"{unos_name}: Shutting Down System")
+            unos.speak("shutting down system")
             exit()
 
         elif "search" in command:
@@ -393,22 +397,22 @@ class UNOS:
                 #remove the word "search" and use wikipedia to search
                 search_subject = command.replace("search", "")
                 searched_data = wikipedia.summary(search_subject, sentences=2)
-                Interface.unosOutput.append(f"{unos_name}: Data Collected")
-                Interface.unosOutput.append(searched_data)
-                self.speak(searched_data)
+                ui.unosOutput.append(f"{unos_name}: Data Collected")
+                ui.unosOutput.append(searched_data)
+                unos.speak(searched_data)
 
             except wikipedia.exceptions.WikipediaException:
-                Interface.unosOutput.append(f"{unos_name}: Article Not Found or Unable to Connect to Wikipedia API")
-                self.speak("article not found or unable to connect to wikipedia API")
+                ui.unosOutput.append(f"{unos_name}: Article Not Found or Unable to Connect to Wikipedia API")
+                unos.speak("article not found or unable to connect to wikipedia API")
 
             finally:
-                Interface.unosOutput.append(f"{unos_name}: Command Finished")
+                ui.unosOutput.append( f"{unos_name}: Command Finished")
 
         else:
             response = str(chatbot.get_response(command))
-            Interface.unosOutput.append(f"{unos_name}: " + response)
-            self.speak(response)
-            Interface.unosOutput.append(f"{unos_name}: Command Finished")
+            ui.unosOutput.append( f"{unos_name}: " + response)
+            unos.speak(response)
+            ui.unosOutput.append( f"{unos_name}: Command Finished")
 
         #Saying Speech
     def speak(self, audio: str):
@@ -521,6 +525,7 @@ boot.BootConfig()
 boot.BootVariables()
 
 #Window Startup (Temp)
+unos = UNOS()
 app = QtWidgets.QApplication(sys.argv)
 UNOSwindow = QtWidgets.QMainWindow()
 ui = Interface()
