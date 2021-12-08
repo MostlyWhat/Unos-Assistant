@@ -3,9 +3,9 @@
         "unos_config":
         {
             "name": "UNOS", 
-            "version": "0.0.2",
-            "stability": "Partially Stable",
-            "codename": "Megatron",
+            "version": "0.0.3",
+            "stability": "Somewhat Stable",
+            "codename": "HAL 9000",
             "previous_interation": "SkyNET"
         },
         "user_config":

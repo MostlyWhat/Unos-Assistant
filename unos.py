@@ -158,6 +158,7 @@ class Interface(object):
         self.unosOutput.setFont(font)
         self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 231))
         self.unosOutput.setObjectName("unosOutput")
+        self.unosOutput.moveCursor(QtGui.QTextCursor.End)
         font = QtGui.QFont()
         font.setFamily("Industry")
         font.setPointSize(12)
