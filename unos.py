@@ -76,6 +76,7 @@ class BootLoader:
         global chatbot
 
         chatbot = ChatBot("UNOS",
+            storage_adapter="chatterbot.storage.SQLStorageAdapter",
             logic_adapters=[
                 {
                     "import_path": "chatterbot.logic.MathematicalEvaluation"
@@ -87,7 +88,7 @@ class BootLoader:
                     "import_path": "chatterbot.logic.BestMatch", 
                     "statement_comparison_function": LevenshteinDistance, 
                     "response_selection_method": get_first_response,
-                    'maximum_similarity_threshold': 0.5,
+                    'maximum_similarity_threshold': 0.65,
                     'default_response': "I'm sorry, but I don't understand the question"
                 }
             ]
@@ -158,7 +159,6 @@ class Interface(object):
         self.unosOutput.setFont(font)
         self.unosOutput.setGeometry(QtCore.QRect(300, 70, 481, 231))
         self.unosOutput.setObjectName("unosOutput")
-        self.unosOutput.moveCursor(QtGui.QTextCursor.End)
         font = QtGui.QFont()
         font.setFamily("Industry")
         font.setPointSize(12)
@@ -290,32 +290,55 @@ class Interface(object):
     def manualCommandSubmit(self):
         global manualCommand
         manualCommand = str(self.manualInput.text())
+        connected = boot.InternetCheck()
+        
         if activated == True:
-            if manualCommand != "":
-                self.unosOutput.append(f"{unos_name}: Executing Manual Command")
-                ui.processLabel.setText("MANUAL COMMAND")
-                threading.Thread(target=UNOS.runningCommand, args=(manualCommand,)).start()
+            if connected == True:
+                ui.appendText("BootLoader", "Connected to Internet!")
+                
+                if manualCommand != "":
+                    self.appendText("UNOS", "Executing Manual Command")
+                    self.settingLabel("process", "MANUAL COMMAND")
+                    threading.Thread(target=UNOS.runningCommand, args=(manualCommand,)).start()
 
+                else:
+                    self.settingLabel("process", "INPUT ERROR")
+                    self.appendText("UNOS", "Command Cannot be Blank!")
+                    
             else:
-                ui.processLabel.setText("INPUT ERROR")
-                self.unosOutput.append(f"{unos_name}: Command Cannot be Blank!")
+                ui.appendText("BootLoader", "Not Connected to Internet!")
+                self.settingLabel("process", "OFFLINE")
 
         else:
-            ui.processLabel.setText("OFFLINE")
-            self.unosOutput.append("BootLoader: System is Currently Deativated!")
+            ui.settingLabel("process", "IDLE")
+            self.appendText("BootLoader", "System is Currently Deativated!")
             
     def appendText(self, system: str, text: str):
         if system == "UNOS":
             self.unosOutput.append(f"{unos_name}: {text}")
+            ui.unosOutput.verticalScrollBar().setValue(ui.unosOutput.verticalScrollBar().maximum())
             
         elif system == "BootLoader":
             self.unosOutput.append(f"BootLoader: {text}")
+            ui.unosOutput.verticalScrollBar().setValue(ui.unosOutput.verticalScrollBar().maximum())
             
         elif system == "SkyNET":
             self.unosOutput.append(f"SkyNET: {text}")
+            ui.unosOutput.verticalScrollBar().setValue(ui.unosOutput.verticalScrollBar().maximum())
             
         else:
             self.unosOutput.append(f"Atrinox: {text}")
+            ui.unosOutput.verticalScrollBar().setValue(ui.unosOutput.verticalScrollBar().maximum())
+            
+    def settingLabel(self, label: str, text: str):
+        if label == "status":
+            self.statusLabel.setText(text)
+            
+        elif label == "process":
+            self.processLabel.setText(text)
+            
+        else:
+            self.appendText("SkyNET", "Unknown UI Component")
 
 #Handles Voice Recognition to Running Commands
 class UNOS:
@@ -325,11 +348,11 @@ class UNOS:
                 self.mainProcess()
             
             except google.api_core.exceptions.OutOfRange:
-                ui.processLabel.setText("RECONNECTING API")
+                ui.settingLabel("process", "RECONNECTING API")
                 self.mainProcess()
                 
             except:
-                ui.processLabel.setText("ERROR DETECTED")
+                ui.settingLabel("process", "ERROR DETECTED")
                 ui.appendText("UNOS", "Error Found, Check Console")
                 self.mainProcess()
 
@@ -338,14 +361,14 @@ class UNOS:
 
     def mainProcess(self):
         while True:
-            ui.processLabel.setText("LISTENING")
+            ui.settingLabel("process", "LISTENING")
             unosActivated = self.RecognizeUNOS()
 
             if unosActivated == True:
-                ui.processLabel.setText("TRIGGERED")
+                ui.settingLabel("process", "TRIGGERED")
                 ui.appendText("UNOS", "Activated ( Reason: Triggered by a User )")
                 command = self.recognisingCommand()
-                unos.runningCommand(command)
+                UNOS.runningCommand(command)
 
             else:
                 ui.appendText("UNOS", f"Not Activated ( Reason: {activated} )")
@@ -416,11 +439,11 @@ class UNOS:
         return str(command)
 
     def runningCommand(command: str):
-        ui.processLabel.setText("EXECUTING COMMAND")
+        ui.settingLabel("process", "EXECUTING COMMAND")
         
         if command in EXIT_COMMANDS:
             ui.appendText("BootLoader", "Shutting Down System")
-            ui.processLabel.setText("SHUTTING DOWN")
+            ui.settingLabel("process", "SHUTTING DOWN")
             unos.speak("shutting down system")
             exit()
 
@@ -431,12 +454,12 @@ class UNOS:
                 searched_data = wikipedia.summary(search_subject, sentences=2)
                 ui.appendText("UNOS", "Data Collected")
                 ui.appendText("UNOS", searched_data)
-                ui.processLabel.setText("DATA COLLECTED")
+                ui.settingLabel("process", "DATA COLLECTED")
                 unos.speak(searched_data)
 
             except wikipedia.exceptions.WikipediaException:
                 ui.appendText("UNOS", "Article Not Found or Unable to Connect to Wikipedia API")
-                ui.processLabel.setText("404 NOT FOUND")
+                ui.settingLabel("process", "404 NOT FOUND")
                 unos.speak("article not found or unable to connect to wikipedia API")
 
             finally:
@@ -445,9 +468,9 @@ class UNOS:
         else:
             response = str(chatbot.get_response(command))
             ui.appendText("UNOS", response)
-            ui.processLabel.setText("RESPONDING")
+            ui.settingLabel("process", "RESPONDING")
             unos.speak(response)
-            ui.processLabel.setText("LISTENING")
+            ui.settingLabel("process", "LISTENING")
             ui.appendText("UNOS", "Command Finished")
 
         #Saying Speech
