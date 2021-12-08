@@ -6,6 +6,7 @@ import os
 import random
 import re
 import sys
+import threading
 import time
 import wave
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
@@ -266,11 +267,13 @@ class Interface(object):
             activated = True
             self.statusLabel.setText("ACTIVATED")
             self.unosOutput.append("BootLoader: System is Activated")
-            unos.main()
+            self.processLabel.setText("LISTENING")
+            threading.Thread(target=unos.main).start()
 
         else:
             activated = False
             self.statusLabel.setText("DEACTIVATED")
+            self.processLabel.setText("OFFLINE")
             self.unosOutput.append("BootLoader: System is Deactivated")
 
     def initConfig(self):
@@ -289,13 +292,29 @@ class Interface(object):
         if activated == True:
             if manualCommand != "":
                 self.unosOutput.append(f"{unos_name}: Executing Manual Command")
-                UNOS.runningCommand(manualCommand)
+                ui.processLabel.setText("MANUAL COMMAND")
+                threading.Thread(target=UNOS.runningCommand, args=(manualCommand,)).start()
 
             else:
+                ui.processLabel.setText("INPUT ERROR")
                 self.unosOutput.append(f"{unos_name}: Command Cannot be Blank!")
 
         else:
+            ui.processLabel.setText("OFFLINE")
             self.unosOutput.append("BootLoader: System is Currently Deativated!")
+            
+    def appendText(self, system: str, text: str):
+        if system == "UNOS":
+            self.unosOutput.append(f"{unos_name}: {text}")
+            
+        elif system == "BootLoader":
+            self.unosOutput.append(f"BootLoader: {text}")
+            
+        elif system == "SkyNET":
+            self.unosOutput.append(f"SkyNET: {text}")
+            
+        else:
+            self.unosOutput.append(f"Atrinox: {text}")
 
 #Handles Voice Recognition to Running Commands
 class UNOS:
@@ -305,22 +324,30 @@ class UNOS:
                 self.mainProcess()
             
             except google.api_core.exceptions.OutOfRange:
+                ui.processLabel.setText("RECONNECTING API")
+                self.mainProcess()
+                
+            except:
+                ui.processLabel.setText("ERROR DETECTED")
+                ui.appendText("UNOS", "Error Found, Check Console")
                 self.mainProcess()
 
             finally:
-                print(f"{unos_name}: System Ended Successfully")
+                print("BootLoader: System Ended Successfully")
 
     def mainProcess(self):
         while True:
+            ui.processLabel.setText("LISTENING")
             unosActivated = self.RecognizeUNOS()
 
             if unosActivated == True:
-                ui.unosOutput.append( f"{unos_name}: Activated ( Reason: Triggered by a User )")
+                ui.processLabel.setText("TRIGGERED")
+                ui.appendText("UNOS", "Activated ( Reason: Triggered by a User )")
                 command = self.recognisingCommand()
                 unos.runningCommand(command)
 
             else:
-                ui.unosOutput.append(f"{unos_name}: Not Activated ( Reason: {activated} )")
+                ui.appendText("UNOS", f"Not Activated ( Reason: {activated} )")
             
     def RecognizeUNOS(self):
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -381,16 +408,18 @@ class UNOS:
     def recognisingCommand(self):
         #Recognition of Voice Commands
         self.speak("Ready_Inquiry")
-        ui.unosOutput.append( f"{unos_name}: Command Input")
+        ui.appendText("UNOS", "Command Input")
         command = (self.RecognizeAudio())
-        ui.unosOutput.append( f"{unos_name}: Command Detected ( " + command + " )")
+        ui.appendText("UNOS", f"Command Detected ( {command} )")
 
-        return command
+        return str(command)
 
     def runningCommand(command: str):
+        ui.processLabel.setText("EXECUTING COMMAND")
+        
         if command in EXIT_COMMANDS:
-            ui.unosOutput.append("BootLoader: Shutting Down System")
-            time.sleep(0.2)
+            ui.appendText("BootLoader", "Shutting Down System")
+            ui.processLabel.setText("SHUTTING DOWN")
             unos.speak("shutting down system")
             exit()
 
@@ -399,25 +428,26 @@ class UNOS:
                 #remove the word "search" and use wikipedia to search
                 search_subject = command.replace("search", "")
                 searched_data = wikipedia.summary(search_subject, sentences=2)
-                ui.unosOutput.append(f"{unos_name}: Data Collected")
-                ui.unosOutput.append(searched_data)
-                time.sleep(0.2)
+                ui.appendText("UNOS", "Data Collected")
+                ui.appendText("UNOS", searched_data)
+                ui.processLabel.setText("DATA COLLECTED")
                 unos.speak(searched_data)
 
             except wikipedia.exceptions.WikipediaException:
-                ui.unosOutput.append(f"{unos_name}: Article Not Found or Unable to Connect to Wikipedia API")
-                time.sleep(0.2)
+                ui.appendText("UNOS", "Article Not Found or Unable to Connect to Wikipedia API")
+                ui.processLabel.setText("404 NOT FOUND")
                 unos.speak("article not found or unable to connect to wikipedia API")
 
             finally:
-                ui.unosOutput.append( f"{unos_name}: Command Finished")
+                ui.appendText("UNOS", "Command Finished")
 
         else:
             response = str(chatbot.get_response(command))
-            ui.unosOutput.append( f"{unos_name}: " + response)
-            time.sleep(0.2)
+            ui.appendText("UNOS", response)
+            ui.processLabel.setText("RESPONDING")
             unos.speak(response)
-            ui.unosOutput.append( f"{unos_name}: Command Finished")
+            ui.processLabel.setText("LISTENING")
+            ui.appendText("UNOS", "Command Finished")
 
         #Saying Speech
     def speak(self, audio: str):
