@@ -21,18 +21,20 @@ bot = ChatBot("UNOS",
         storage_adapter="chatterbot.storage.SQLStorageAdapter",
         logic_adapters=[
             {
-                "import_path": "chatterbot.logic.MathematicalEvaluation"
-            },
-            {
                 "import_path": "chatterbot.logic.BestMatch", 
                 "statement_comparison_function": SpacySimilarity, 
                 "response_selection_method": get_first_response,
                 'maximum_similarity_threshold': 0.90,
                 'default_response': "I'm sorry, but I don't understand the question"
+            },
+            {
+                "import_path": "chatterbot.logic.MathematicalEvaluation"
             }
         ]
     )
 
+#trainer = ChatterBotCorpusTrainer(bot)
+#trainer.train("chatterbot.corpus.english")
 
 def get_feedback():
 

@@ -1,11 +1,11 @@
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_first_response
-from chatterbot.logic import BestMatch
 from chatterbot.comparisons import LevenshteinDistance
-from chatterbot.logic import LogicAdapter
+from chatterbot.logic import BestMatch, LogicAdapter
+from chatterbot.response_selection import get_first_response
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
-chatbot = ChatBot("UNOS", 
+chatbot = ChatBot("UNOS",
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
     logic_adapters=[
         {
             "import_path": "chatterbot.logic.BestMatch", 

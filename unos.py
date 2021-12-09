@@ -79,17 +79,14 @@ class BootLoader:
             storage_adapter="chatterbot.storage.SQLStorageAdapter",
             logic_adapters=[
                 {
-                    "import_path": "chatterbot.logic.MathematicalEvaluation"
-                },
-                {
-                    "import_path": "chatterbot.logic.TimeLogicAdapter"
-                },
-                {
                     "import_path": "chatterbot.logic.BestMatch", 
                     "statement_comparison_function": LevenshteinDistance, 
                     "response_selection_method": get_first_response,
                     'maximum_similarity_threshold': 0.65,
                     'default_response': "I'm sorry, but I don't understand the question"
+                },
+                                {
+                    "import_path": "chatterbot.logic.MathematicalEvaluation"
                 }
             ]
         )
@@ -260,6 +257,9 @@ class Interface(object):
         self.preferencesButton.setText(_translate("UNOSwindow", "Preferences"))
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
+        
+    def exitHandler(self):
+        exit()
 
     def changeState(self):
         global activated
@@ -358,6 +358,7 @@ class UNOS:
 
             finally:
                 print("BootLoader: System Ended Successfully")
+                sys.exit()
 
     def mainProcess(self):
         while True:
@@ -589,6 +590,7 @@ app = QtWidgets.QApplication(sys.argv)
 UNOSwindow = QtWidgets.QMainWindow()
 ui = Interface()
 ui.setupUi(UNOSwindow)
+app.aboutToQuit.connect(ui.exitHandler)
 UNOSwindow.show()
 
 ui.initConfig()
