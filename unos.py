@@ -1,7 +1,10 @@
 #Modules Importer
 from __future__ import division
 
+import datetime
 import json
+import logging
+import multiprocessing
 import os
 import random
 import re
@@ -9,6 +12,7 @@ import sys
 import threading
 import time
 import wave
+from datetime import datetime
 from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
 
 import google.cloud
@@ -33,6 +37,13 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 #Main Configurations
 global activated
 activated = False
+
+#Logging Config
+logging.basicConfig(filename="unos-latest.log",
+                    filemode='a',
+                    format='%(asctime)s %(levelname)-8s %(message)s',
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    level=logging.DEBUG)
 
 #Handles Startup and Loading Configs
 class BootLoader:
@@ -90,6 +101,7 @@ class BootLoader:
                 }
             ]
         )
+        
 
     def BootVariables(self):
         #Setting Config Variables Read from Configuation Files
@@ -258,18 +270,17 @@ class Interface(object):
         self.aboutButton.setText(_translate("UNOSwindow", "About UNOS"))
         self.troubleshootingButton.setText(_translate("UNOSwindow", "Troubleshooting"))
         
-    def exitHandler(self):
-        exit()
-
     def changeState(self):
         global activated
+        global mainThread
+        mainThread = threading.Thread(target=unos.main)
         
         if self.activateButton.isChecked():
             activated = True
             self.statusLabel.setText("ACTIVATED")
             self.unosOutput.append("BootLoader: System is Activated")
             self.processLabel.setText("LISTENING")
-            threading.Thread(target=unos.main).start()
+            mainThread.start()
 
         else:
             activated = False
@@ -289,17 +300,21 @@ class Interface(object):
 
     def manualCommandSubmit(self):
         global manualCommand
+        global runningThread
         manualCommand = str(self.manualInput.text())
         connected = boot.InternetCheck()
+        runningThread = threading.Thread(target=UNOS.runningCommand, args=(manualCommand,))
         
         if activated == True:
             if connected == True:
                 ui.appendText("BootLoader", "Connected to Internet!")
                 
                 if manualCommand != "":
+                    
                     self.appendText("UNOS", "Executing Manual Command")
                     self.settingLabel("process", "MANUAL COMMAND")
-                    threading.Thread(target=UNOS.runningCommand, args=(manualCommand,)).start()
+                    self.manualInput.setText("")
+                    runningThread.start()
 
                 else:
                     self.settingLabel("process", "INPUT ERROR")
@@ -339,6 +354,13 @@ class Interface(object):
             
         else:
             self.appendText("SkyNET", "Unknown UI Component")
+            
+    def exitHandler(self):
+        global activated
+        activated = False
+        runningThread.stop()
+        mainThread.stop()
+        sys.exit(0)
 
 #Handles Voice Recognition to Running Commands
 class UNOS:
@@ -358,7 +380,7 @@ class UNOS:
 
             finally:
                 print("BootLoader: System Ended Successfully")
-                sys.exit()
+                break
 
     def mainProcess(self):
         while True:
@@ -580,18 +602,32 @@ class MicrophoneStream(object):
             yield b"".join(data)
 
 #Init Variables
-boot = BootLoader()
-boot.BootConfig()
-boot.BootVariables()
+try:
+    boot = BootLoader()
+    boot.BootConfig()
+    boot.BootVariables()
+    
+except:
+    logging.exception("Error Loading Config and Setting Variables!")
+    
+finally:
+    logging.info("Successfully Loaded Config and Setting Variables!")
 
 #Window Startup (Temp)
-unos = UNOS()
-app = QtWidgets.QApplication(sys.argv)
-UNOSwindow = QtWidgets.QMainWindow()
-ui = Interface()
-ui.setupUi(UNOSwindow)
-app.aboutToQuit.connect(ui.exitHandler)
-UNOSwindow.show()
+try:
+    unos = UNOS()
+    app = QtWidgets.QApplication(sys.argv)
+    UNOSwindow = QtWidgets.QMainWindow()
+    ui = Interface()
+    ui.setupUi(UNOSwindow)
+    app.aboutToQuit.connect(ui.exitHandler)
+    UNOSwindow.show()
 
-ui.initConfig()
-sys.exit(app.exec_())
+    ui.initConfig()
+    sys.exit(app.exec_())
+    
+except:
+    logging.exception("Error Loading Interface and Setting Values!")
+    
+finally:
+    logging.info("Successfully Loaded Interface and Setting Values!")

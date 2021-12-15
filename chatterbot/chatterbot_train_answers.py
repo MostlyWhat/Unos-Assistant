@@ -33,8 +33,8 @@ bot = ChatBot("UNOS",
         ]
     )
 
-#trainer = ChatterBotCorpusTrainer(bot)
-#trainer.train("chatterbot.corpus.english")
+trainer = ChatterBotCorpusTrainer(bot)
+trainer.train("chatterbot.corpus.english")
 
 def get_feedback():
 
