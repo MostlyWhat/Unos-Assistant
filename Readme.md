@@ -1,4 +1,5 @@
 # Unos-Assistant
+[![issues](https://img.shields.io/github/issues/mostlywhat/unos-assistant?style=for-the-badge)](https://github.com/MostlyWhat/Unos-Assistant/issues)
 [![forthebadge](https://forthebadge.com/images/badges/0-percent-optimized.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-by-developers.svg)](https://forthebadge.com)\
