@@ -10,7 +10,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/MostlyWhat/Unos-Assistant">
-    <img src="Images/logo.png" alt="Logo" width="80" height="80">
+    <img src="Images/logo.png" alt="Logo" width="150" height="150">
   </a>
 
 <h3 align="center">Unos Assistant Framework System</h3>
