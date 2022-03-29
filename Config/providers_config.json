@@ -1,0 +1,6 @@
+{
+    "recognition": "deepspeech",
+    "tts": "google_wavenet",
+    "asm": "MCAS",
+    "data": "wikipedia"
+}

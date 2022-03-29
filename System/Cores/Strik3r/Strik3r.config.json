@@ -1,0 +1,14 @@
+{
+    "info": [
+        {
+            "name": "Strik3r",
+            "version": "1.0",
+            "author": "MostlyWhat"
+        }
+    ],
+    "specification": [
+        {
+            "framework": "Tensorflow"
+        }
+    ]
+}

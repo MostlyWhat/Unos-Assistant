@@ -1,0 +1,9 @@
+{
+    "system_modules": {
+        "location": "System.Analysis",
+        "modules": [
+            "SCAS"
+        ],
+        "fallback_module": "MCAS"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "info": [
+        {
+            "name": "SkyNET",
+            "version": "1.0",
+            "author": "MostlyWhat"
+        }
+    ],
+    "specification": [
+        {
+            "framework": "Tensorflow"
+        }
+    ]
+}
