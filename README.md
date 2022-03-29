@@ -1,55 +1,33 @@
 <div id="top"></div>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
+[![Apache License 2.0][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/MostlyWhat/Unos-Assistant">
+    <img src="Images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">Unos Assistant Framework System</h3>
 
   <p align="center">
-    project_description
+    Universal Not-Propietary Operations System or UNOS is an open-source artificial intelligence-powered system operator that is designed with expandability, transparency and adaptability in mind.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://unos.mostlywhat.cf/documentation"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://unos.mostlywhat.cf/demo">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/MostlyWhat/Unos-Assistant/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/MostlyWhat/Unos-Assistant/issues">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -77,94 +55,79 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+[![Product Name Screen Shot][product-screenshot]](https://unos.mostlywhat.cf)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 ### Built With
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+- [Python](https://www.python.org/)
+- [Tensorflow](https://www.tensorflow.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+To get started please follow the steps below. By installing the prerequisites and the installation steps, you will be able to use the framework.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Making sure to have install Python 3.7.5 or higher from [Python Foundation](https://www.python.org/downloads/).
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Read Terms and Conditions at [https://unos.mostlywhat.cf/terms-and-conditions](https://unos.mostlywhat.cf/terms-and-conditions))
 2. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/MostlyWhat/Unos-Assistant.git
    ```
-3. Install NPM packages
+3. Installing Dependencies using pip
    ```sh
-   npm install
+   pip3 install -r requirements.txt
    ```
-4. Enter your API in `config.js`
+4. Start the UNOS Assistant Framework System
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   python3 unos.py
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Ask UNOS any commands or even questions for it to attempt to answer. If you find any bugs or have any suggestions, please report them at [Issues](https:..github.com/MostlyWhat/Unos-Assistant/issues).
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](https://unos.mostlywhat.cf/documentation)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- CUSTOMISATIONS -->
 
+## Customisations
+
+You can always customise UNOS to your likings from responses to adaptors to control smart devices. Follow the documentation to learn more. You can also find more examples in the [Documentation](https://unos.mostlywhat.cf/documentation).
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ROADMAP -->
-## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+## Roadmap & Planned Updates
+
+Roadmaps and Planned Updates are published on the official website of UNOS Assistant Framework System. [https://unos.mostlywhat.cf/roadmap](https://unos.mostlywhat.cf/roadmap)
 
 See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -180,41 +143,36 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the Apache License 2.0. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
+
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Your Name - [@mostlywhat](https://twitter.com/mostlywhat) - admin@mostlywhat.cf
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/MostlyWhat/Unos-Assistant](https://github.com/MostlyWhat/Unos-Assistant)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
 
-* []()
-* []()
-* []()
+## Open-Source Technologies Used
+
+- Tensorflow Framework by Google
+- DeepSpeech Speech Recognition by Mozilla
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/MostlyWhat/Unos-Assistant.svg?style=for-the-badge
 [contributors-url]: https://github.com/MostlyWhat/Unos-Assistant/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/MostlyWhat/Unos-Assistant.svg?style=for-the-badge
@@ -225,6 +183,4 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [issues-url]: https://github.com/MostlyWhat/Unos-Assistant/issues
 [license-shield]: https://img.shields.io/github/license/MostlyWhat/Unos-Assistant.svg?style=for-the-badge
 [license-url]: https://github.com/MostlyWhat/Unos-Assistant/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: Images/demo.png
