@@ -1,33 +1,34 @@
 #Modules Importer
 from __future__ import division
-from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
-from pkg_resources import yield_lines
-import pyttsx3
-import sys
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import *
-import time
+
+import json
 import os
 import random
-import json
 import re
 import sys
-from google.cloud import speech
-from google.cloud import texttospeech as tts
-import pyaudio
-from six.moves import queue
-import re
+import time
 import wave
-from audioplayer import AudioPlayer
-from google.cloud import texttospeech
-from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_first_response
-from chatterbot.logic import BestMatch
-from chatterbot.comparisons import LevenshteinDistance
-from chatterbot.logic import LogicAdapter
-import wikipedia
+from ssl import ALERT_DESCRIPTION_UNKNOWN_PSK_IDENTITY
+
+import pyaudio
+import pyttsx3
 import requests
+import wikipedia
+from audioplayer import AudioPlayer
+from google.cloud import speech
+from google.cloud import texttospeech
+from google.cloud import texttospeech as tts
+from pkg_resources import yield_lines
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import *
+from six.moves import queue
+
+from chatterbot import ChatBot
+from chatterbot.comparisons import LevenshteinDistance
+from chatterbot.logic import BestMatch, LogicAdapter
+from chatterbot.response_selection import get_first_response
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
 
 class BootLoader:
     #Verification Before Launch

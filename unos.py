@@ -358,8 +358,8 @@ class Interface(object):
     def exitHandler(self):
         global activated
         activated = False
-        runningThread.stop()
-        mainThread.stop()
+        runningThread.join()
+        mainThread.join()
         sys.exit(0)
 
 #Handles Voice Recognition to Running Commands
