@@ -1,4 +1,5 @@
 import json
+import os
 import pickle
 import random
 
@@ -7,6 +8,9 @@ import numpy as np
 from nltk.stem import WordNetLemmatizer
 from System.Modules.BootLoader import Config
 from tensorflow.keras.models import load_model
+
+# Disable Tensorflow warning
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 
 # Setting Up Configurations
 config = Config()

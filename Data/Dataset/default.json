@@ -3,9 +3,8 @@
         {
             "tag": "greeting",
             "patterns": [
-                "Sup Nerd",
                 "Hi",
-                "Hi there",
+                "How are you",
                 "Is anyone there?",
                 "Hello",
                 "Good day"
