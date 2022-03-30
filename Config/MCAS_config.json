@@ -1,0 +1,7 @@
+{
+    "Cores": {
+        "core_1": "SkyNET\\SkyNET.config.json",
+        "core_2": "Strik3r\\Strik3r.config.json",
+        "core_3": "Steve\\Steve.config.json"
+    }
+}

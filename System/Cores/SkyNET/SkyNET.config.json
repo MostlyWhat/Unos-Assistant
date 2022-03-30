@@ -1,14 +1,32 @@
 {
-    "info": [
-        {
-            "name": "SkyNET",
-            "version": "1.0",
-            "author": "MostlyWhat"
-        }
-    ],
+    "info": {
+        "name": "SkyNET",
+        "description": "",
+        "version": "1.0",
+        "author": "MostlyWhat",
+        "filename": "skynet_model.h5"
+    },
     "specification": [
         {
-            "framework": "Tensorflow"
+            "framework": "Tensorflow",
+            "config": {
+                "input_shape": [
+                    1,
+                    28,
+                    28,
+                    1
+                ],
+                "output_shape": [
+                    10
+                ],
+                "optimizer": "Adam",
+                "loss": "categorical_crossentropy",
+                "metrics": [
+                    "accuracy"
+                ],
+                "epochs": 10,
+                "batch_size": 128
+            }
         }
     ]
 }

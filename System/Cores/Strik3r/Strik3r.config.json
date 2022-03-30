@@ -1,11 +1,10 @@
 {
-    "info": [
-        {
-            "name": "Strik3r",
-            "version": "1.0",
-            "author": "MostlyWhat"
-        }
-    ],
+    "info": {
+        "name": "Strik3r",
+        "version": "1.0",
+        "author": "MostlyWhat",
+        "filename": "strik3r_model.h5"
+    },
     "specification": [
         {
             "framework": "Tensorflow"

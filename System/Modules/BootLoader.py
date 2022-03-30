@@ -40,3 +40,35 @@ class Config:
 
             self.username = user_data["username"]
             self.date_of_birth = user_data["date_of_birth"]
+
+        # Libaries Configuration
+        with open(f'{current_directory}\\Config\\libraries_config.json') as libraries_config_file:
+            libraries_data = json.load(libraries_config_file)
+
+            self.classes_lib = libraries_data["libraries"]["classes"]
+            self.words_lib = libraries_data["libraries"]["words"]
+            
+            self.default_dataset = libraries_data["dataset"]["default"]
+            
+        # MCAS Configuration
+        with open(f'{current_directory}\\Config\\MCAS_config.json') as MCAS_config_file:
+            MCAS_data = json.load(MCAS_config_file)
+
+            self.MCAS_core1_location = MCAS_data["Cores"]["core_1"]
+            self.MCAS_core2_location = MCAS_data["Cores"]["core_2"]
+            self.MCAS_core3_location = MCAS_data["Cores"]["core_3"]
+
+            with open(f'System\\Cores\\{self.MCAS_core1_location}') as core1_file:
+                MCAS_core1_data = json.load(core1_file)
+                
+                self.MCAS_core1 = f'System\\Cores\\{MCAS_core1_data["info"]["name"]}\\{MCAS_core1_data["info"]["filename"]}'
+                
+            with open(f'System\\Cores\\{self.MCAS_core2_location}') as core2_file:
+                MCAS_core2_data = json.load(core2_file)
+                
+                self.MCAS_core2 = f'System\\Cores\\{MCAS_core2_data["info"]["name"]}\\{MCAS_core2_data["info"]["filename"]}'
+                
+            with open(f'System\\Cores\\{self.MCAS_core3_location}') as core3_file:
+                MCAS_core3_data = json.load(core3_file)
+                
+                self.MCAS_core3 = f'System\\Cores\\{MCAS_core3_data["info"]["name"]}\\{MCAS_core3_data["info"]["filename"]}'
