@@ -1,15 +1,14 @@
 {
     "config": {
-        "unos_config":
-        {
-            "name": "UNOS", 
-            "version": "0.0.3",
+        "unos_config": {
+            "name": "UNOS",
+            "version": "0.0.4",
             "stability": "Somewhat Stable",
-            "codename": "HAL 9000",
-            "previous_interation": "SkyNET"
+            "codename": "Mendicant Bias",
+            "previous_interation": "SkyNET",
+            "patch_notes": "Rewriting AI and Speech to Text Engine"
         },
-        "user_config":
-        {
+        "user_config": {
             "username": "Anonymous"
         }
     }

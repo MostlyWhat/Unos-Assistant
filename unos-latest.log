@@ -175,3 +175,50 @@
 2021-12-15 12:21:16 INFO     Not processing the statement using MathematicalEvaluation
 2021-12-15 12:21:16 INFO     Adding "do you like potatoes" as a response to "eee"
 2021-12-15 12:21:16 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:12:25 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:12:29 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:12:30 INFO     Successfully Loaded Config and Setting Variables!
+2021-12-15 13:12:36 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2021-12-15 13:12:37 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2021-12-15 13:12:37 INFO     Beginning search for close text match
+2021-12-15 13:12:37 INFO     Processing search results
+2021-12-15 13:12:37 INFO     Using "fjfj" as a close match to "fjfj" with a confidence of 0
+2021-12-15 13:12:37 INFO     No responses found. Generating alternate response list.
+2021-12-15 13:12:37 INFO     No known response to the input was found. Selecting a random response.
+2021-12-15 13:12:37 INFO     BestMatch selected "I'm sorry, but I don't understand the question" as a response with a confidence of 0
+2021-12-15 13:12:37 INFO     Not processing the statement using MathematicalEvaluation
+2021-12-15 13:12:37 INFO     Adding "fjfj" as a response to "who is john lancett"
+2021-12-15 13:12:37 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:13:29 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:13:34 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:13:35 INFO     Successfully Loaded Config and Setting Variables!
+2021-12-15 13:13:45 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2021-12-15 13:13:46 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2021-12-15 13:13:47 INFO     Beginning search for close text match
+2021-12-15 13:13:47 INFO     Processing search results
+2021-12-15 13:13:47 INFO     Similar text found: Hello 1.0
+2021-12-15 13:13:47 INFO     Using "Hello" as a close match to "hello" with a confidence of 1.0
+2021-12-15 13:13:47 INFO     Selecting response from 3 optimal responses.
+2021-12-15 13:13:47 INFO     Selecting first response from list of 3 options.
+2021-12-15 13:13:47 INFO     Response selected. Using "Hi"
+2021-12-15 13:13:47 INFO     BestMatch selected "Hi" as a response with a confidence of 1.0
+2021-12-15 13:13:47 INFO     Not processing the statement using MathematicalEvaluation
+2021-12-15 13:13:47 INFO     Adding "hello" as a response to "fjfj"
+2021-12-15 13:13:47 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:14:35 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:14:44 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:14:47 INFO     Successfully Loaded Config and Setting Variables!
+2021-12-15 13:25:51 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:25:54 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
+2021-12-15 13:25:56 INFO     Successfully Loaded Config and Setting Variables!
+2021-12-15 13:26:29 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2021-12-15 13:26:30 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2021-12-15 13:26:30 INFO     Beginning search for close text match
+2021-12-15 13:26:30 INFO     Processing search results
+2021-12-15 13:26:30 INFO     Using "jtjthththththththththhthththththththththththhthththththtjtit" as a close match to "jtjthththththththththhthththththththththththhthththththtjtit" with a confidence of 0
+2021-12-15 13:26:30 INFO     No responses found. Generating alternate response list.
+2021-12-15 13:26:30 INFO     No known response to the input was found. Selecting a random response.
+2021-12-15 13:26:30 INFO     BestMatch selected "I'm sorry, but I don't understand the question" as a response with a confidence of 0
+2021-12-15 13:26:30 INFO     Not processing the statement using MathematicalEvaluation
+2021-12-15 13:26:30 INFO     Adding "jtjthththththththththhthththththththththththhthththththtjtit" as a response to "hello"
+2021-12-15 13:26:30 DEBUG    Checking D:\Projects\Unos-Assistant\credentials.json for explicit credentials as part of auth process...
