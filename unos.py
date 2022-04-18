@@ -25,7 +25,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 splash_text.show()
 print(" ")
 # Insert Checking for Internet Etc
-print("[ UNOS System Pre-Checks ] Network Connection is Successful")
+print("[ UNOS System Pre-Checks ] Network Connection is Successful (Placeholder)")
 print(" ")
 print("[ UNOS Assistant Framework ] System is Ready for Inquiry and Beyond")
 print(" ")

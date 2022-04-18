@@ -7,7 +7,7 @@ class Plugin:
     # Define static method, so no self parameter
     def analyze(self, query):
         # Some prints to identify which plugin is been used
-
+        
         return False
 
     def process(self, query):

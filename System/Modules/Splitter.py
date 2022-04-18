@@ -1,6 +1,10 @@
 import importlib
 from unicodedata import category
 
+from System.Modules.BootLoader import Config
+
+# Setting up System Modules
+config = Config()
 
 class Splitter():
     def __init__(self, fallback_module: str, plugins: list = []):
@@ -27,17 +31,19 @@ class Splitter():
             if responses == True:
                 adaptors.append(plugin.name)
 
-        if len(adaptors) == 0:
+        if len(adaptors) > 1:
+            print("Multiple adaptors found, please select one:")
+            for i, adaptor in enumerate(adaptors):
+                print(f"{i}: {adaptor}")
+
+            choice = int(input("Choice: "))
+            adaptors = [adaptors[choice]]
+            
+        else:
             adaptors.append(f"System.Analysis.{self.fallback_module}")
 
-        elif len(adaptors) > 1:
-            self.context_request(query, adaptors)
 
         selected_adaptor = importlib.import_module(
             str(adaptors[0]), ".").Plugin()
 
         return selected_adaptor.process(query)
-
-    def context_request(self, query: str, adaptors: str):
-        pass
-        # Returns 1 Adaptor

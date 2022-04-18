@@ -2,7 +2,8 @@
     "system_modules": {
         "location": "System.Analysis",
         "modules": [
-            "SCAS"
+            "SCAS",
+            "Time"
         ],
         "fallback_module": "MCAS"
     }
