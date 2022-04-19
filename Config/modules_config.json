@@ -3,7 +3,8 @@
         "location": "System.Analysis",
         "modules": [
             "SCAS",
-            "Time"
+            "Time",
+            "Weather"
         ],
         "fallback_module": "MCASv2"
     }

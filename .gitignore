@@ -4,3 +4,4 @@ __pycache__/
 *$py.class
 *.pyc
 *.pyo
+credentials_config.json

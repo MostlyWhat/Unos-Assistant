@@ -21,7 +21,7 @@ intents = json.loads(open(f"{config.default_dataset}").read())
 words = pickle.load(open(f'{config.words_lib}', 'rb'))
 classes = pickle.load(open(f'{config.classes_lib}', 'rb'))
 
-# Fallback Plugin
+# Fallback Plugin for Splitter System
 class Plugin:
     def __init__(self):
         self.name = "System.Analysis.MCASv2"

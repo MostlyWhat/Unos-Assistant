@@ -47,9 +47,9 @@ class Config:
 
             self.classes_lib = libraries_data["libraries"]["classes"]
             self.words_lib = libraries_data["libraries"]["words"]
-            
+
             self.default_dataset = libraries_data["dataset"]["default"]
-            
+
         # MCAS Configuration
         with open(f'{current_directory}\\Config\\MCAS_config.json') as MCAS_config_file:
             MCAS_data = json.load(MCAS_config_file)
@@ -60,15 +60,25 @@ class Config:
 
             with open(f'System\\Cores\\{self.MCAS_core1_location}') as core1_file:
                 MCAS_core1_data = json.load(core1_file)
-                
+
                 self.MCAS_core1 = f'System\\Cores\\{MCAS_core1_data["info"]["name"]}\\{MCAS_core1_data["info"]["filename"]}'
-                
+
             with open(f'System\\Cores\\{self.MCAS_core2_location}') as core2_file:
                 MCAS_core2_data = json.load(core2_file)
-                
+
                 self.MCAS_core2 = f'System\\Cores\\{MCAS_core2_data["info"]["name"]}\\{MCAS_core2_data["info"]["filename"]}'
-                
+
             with open(f'System\\Cores\\{self.MCAS_core3_location}') as core3_file:
                 MCAS_core3_data = json.load(core3_file)
-                
+
                 self.MCAS_core3 = f'System\\Cores\\{MCAS_core3_data["info"]["name"]}\\{MCAS_core3_data["info"]["filename"]}'
+
+        # Credentials Configuration
+        with open(f'{current_directory}\\Config\\credentials_config.json') as credentials_config_file:
+            credentials_data = json.load(credentials_config_file)
+
+            # OpenWeatherMap Api
+            self.openweathermap_api = credentials_data["credentials"]["openweathermap"]["api_key"]
+            self.openweathermap_city = credentials_data["credentials"]["openweathermap"]["city"]
+            self.openweathermap_country = credentials_data["credentials"]["openweathermap"]["country"]
+            self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]

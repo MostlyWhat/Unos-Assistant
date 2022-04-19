@@ -9,7 +9,6 @@ class Plugin:
         # Contexts that this plugin can handle
         self.contexts = ["time", "clock", "watch", "alarm"]
 
-    # Define static method, so no self parameter
     def analyze(self, query):
         if any(context in query for context in self.contexts):
             return True
