@@ -5,6 +5,6 @@
             "SCAS",
             "Time"
         ],
-        "fallback_module": "MCAS"
+        "fallback_module": "MCASv2"
     }
 }
