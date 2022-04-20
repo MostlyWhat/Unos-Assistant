@@ -1,11 +1,17 @@
+import os
+from pathlib import Path
+
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 from System.Modules.Splitter import Splitter
 
+# Module Information
+# Module Name: System.Modules.Interface
+# Module Purpose: To Provide the Interface for the UNOS Assistant Framework
+
 # Setting Up Modules
 config = Config()
-crisis_handler = Crisis()
-
+crisis = Crisis()
 
 modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
@@ -21,38 +27,29 @@ class Interface():
 
     def start(self):
         if self.launch_config == "cli":
-            crisis_handler.log(
-                "Interface",
-                "Loading Command Line Interface")
             cli.main(self.username, self.unos_name)
 
         elif self.launch_config == "gui":
-            crisis_handler.log(
-                "Interface",
-                "Loading Graphical User Interface")
             gui.main(self.username, self.unos_name)
 
         elif self.launch_config == "web":
-            crisis_handler.log(
-                "Interface",
-                "Loading Web Interface and Server")
             web.main(self.username, self.unos_name)
 
         else:
-            crisis_handler.warning(
-                "Interface: Unknown Interface Configuration")
-            crisis_handler.log("Interface > Defaulting to CLI")
             cli.main(self.username, self.unos_name)
 
 
 class cli():
     def main(username: str, unos_name: str):
         try:
+            print(" ")
             query = str(input(f"{username}@{unos_name}: "))
-            print(f"UNOS: {splitter.analyze(query)}")
+            print(" ")
+            print(f"[ {unos_name.upper()} ] {splitter.analyze(query)}")
 
         except Exception as e:
-            print(f"Interface > An Error has occured: {e}")
+            crisis.error(
+                "UNOS Assistant Framework", f"An Unknown Error has occurred: {e}")
 
 
 class gui():

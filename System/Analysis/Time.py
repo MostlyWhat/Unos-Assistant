@@ -10,11 +10,7 @@ class Plugin:
         self.contexts = ["time", "clock", "watch", "alarm"]
 
     def analyze(self, query):
-        if any(context in query for context in self.contexts):
-            return True
-
-        else:
-            return False
+        return any((context in query for context in self.contexts))
 
     def process(self, query):
         prefix = ["The time is ", "The current time is ", "Currently it is "]

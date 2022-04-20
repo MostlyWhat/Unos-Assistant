@@ -15,6 +15,7 @@ class Config:
 
             self.launch_mode = launch_data["launch_mode"]
             self.voice_recognition = launch_data["voice_recognition"]
+            self.dev_mode = launch_data["dev_mode"]
 
         # UNOS Configuration
         with open(f'{current_directory}\\Config\\unos_config.json') as unos_config_file:
@@ -62,16 +63,19 @@ class Config:
                 MCAS_core1_data = json.load(core1_file)
 
                 self.MCAS_core1 = f'System\\Cores\\{MCAS_core1_data["info"]["name"]}\\{MCAS_core1_data["info"]["filename"]}'
+                self.MCAS_core1_name = MCAS_core1_data["info"]["name"]
 
             with open(f'System\\Cores\\{self.MCAS_core2_location}') as core2_file:
                 MCAS_core2_data = json.load(core2_file)
 
                 self.MCAS_core2 = f'System\\Cores\\{MCAS_core2_data["info"]["name"]}\\{MCAS_core2_data["info"]["filename"]}'
+                self.MCAS_core2_name = MCAS_core2_data["info"]["name"]
 
             with open(f'System\\Cores\\{self.MCAS_core3_location}') as core3_file:
                 MCAS_core3_data = json.load(core3_file)
 
                 self.MCAS_core3 = f'System\\Cores\\{MCAS_core3_data["info"]["name"]}\\{MCAS_core3_data["info"]["filename"]}'
+                self.MCAS_core3_name = MCAS_core3_data["info"]["name"]
 
         # Credentials Configuration
         with open(f'{current_directory}\\Config\\credentials_config.json') as credentials_config_file:
@@ -82,3 +86,5 @@ class Config:
             self.openweathermap_city = credentials_data["credentials"]["openweathermap"]["city"]
             self.openweathermap_country = credentials_data["credentials"]["openweathermap"]["country"]
             self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]
+            self.openweathermap_lat = credentials_data["credentials"]["openweathermap"]["lat"]
+            self.openweathermap_lon = credentials_data["credentials"]["openweathermap"]["lon"]

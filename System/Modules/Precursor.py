@@ -7,7 +7,7 @@ from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 
 # Setting up Modules
-crisis_handler = Crisis()
+crisis = Crisis()
 config = Config()
 
 
@@ -19,27 +19,15 @@ class Boot():
 
     def show(self):
         if self.launch_config == "cli":
-            crisis_handler.log(
-                "Interface",
-                "Loading Command Line Interface")
             self.cli(self.username, self.unos_name)
 
         elif self.launch_config == "gui":
-            crisis_handler.log(
-                "Interface",
-                "Loading Graphical User Interface")
             self.gui(self.username, self.unos_name)
 
         elif self.launch_config == "web":
-            crisis_handler.log(
-                "Interface",
-                "Loading Web Interface and Server")
             self.web(self.username, self.unos_name)
 
         else:
-            crisis_handler.warning(
-                "Interface: Unknown Interface Configuration")
-            crisis_handler.log("Interface > Defaulting to CLI")
             self.cli(self.username, self.unos_name)
 
     def cli(self, username: str, unos_name: str):
@@ -68,27 +56,15 @@ class Splash():
 
     def show(self):
         if self.launch_config == "cli":
-            crisis_handler.log(
-                "Interface",
-                "Loading Command Line Interface")
             self.cli()
 
         elif self.launch_config == "gui":
-            crisis_handler.log(
-                "Interface",
-                "Loading Graphical User Interface")
             self.gui()
 
         elif self.launch_config == "web":
-            crisis_handler.log(
-                "Interface",
-                "Loading Web Interface and Server")
             self.web()
 
         else:
-            crisis_handler.warning(
-                "Interface: Unknown Interface Configuration")
-            crisis_handler.log("Interface > Defaulting to CLI")
             self.cli()
 
     def cli(self):
@@ -102,8 +78,10 @@ class Splash():
 
         print("\n")
 
-        startup_lines = ["[ UNOS Assistant Framework ] Loading Configurations", " ", f"Assistant Name: {config.unos_name}", f"Assistant Version: {config.unos_version}",
-                         f"Assistant Codename: {config.unos_codename}", f"Assistant Stability: {config.unos_stability}", f"Previous Interation: {config.unos_previous_interation}"]
+        crisis.log("UNOS Assistant Framework", "Loading Configurations")
+
+        startup_lines = [" ", f"[\tAssistant Name\t\t] {config.unos_name}", f"[\tAssistant Version\t] {config.unos_version}",
+                         f"[\tAssistant Codename\t] {config.unos_codename}", f"[\tAssistant Stability\t] {config.unos_stability}", f"[\tPrevious Interation\t] {config.unos_previous_interation}"]
 
         for line in startup_lines:
             print(line, end="\n")
@@ -122,27 +100,15 @@ class Exit():
 
     def show(self):
         if self.launch_config == "cli":
-            crisis_handler.log(
-                "Interface",
-                "Loading Command Line Interface")
             self.cli()
 
         elif self.launch_config == "gui":
-            crisis_handler.log(
-                "Interface",
-                "Loading Graphical User Interface")
             self.gui()
 
         elif self.launch_config == "web":
-            crisis_handler.log(
-                "Interface",
-                "Loading Web Interface and Server")
             self.web()
 
         else:
-            crisis_handler.warning(
-                "Interface: Unknown Interface Configuration")
-            crisis_handler.log("Interface > Defaulting to CLI")
             self.cli()
 
     def cli(self):

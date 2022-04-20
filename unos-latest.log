@@ -1,0 +1,92 @@
+2022-04-20 13:22:55 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:22:56 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 13:22:56 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 13:23:02 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 13:23:03 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 13:23:03 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 13:23:04 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 13:23:04 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 13:23:04 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 13:23:37 DEBUG    Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2022-04-20 13:23:37 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:23:37 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:23:37 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:23:37 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:23:40 DEBUG    Creating converter from 3 to 5
+2022-04-20 13:27:14 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
+2022-04-20 13:37:08 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:37:09 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 13:37:09 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 13:37:15 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 13:37:15 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 13:37:15 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 13:37:17 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 13:37:17 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 13:37:17 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 13:38:21 DEBUG    Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2022-04-20 13:38:22 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:38:22 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:38:22 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:38:22 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:38:29 DEBUG    Creating converter from 3 to 5
+2022-04-20 13:38:31 INFO     [ MCAS ] Failed Accuracy Value of 50%
+2022-04-20 13:38:31 INFO     [ SkyNET ] Selected greeting with a confidence of 0.44818223
+2022-04-20 13:38:31 INFO     [ Strik3r ] Selected greeting with a confidence of 0.32372034
+2022-04-20 13:38:31 INFO     [ Steve ] Selected greeting with a confidence of 0.32372034
+2022-04-20 13:40:00 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
+2022-04-20 13:40:04 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:40:04 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 13:40:04 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 13:40:11 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 13:40:11 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 13:40:11 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 13:40:13 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 13:40:13 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 13:40:13 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 13:40:16 DEBUG    Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2022-04-20 13:40:16 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:40:16 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:40:16 DEBUG    Creating converter from 7 to 5
+2022-04-20 13:40:16 DEBUG    Creating converter from 5 to 7
+2022-04-20 13:40:19 DEBUG    Creating converter from 3 to 5
+2022-04-20 13:40:21 INFO     [ MCAS ] Failed Accuracy Value of 50%
+2022-04-20 13:40:21 INFO     [ SkyNET ] Selected greeting with a confidence of 0.44818223
+2022-04-20 13:40:21 INFO     [ Strik3r ] Selected greeting with a confidence of 0.32372034
+2022-04-20 13:40:21 INFO     [ Steve ] Selected greeting with a confidence of 0.32372034
+2022-04-20 13:40:31 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
+2022-04-20 13:40:33 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:40:35 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 13:44:33 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:44:33 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 13:44:33 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 13:44:40 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 13:44:40 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 13:44:40 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 13:44:42 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 13:44:42 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 13:44:42 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 13:44:43 ERROR    [ UNOS Assistant Framework ] An Unknown Error has occurred: 'Thread' object has no attribute 'interrupt_main'
+2022-04-20 13:46:04 ERROR    [ UNOS Assistant Framework ] An Unknown Error has occurred: 'Thread' object has no attribute 'interrupt_main'
+2022-04-20 13:46:05 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
+2022-04-20 13:46:06 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 13:46:06 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 462
+2022-04-20 14:44:26 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 14:44:28 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 461
+2022-04-20 14:44:28 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 14:44:34 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 14:44:35 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 14:44:35 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 14:44:36 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 14:44:36 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 14:44:36 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 14:45:06 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
+2022-04-20 14:45:16 DEBUG    Starting new HTTPS connection (1): api.openweathermap.org:443
+2022-04-20 14:45:17 DEBUG    https://api.openweathermap.org:443 "GET /data/2.5/weather?APPID=427300729a29b3b5fa9e5a794b253585&lang=en&q=Phuket%2C+TH HTTP/1.1" 200 461
+2022-04-20 14:45:17 INFO     [ UNOS Assistant Framework ] UNOS Assistant Framework has been started
+2022-04-20 14:45:24 INFO     [ UNOS Assistant Framework ] Loading Configurations
+2022-04-20 14:45:24 INFO     [ UNOS Assistant Framework ] Running Pre-Checks before starting the Interface
+2022-04-20 14:45:24 DEBUG    Starting new HTTPS connection (1): ismyinternetworking.com:443
+2022-04-20 14:45:26 DEBUG    https://ismyinternetworking.com:443 "GET / HTTP/1.1" 200 None
+2022-04-20 14:45:26 INFO     [ BootLoader ] Successfully connected to the Internet
+2022-04-20 14:45:26 INFO     [ Interface ] Loading Command Line Interface
+2022-04-20 14:45:33 INFO     [ UNOS Assistant Framework ] Exiting UNOS Assistant Framework System
