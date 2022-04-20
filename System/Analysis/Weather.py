@@ -19,17 +19,53 @@ class Plugin:
     def __init__(self):
         self.name = "System.Analysis.Weather"
         self.contexts = ["weather", "air", "temperature",
-                         "humidity", "wind", "pressure"]
+                         "humidity", "wind", "pressure", "rain", "clouds", "forecast", "cloud"]
 
     def analyze(self, query):
-        if any(context in query for context in self.contexts):
-            return True
-
-        else:
-            return False
+        return any(context in query for context in self.contexts)
 
     def process(self, query):
-        prefix = ["The weather is ", "The current weather is ", "Currently it is "]
+        # Get Initial Weather
         current_weather = w.detailed_status
+        wind_speed = w.wind()["speed"]
+        humidity = w.humidity
+        temperature = w.temperature('celsius')["temp"]
+        temperature_feel = w.temperature('celsius')["feels_like"]
+        rain = w.rain
+        clouds = w.clouds
 
-        return random.choice(prefix) + current_weather
+        # Get Forecast but needs to be fixed due to the API key being new
+        # forecaster = mgr.forecast_at_place(
+        #     f'{config.openweathermap_city}, {config.openweathermap_country}', 'daily')
+        # foreecast = forecaster.will_be_clear_at(timestamps.tomorrow())
+
+        # Get Current Weather
+        if "weather" in query:
+            return f"The current weather is {current_weather}"
+
+        # Get WInd Speed
+        elif "wind" in query:
+            return f"The wind speed is {wind_speed} m/s"
+
+        # Get Humidity
+        elif "humidity" in query:
+            return f"The humidity is {humidity}%"
+
+        # Get Temperature
+        elif "temperature" in query:
+            return f"The temperature is {temperature}°C with a feel like {temperature_feel}°C"
+
+        # Get Rain
+        elif "rain" in query:
+            return f"The rain is {rain} mm"
+
+        # Get Clouds
+        elif "clouds" in query:
+            return f"The clouds are {clouds}%"
+
+        # Get Weather Forecast for the Next Day
+        # elif "forecast" in query:
+        #     return f"The weather forecast is {forecast}"
+
+        else:
+            return "Unable to process your request"

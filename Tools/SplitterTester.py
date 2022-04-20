@@ -1,6 +1,14 @@
 from System.Modules.BootLoader import Config
 from System.Modules.Splitter import Splitter
 
+# Tools Information
+"""
+Filename: SplitterTester.py
+Purpose: Test the Splitter Module
+Intended Usage: Put into root folder and input query
+
+"""
+
 # Setting Up Modules
 username = "mostlywhat"
 unos_name = "splitter"

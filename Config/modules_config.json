@@ -4,8 +4,9 @@
         "modules": [
             "SCAS",
             "Time",
-            "Weather"
+            "Weather",
+            "Exit"
         ],
-        "fallback_module": "MCASv2"
+        "fallback_module": "MCASv3"
     }
 }
