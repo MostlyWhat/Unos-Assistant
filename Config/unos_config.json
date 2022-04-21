@@ -1,7 +1,7 @@
 {
     "name": "UNOS",
-    "version": "0.0.4",
-    "stability": "Somewhat Stable",
-    "codename": "Mendicant Bias",
+    "version": "beta-1",
+    "stability": "Partially Stable",
+    "codename": "A.U.T.O",
     "previous_interation": "SkyNET"
 }
