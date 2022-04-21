@@ -1,5 +1,4 @@
 import importlib
-from unicodedata import category
 
 from System.Modules.BootLoader import Config
 
@@ -7,7 +6,9 @@ from System.Modules.BootLoader import Config
 config = Config()
 
 class Splitter():
-    def __init__(self, fallback_module: str, plugins: list = []):
+    def __init__(self, fallback_module: str, plugins: list = None):
+        if plugins is None:
+            plugins = []
         self.fallback_module = fallback_module
         # Checking if plugin were sent
         if plugins != []:
@@ -28,7 +29,7 @@ class Splitter():
         for plugin in self._plugins:
             responses = plugin.analyze(query)
 
-            if responses == True:
+            if responses is True:
                 adaptors.append(plugin.name)
 
         if len(adaptors) > 1:
@@ -38,7 +39,7 @@ class Splitter():
 
             choice = int(input("Choice: "))
             adaptors = [adaptors[choice]]
-            
+
         else:
             adaptors.append(f"System.Analysis.{self.fallback_module}")
 

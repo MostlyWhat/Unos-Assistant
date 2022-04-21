@@ -31,12 +31,14 @@ class Plugin:
         self.name = "System.Analysis.MCASv3"
         self.contexts = []
 
-    def analyze(self, query):
+    @staticmethod
+    def analyze(query):
         # Some prints to identify which plugin is been used
         # True
         return True
 
-    def clean_up_sentence(self, sentence):
+    @staticmethod
+    def clean_up_sentence(sentence):
         sentence_words = nltk.word_tokenize(sentence)
         sentence_words = [lemmatizer.lemmatize(
             word) for word in sentence_words]
@@ -116,10 +118,10 @@ class Plugin:
 
             else:
                 crisis.log(
-                    "MCAS", f"2 Cores Agree and 1 Core Disagree")
+                    "MCAS", "2 Cores Agree and 1 Core Disagree")
                 if tag1 == tag2:
                     crisis.log(
-                        "MCAS", f"Core 1 and 2 Agree")
+                        "MCAS", "Core 1 and 2 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
                             result = random.choice(i['responses'])
@@ -127,7 +129,7 @@ class Plugin:
 
                 elif tag2 == tag3:
                     crisis.log(
-                        "MCAS", f"Core 2 and 3 Agree")
+                        "MCAS", "Core 2 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag2:
                             result = random.choice(i['responses'])
@@ -135,14 +137,14 @@ class Plugin:
 
                 elif tag1 == tag3:
                     crisis.log(
-                        "MCAS", f"Core 1 and 3 Agree")
+                        "MCAS", "Core 1 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag3:
                             result = random.choice(i['responses'])
                             break
 
         else:
-            crisis.log("MCAS", f"Failed Accuracy Value of 50%")
+            crisis.log("MCAS", "Failed Accuracy Value of 50%")
             crisis.log(
                 f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
             crisis.log(
@@ -154,7 +156,8 @@ class Plugin:
 
         return result
 
-    def Core1(self, bow):
+    @staticmethod
+    def Core1(bow):
         # SkyNET Core
         model = load_model(config.MCAS_core1)
         res = model.predict(np.array([bow]))[0]
@@ -162,7 +165,8 @@ class Plugin:
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
 
-    def Core2(self, bow):
+    @staticmethod
+    def Core2(bow):
         # Strik3r Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]
@@ -170,7 +174,8 @@ class Plugin:
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
 
-    def Core3(self, bow):
+    @staticmethod
+    def Core3(bow):
         # Steve Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]

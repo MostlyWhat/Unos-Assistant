@@ -27,16 +27,18 @@ class Plugin:
         self.name = "System.Analysis.MCASv2"
         self.contexts = []
 
-    def analyze(self, query):
+    @staticmethod
+    def analyze(query):
         # Some prints to identify which plugin is been used
         # True
         return True
 
-    def clean_up_sentence(self, sentence):
+    @staticmethod
+    def clean_up_sentence(sentence):
         sentence_words = nltk.word_tokenize(sentence)
         sentence_words = [lemmatizer.lemmatize(word) for word in sentence_words]
         return sentence_words
-        
+
     def bag_of_words(self, sentence):
         sentence_words = self.clean_up_sentence(sentence)
         bag = [0] * len(words)
@@ -134,24 +136,27 @@ class Plugin:
             result = random.choice(not_found)
 
         return result
-        
-    def Core1(self, bow):
+
+    @staticmethod
+    def Core1(bow):
         #SkyNET Core
         model = load_model(config.MCAS_core1)
         res = model.predict(np.array([bow]))[0]
         results = [[i,r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
-    
-    def Core2(self, bow):
+
+    @staticmethod
+    def Core2(bow):
         #Strik3r Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]
         results = [[i,r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
-    
-    def Core3(self, bow):
+
+    @staticmethod
+    def Core3(bow):
         #Steve Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]

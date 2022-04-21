@@ -1,7 +1,6 @@
-import random
 
 from pyowm import OWM
-from pyowm.utils import config, timestamps
+from pyowm.utils import config
 from System.Modules.BootLoader import Config
 
 # Setting Up Configurations
@@ -24,7 +23,8 @@ class Plugin:
     def analyze(self, query):
         return any(context in query for context in self.contexts)
 
-    def process(self, query):
+    @staticmethod
+    def process(query):
         # Get Initial Weather
         current_weather = w.detailed_status
         wind_speed = w.wind()["speed"]
@@ -44,28 +44,22 @@ class Plugin:
             return f"The current weather is {current_weather}"
 
         # Get WInd Speed
-        elif "wind" in query:
+        if "wind" in query:
             return f"The wind speed is {wind_speed} m/s"
 
         # Get Humidity
-        elif "humidity" in query:
+        if "humidity" in query:
             return f"The humidity is {humidity}%"
 
         # Get Temperature
-        elif "temperature" in query:
+        if "temperature" in query:
             return f"The temperature is {temperature}°C with a feel like {temperature_feel}°C"
 
         # Get Rain
-        elif "rain" in query:
+        if "rain" in query:
             return f"The rain is {rain} mm"
 
         # Get Clouds
-        elif "clouds" in query:
+        if "clouds" in query:
             return f"The clouds are {clouds}%"
-
-        # Get Weather Forecast for the Next Day
-        # elif "forecast" in query:
-        #     return f"The weather forecast is {forecast}"
-
-        else:
-            return "Unable to process your request"
+        return "Unable to process your request"
