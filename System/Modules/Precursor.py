@@ -84,10 +84,10 @@ class Splash():
             print(line, end="\n")
             time.sleep(random.uniform(0, 0.10))
 
-    def gui(self):
+    def gui():
         pass
 
-    def web(self):
+    def web():
         pass
 
 
@@ -108,11 +108,11 @@ class Exit():
         else:
             self.cli()
 
-    def cli(self):
+    def cli():
         pass
 
-    def gui(self):
+    def gui():
         pass
 
-    def web(self):
+    def web(f):
         pass
