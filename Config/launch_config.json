@@ -1,0 +1,5 @@
+{
+    "launch_mode": "cli",
+    "voice_recognition": true,
+    "dev_mode": true
+}

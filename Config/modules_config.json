@@ -1,0 +1,12 @@
+{
+    "system_modules": {
+        "location": "System.Analysis",
+        "modules": [
+            "SCAS",
+            "Time",
+            "Weather",
+            "Exit"
+        ],
+        "fallback_module": "MCAS"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "info": {
+        "name": "Steve",
+        "version": "1.0",
+        "author": "MostlyWhat",
+        "filename": "steve_model.h5"
+    },
+    "specification": {
+        "framework": "Tensorflow"
+    }
+}
