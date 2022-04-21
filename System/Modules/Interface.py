@@ -38,7 +38,7 @@ class Interface():
 
 
 class cli():
-    def main(username: str, unos_name: str):
+    def main(self, username: str, unos_name: str):
         try:
             print(" ")
             query = str(input(f"{username}@{unos_name}: "))
@@ -51,10 +51,10 @@ class cli():
 
 
 class gui():
-    def main(username: str, unos_name: str):
+    def main(self, username: str, unos_name: str):
         pass
 
 
 class web():
-    def main(username: str, unos_name: str):
+    def main(self, username: str, unos_name: str):
         pass

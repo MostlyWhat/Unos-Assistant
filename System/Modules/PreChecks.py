@@ -31,12 +31,18 @@ class PreChecks():
             crisis.log(
                 "BootLoader",
                 "Successfully connected to the Internet")
+            crisis.log(
+                "BootLoader",
+                "Success: {0}".format(request.status_code))
             return True
 
         except (requests.ConnectionError, requests.Timeout) as exception:
             crisis.log(
                 "BootLoader",
                 "Failed to Connect to the Internet")
+            crisis.log(
+                "BootLoader",
+                f"Error: {exception}")
             return False
 
     @staticmethod

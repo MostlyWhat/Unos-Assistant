@@ -9,7 +9,6 @@ from nltk.stem import WordNetLemmatizer
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 
-
 # Disable Tensorflow warning
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from tensorflow.keras.models import load_model
