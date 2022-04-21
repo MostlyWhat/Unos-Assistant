@@ -93,3 +93,41 @@ class Splash():
 
     # def web():
     #     pass
+
+
+class Exit():
+    def __init__(self, configuration: str):
+        self.launch_config = configuration
+
+    def show(self):
+        # if self.launch_config == "cli":
+        #     self.cli()
+
+        # elif self.launch_config == "gui":
+        #     self.gui()
+
+        # elif self.launch_config == "web":
+        #     self.web()
+
+        # else:
+        #     self.cli()
+
+        self.cli()
+
+    @staticmethod
+    def cli():
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        boot_sequence = open("System/Extras/unos_logo.txt")
+        boot_text = boot_sequence.readlines()
+        for line in boot_text:
+            print(line, end="")
+            time.sleep(random.uniform(0, 0.10))
+
+        print("\n")
+
+    # def gui():
+    #     pass
+
+    # def web():
+    #     pass

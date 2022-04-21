@@ -11,7 +11,7 @@ config = Config()
 
 # Logging Config
 if config.dev_mode is True:
-    logging.basicConfig(filename="unos-latest.log",
+    logging.basicConfig(filename="unos-system.log",
                         filemode='a',
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S',
