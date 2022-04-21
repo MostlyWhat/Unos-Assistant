@@ -25,16 +25,20 @@ class Interface():
 
     def start(self):
         if self.launch_config == "cli":
-            cli.main(self.username, self.unos_name)
+            cli_interface = cli()
+            cli_interface.main(self.username, self.unos_name)
 
         elif self.launch_config == "gui":
-            gui.main(self.username, self.unos_name)
+            gui_interface = gui()
+            gui_interface.main(self.username, self.unos_name)
 
         elif self.launch_config == "web":
-            web.main(self.username, self.unos_name)
+            web_interface = web()
+            web_interface.main(self.username, self.unos_name)
 
         else:
-            cli.main(self.username, self.unos_name)
+            cli_interface = cli()
+            cli_interface.main(self.username, self.unos_name)
 
 
 class cli():
