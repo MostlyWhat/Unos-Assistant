@@ -7,13 +7,16 @@ import nltk
 import numpy as np
 from nltk.stem import WordNetLemmatizer
 from System.Modules.BootLoader import Config
-from tensorflow.keras.models import load_model
+from System.Modules.Crisis import Crisis
+
 
 # Disable Tensorflow warning
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+from tensorflow.keras.models import load_model
 
 # Setting Up Configurations
 config = Config()
+crisis = Crisis()
 
 # Setting Up Modules
 lemmatizer = WordNetLemmatizer()
@@ -21,7 +24,7 @@ intents = json.loads(open(f"{config.default_dataset}").read())
 words = pickle.load(open(f'{config.words_lib}', 'rb'))
 classes = pickle.load(open(f'{config.classes_lib}', 'rb'))
 
-# Fallback Plugin
+# Fallback Plugin for Splitter System
 
 
 class Plugin:
@@ -58,97 +61,97 @@ class Plugin:
         core2 = self.Core2(bow)
         core3 = self.Core3(bow)
 
-        try:
-            tag1 = core1[0]['intent']
-            tag2 = core2[0]['intent']
-            tag3 = core3[0]['intent']
+        tag1 = core1[0]['intent']
+        tag2 = core2[0]['intent']
+        tag3 = core3[0]['intent']
 
-            accuracy1 = float(core1[0]['probability'])
-            accuracy2 = float(core2[0]['probability'])
-            accuracy3 = float(core3[0]['probability'])
-
-        except Exception as e:
-            print(e)
-            accuracy1 = float(0)
-            accuracy2 = float(0)
-            accuracy3 = float(0)
+        accuracy1 = float(core1[0]['probability'])
+        accuracy2 = float(core2[0]['probability'])
+        accuracy3 = float(core3[0]['probability'])
 
         # Check if all cores has accuracy more than 50%
         if accuracy1 > 0.5 or accuracy2 > 0.5 or accuracy3 > 0.5:
-            print("MCAS: Pass Accuracy Value of 25%")
-            print(
-                f"SkyNET has selected {tag1} with a confidence of {accuracy1}")
-            print(
-                f"Strik3r has selected {tag2} with a confidence of {accuracy2}")
-            print(
-                f"Steve has selected {tag3} with a confidence of {accuracy3}")
+            crisis.log("MCAS", "Pass Accuracy Value of 50%")
+            crisis.log(
+                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+            crisis.log(
+                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+            crisis.log(
+                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
             list_of_intents = intents['intents']
             # All Agree
             if tag1 == tag2 == tag3:
-                print("MCAS: All Agree")
+                crisis.log("MCAS", "All Agree")
                 for i in list_of_intents:
                     if i['tag'] == tag1:
                         result = random.choice(i['responses'])
                         break
 
             elif tag1 != tag2 != tag3:
-                print("MCAS: All Disagree")
+                crisis.log("MCAS", "All Disagree")
                 values = {"tag1": accuracy1,
                           "tag2": accuracy2, "tag3": accuracy3}
                 highest = max(values, key=values.get)
 
                 if highest == "tag1":
-                    print(f"MCAS: Core 1 has highest value of {accuracy1}")
+                    crisis.log(
+                        "MCAS", f"Core 1 has highest value of {accuracy1}")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
                             result = random.choice(i['responses'])
                             break
 
                 elif highest == "tag2":
-                    print(f"MCAS: Core 2 has highest value of {accuracy2}")
+                    crisis.log(
+                        "MCAS", f"Core 2 has highest value of {accuracy2}")
                     for i in list_of_intents:
                         if i['tag'] == tag2:
                             result = random.choice(i['responses'])
                             break
 
                 else:
-                    print(f"MCAS: Core 3 has highest value of {accuracy3}")
+                    crisis.log(
+                        "MCAS", f"Core 3 has highest value of {accuracy3}")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
                             result = random.choice(i['responses'])
                             break
 
             else:
-                print("MCAS: 2 Agree")
+                crisis.log(
+                    "MCAS", "2 Cores Agree and 1 Core Disagree")
                 if tag1 == tag2:
-                    print("MCAS: Core 1 & 2 has agree")
+                    crisis.log(
+                        "MCAS", "Core 1 and 2 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
                             result = random.choice(i['responses'])
                             break
 
                 elif tag2 == tag3:
-                    print("MCAS: Core 2 & 3 has agree")
+                    crisis.log(
+                        "MCAS", "Core 2 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag2:
                             result = random.choice(i['responses'])
                             break
 
-                else:
-                    print("MCAS: Core 1 & 3 has agree")
+                elif tag1 == tag3:
+                    crisis.log(
+                        "MCAS", "Core 1 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag3:
                             result = random.choice(i['responses'])
                             break
 
         else:
-            print("MCAS: Failed Accuracy Value of 50%")
-            print(
-                f"SkyNET has selected {tag1} with an confidence of {accuracy1}")
-            print(
-                f"Strik3r has selected {tag2} with an confidence of {accuracy2}")
-            print(
-                f"Steve has selected {tag3} with an confidence of {accuracy3}")
+            crisis.log("MCAS", "Failed Accuracy Value of 50%")
+            crisis.log(
+                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+            crisis.log(
+                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+            crisis.log(
+                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
             not_found = ["I cannot answer that", "Different Question Please"]
             result = random.choice(not_found)
 
@@ -159,8 +162,7 @@ class Plugin:
         # SkyNET Core
         model = load_model(config.MCAS_core1)
         res = model.predict(np.array([bow]))[0]
-        ERROR_THRESHOLD = 0.25
-        results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+        results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
 
@@ -169,8 +171,7 @@ class Plugin:
         # Strik3r Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]
-        ERROR_THRESHOLD = 0.25
-        results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+        results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
 
@@ -179,7 +180,6 @@ class Plugin:
         # Steve Core
         model = load_model(config.MCAS_core2)
         res = model.predict(np.array([bow]))[0]
-        ERROR_THRESHOLD = 0.25
-        results = [[i, r] for i, r in enumerate(res) if r > ERROR_THRESHOLD]
+        results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]

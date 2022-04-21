@@ -7,6 +7,6 @@
             "Weather",
             "Exit"
         ],
-        "fallback_module": "MCASv3"
+        "fallback_module": "MCAS"
     }
 }
