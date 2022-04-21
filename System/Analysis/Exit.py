@@ -1,4 +1,3 @@
-import keyboard
 from System.Modules.BootLoader import Config
 
 # Module Information
