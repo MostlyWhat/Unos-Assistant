@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 *.pyo
 credentials_config.json
+unos-system.log
