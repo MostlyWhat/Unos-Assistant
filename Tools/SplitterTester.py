@@ -21,6 +21,4 @@ while True:
 
     if query == 'exit':
         break
-
-    else:
-        print(f"UNOS: {splitter.analyze(query)}")
+    print(f"UNOS: {splitter.analyze(query)}")

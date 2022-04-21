@@ -1,7 +1,6 @@
 import os
 import random
 import time
-from pathlib import Path
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
@@ -30,7 +29,8 @@ class Boot():
         else:
             self.cli(self.username, self.unos_name)
 
-    def cli(self, username: str, unos_name: str):
+    @staticmethod
+    def cli(username: str, unos_name: str):
         os.system('cls' if os.name == 'nt' else 'clear')
 
         boot_sequence = open("System/Extras/boot_sequence.txt")
@@ -67,7 +67,8 @@ class Splash():
         else:
             self.cli()
 
-    def cli(self):
+    @staticmethod
+    def cli():
         os.system('cls' if os.name == 'nt' else 'clear')
 
         boot_sequence = open("System/Extras/unos_logo.txt")

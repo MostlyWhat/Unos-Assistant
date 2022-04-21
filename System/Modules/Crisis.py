@@ -10,7 +10,7 @@ from System.Modules.BootLoader import Config
 config = Config()
 
 # Logging Config
-if config.dev_mode == True:
+if config.dev_mode is True:
     logging.basicConfig(filename="unos-latest.log",
                         filemode='a',
                         format='%(asctime)s %(levelname)-8s %(message)s',
@@ -26,20 +26,23 @@ else:
 
 
 class Crisis():
-    def log(self, process: str, log: str):
-        if config.dev_mode == True:
+    @staticmethod
+    def log(process: str, log: str):
+        if config.dev_mode is True:
             print(f"[ {process} ] {log}")
 
         logging.log(logging.INFO, f"[ {process} ] {log}")
 
-    def warning(self, process: str, warning: str):
-        if config.dev_mode == True:
+    @staticmethod
+    def warning(process: str, warning: str):
+        if config.dev_mode is True:
             print(f"[ {process} ] {warning}")
 
         logging.warning(f"[ {process} ] {warning}")
 
-    def error(self, process: str, error: str):
-        if config.dev_mode == True:
+    @staticmethod
+    def error(process: str, error: str):
+        if config.dev_mode is True:
             print(f"[ {process} ] {error}")
 
         logging.error(f"[ {process} ] {error}")

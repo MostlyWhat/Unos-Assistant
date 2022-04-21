@@ -1,4 +1,3 @@
-import time
 
 import requests
 from System.Modules.BootLoader import Config
@@ -22,7 +21,8 @@ class PreChecks():
         self.InternetCheck()
         self.InterfaceType()
 
-    def InternetCheck(self):
+    @staticmethod
+    def InternetCheck():
         # Check Internet Connection
         url = "https://ismyinternetworking.com"
         timeout = 5
@@ -39,7 +39,8 @@ class PreChecks():
                 "Failed to Connect to the Internet")
             return False
 
-    def InterfaceType(self):
+    @staticmethod
+    def InterfaceType():
         interface_type = config.launch_mode
 
         if interface_type == "cli":

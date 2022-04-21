@@ -1,5 +1,3 @@
-import os
-from pathlib import Path
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
