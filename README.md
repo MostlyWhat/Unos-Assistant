@@ -4,7 +4,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![Apache License 2.0][license-shield]][license-url]
+[![AGPL 3.0][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -51,7 +51,7 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#acknowledgments">Acknowledgments<a></li>
   </ol>
 </details>
 
@@ -61,14 +61,14 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://unos.mostlywhat.cf)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 ### Built With
 
 - [Python](https://www.python.org/)
 - [Tensorflow](https://www.tensorflow.org/)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- GETTING STARTED -->
 
@@ -82,7 +82,7 @@ Making sure to have install Python 3.7.5 or higher from [Python Foundation](http
 
 ### Installation
 
-1. Read Terms and Conditions at [https://unos.mostlywhat.cf/terms-and-conditions](https://unos.mostlywhat.cf/terms-and-conditions))
+1. Read Terms and Conditions at [Legal on UNOS Website](https://unos.mostlywhat.cf/legal/terms-and-conditions)
 2. Clone the repo
    ```sh
    git clone https://github.com/MostlyWhat/Unos-Assistant.git
@@ -96,7 +96,7 @@ Making sure to have install Python 3.7.5 or higher from [Python Foundation](http
    python3 unos.py
    ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -106,7 +106,7 @@ Ask UNOS any commands or even questions for it to attempt to answer. If you find
 
 _For more examples, please refer to the [Documentation](https://unos.mostlywhat.cf/documentation)_
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- CUSTOMISATIONS -->
 
@@ -114,7 +114,7 @@ _For more examples, please refer to the [Documentation](https://unos.mostlywhat.
 
 You can always customise UNOS to your likings from responses to adaptors to control smart devices. Follow the documentation to learn more. You can also find more examples in the [Documentation](https://unos.mostlywhat.cf/documentation).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- ROADMAP -->
 
@@ -122,9 +122,9 @@ You can always customise UNOS to your likings from responses to adaptors to cont
 
 Roadmaps and Planned Updates are published on the official website of UNOS Assistant Framework System. [https://unos.mostlywhat.cf/roadmap](https://unos.mostlywhat.cf/roadmap)
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/MostlyWhat/Unos-Assistant/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- CONTRIBUTING -->
 
@@ -141,15 +141,15 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- LICENSE -->
 
 ## License
 
-Distributed under the Apache License 2.0. See `LICENSE.txt` for more information.
+Distributed under the AGPL-3 License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- CONTACT -->
 
@@ -159,16 +159,15 @@ Your Name - [@mostlywhat](https://twitter.com/mostlywhat) - admin@mostlywhat.cf
 
 Project Link: [https://github.com/MostlyWhat/Unos-Assistant](https://github.com/MostlyWhat/Unos-Assistant)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 
 ## Open-Source Technologies Used
 
-- Tensorflow Framework by Google
-- DeepSpeech Speech Recognition by Mozilla
+To see the list of the open-source technologies used by the UNOS-Assistant Framework project please refer to the [Open Source Technologies](https://unos.mostlywhat.cf/legal/open-source)
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<p align="right">(<a href="#top">Back to Top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
