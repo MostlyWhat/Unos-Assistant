@@ -4,11 +4,6 @@ __pycache__/
 *$py.class
 *.pyc
 *.pyo
-<<<<<<< Updated upstream
-credentials_config.json
-unos-system.log
-=======
 Config/credentials_config.json
 unos-system.log
 !.gitignore
->>>>>>> Stashed changes
