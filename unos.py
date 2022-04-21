@@ -5,7 +5,7 @@ from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 from System.Modules.Interface import Interface
 from System.Modules.PreChecks import PreChecks
-from System.Modules.Precursor import Boot, Exit, Splash
+from System.Modules.Precursor import Boot, Splash
 
 # Initialising Modules
 config = Config()
@@ -13,7 +13,6 @@ crisis = Crisis()
 prechecks = PreChecks()
 boot_text = Boot(configuration=config.launch_mode)
 splash_text = Splash(configuration=config.launch_mode)
-exit_text = Exit(configuration=config.launch_mode)
 interface = Interface(configuration=config.launch_mode)
 
 # Print Some Texts

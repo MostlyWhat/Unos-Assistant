@@ -18,11 +18,11 @@ class Boot():
         if self.launch_config == "cli":
             self.cli()
 
-        elif self.launch_config == "gui":
-            self.gui()
+        # elif self.launch_config == "gui":
+        #     self.gui()
 
-        elif self.launch_config == "web":
-            self.web()
+        # elif self.launch_config == "web":
+        #     self.web()
 
         else:
             self.cli()
@@ -39,11 +39,11 @@ class Boot():
 
         print("\n")
 
-    def gui():
-        pass
+    # def gui():
+    #     pass
 
-    def web():
-        pass
+    # def web():
+    #     pass
 
 
 class Splash():
@@ -54,11 +54,11 @@ class Splash():
         if self.launch_config == "cli":
             self.cli()
 
-        elif self.launch_config == "gui":
-            self.gui()
+        # elif self.launch_config == "gui":
+        #     self.gui()
 
-        elif self.launch_config == "web":
-            self.web()
+        # elif self.launch_config == "web":
+        #     self.web()
 
         else:
             self.cli()
@@ -84,35 +84,8 @@ class Splash():
             print(line, end="\n")
             time.sleep(random.uniform(0, 0.10))
 
-    def gui():
-        pass
+    # def gui():
+    #     pass
 
-    def web():
-        pass
-
-
-class Exit():
-    def __init__(self, configuration: str):
-        self.launch_config = configuration
-
-    def show(self):
-        if self.launch_config == "cli":
-            self.cli()
-
-        elif self.launch_config == "gui":
-            self.gui()
-
-        elif self.launch_config == "web":
-            self.web()
-
-        else:
-            self.cli()
-
-    def cli():
-        pass
-
-    def gui():
-        pass
-
-    def web(f):
-        pass
+    # def web():
+    #     pass
