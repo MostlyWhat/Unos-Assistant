@@ -29,20 +29,20 @@ class PreChecks():
         try:
             request = requests.get(url, timeout=timeout)
             crisis.log(
-                "BootLoader",
+                "PreChecks",
                 "Successfully connected to the Internet")
             crisis.log(
-                "BootLoader",
-                "Success: {0}".format(request.status_code))
+                "PreChecks",
+                "Success: Code {0}".format(request.status_code))
             return True
 
         except (requests.ConnectionError, requests.Timeout) as exception:
             crisis.log(
-                "BootLoader",
+                "PreChecks",
                 "Failed to Connect to the Internet")
             crisis.log(
-                "BootLoader",
-                f"Error: {exception}")
+                "PreChecks",
+                f"Error: Code {exception}")
             return False
 
     @staticmethod
