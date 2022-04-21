@@ -11,26 +11,24 @@ config = Config()
 
 
 class Boot():
-    def __init__(self, configuration: str, username: str, unos_name: str):
+    def __init__(self, configuration: str):
         self.launch_config = configuration
-        self.username = username
-        self.unos_name = unos_name
 
     def show(self):
         if self.launch_config == "cli":
-            self.cli(self.username, self.unos_name)
+            self.cli()
 
         elif self.launch_config == "gui":
-            self.gui(self.username, self.unos_name)
+            self.gui()
 
         elif self.launch_config == "web":
-            self.web(self.username, self.unos_name)
+            self.web()
 
         else:
-            self.cli(self.username, self.unos_name)
+            self.cli()
 
     @staticmethod
-    def cli(username: str, unos_name: str):
+    def cli():
         os.system('cls' if os.name == 'nt' else 'clear')
 
         boot_sequence = open("System/Extras/boot_sequence.txt")
@@ -41,18 +39,16 @@ class Boot():
 
         print("\n")
 
-    def gui(self):
+    def gui():
         pass
 
-    def web(self):
+    def web():
         pass
 
 
 class Splash():
-    def __init__(self, configuration: str, username: str, unos_name: str):
+    def __init__(self, configuration: str):
         self.launch_config = configuration
-        self.username = username
-        self.unos_name = unos_name
 
     def show(self):
         if self.launch_config == "cli":
@@ -88,10 +84,10 @@ class Splash():
             print(line, end="\n")
             time.sleep(random.uniform(0, 0.10))
 
-    def gui(self, username: str, unos_name: str):
+    def gui(self):
         pass
 
-    def web(self, username: str, unos_name: str):
+    def web(self):
         pass
 
 

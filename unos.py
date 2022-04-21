@@ -11,13 +11,10 @@ from System.Modules.Precursor import Boot, Exit, Splash
 config = Config()
 crisis = Crisis()
 prechecks = PreChecks()
-boot_text = Boot(configuration=config.launch_mode, username=config.username,
-                 unos_name=config.unos_name)
-splash_text = Splash(configuration=config.launch_mode, username=config.username,
-                     unos_name=config.unos_name)
+boot_text = Boot(configuration=config.launch_mode)
+splash_text = Splash(configuration=config.launch_mode)
 exit_text = Exit(configuration=config.launch_mode)
-interface = Interface(configuration=config.launch_mode, username=config.username,
-                      unos_name=config.unos_name)
+interface = Interface(configuration=config.launch_mode)
 
 # Print Some Texts
 crisis.log("UNOS Assistant Framework",
