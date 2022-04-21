@@ -1,9 +1,9 @@
 {
     "libraries": {
-        "classes": "Data\\Library\\classes.pk1",
-        "words": "Data\\Library\\words.pk1"
+        "classes": "Data/Library/classes.pk1",
+        "words": "Data/Library/words.pk1"
     },
     "dataset": {
-        "default": "Data\\Dataset\\default.json"
+        "default": "Data/Dataset/default.json"
     }
 }
