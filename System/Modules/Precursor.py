@@ -15,8 +15,8 @@ class Boot():
         self.launch_config = configuration
 
     def show(self):
-        if self.launch_config == "cli":
-            self.cli()
+        # if self.launch_config == "cli":
+        #     self.cli()
 
         # elif self.launch_config == "gui":
         #     self.gui()
@@ -24,8 +24,10 @@ class Boot():
         # elif self.launch_config == "web":
         #     self.web()
 
-        else:
-            self.cli()
+        # else:
+        #     self.cli()
+
+        self.cli()
 
     @staticmethod
     def cli():
@@ -51,8 +53,8 @@ class Splash():
         self.launch_config = configuration
 
     def show(self):
-        if self.launch_config == "cli":
-            self.cli()
+        # if self.launch_config == "cli":
+        #     self.cli()
 
         # elif self.launch_config == "gui":
         #     self.gui()
@@ -60,8 +62,10 @@ class Splash():
         # elif self.launch_config == "web":
         #     self.web()
 
-        else:
-            self.cli()
+        # else:
+        #     self.cli()
+
+        self.cli()
 
     @staticmethod
     def cli():
