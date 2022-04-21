@@ -181,5 +181,5 @@ To see the list of the open-source technologies used by the UNOS-Assistant Frame
 [issues-shield]: https://img.shields.io/github/issues/MostlyWhat/Unos-Assistant.svg?style=for-the-badge
 [issues-url]: https://github.com/MostlyWhat/Unos-Assistant/issues
 [license-shield]: https://img.shields.io/github/license/MostlyWhat/Unos-Assistant.svg?style=for-the-badge
-[license-url]: https://github.com/MostlyWhat/Unos-Assistant/blob/master/LICENSE.txt
+[license-url]: https://github.com/MostlyWhat/Unos-Assistant/blob/master/LICENSE
 [product-screenshot]: Images/demo.png
