@@ -10,7 +10,7 @@ class Splitter():
         if plugins is None:
             plugins = []
         self.fallback_module = fallback_module
-        # Checking if plugin were sent
+        # Checking if plugin were set
         if plugins != []:
             # create a list of plugins
             self._plugins = [

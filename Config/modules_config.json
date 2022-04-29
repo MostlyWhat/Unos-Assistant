@@ -5,7 +5,8 @@
             "SCAS",
             "Time",
             "Weather",
-            "Exit"
+            "Exit",
+            "Scraper"
         ],
         "fallback_module": "MCAS"
     }

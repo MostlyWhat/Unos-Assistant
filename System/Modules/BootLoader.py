@@ -87,3 +87,7 @@ class Config:
             self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]
             self.openweathermap_lat = credentials_data["credentials"]["openweathermap"]["lat"]
             self.openweathermap_lon = credentials_data["credentials"]["openweathermap"]["lon"]
+
+            # RapidAPI Api
+            self.rapidapi_api = credentials_data["credentials"]["rapid_api"]["api_key"]
+            self.rapidapi_host = credentials_data["credentials"]["rapid_api"]["api_host"]

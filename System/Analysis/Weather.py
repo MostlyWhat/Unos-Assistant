@@ -62,4 +62,5 @@ class Plugin:
         # Get Clouds
         if "clouds" in query:
             return f"The clouds are {clouds}%"
+
         return "Unable to process your request"
