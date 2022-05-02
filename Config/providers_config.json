@@ -1,6 +1,5 @@
 {
     "recognition": "deepspeech",
-    "tts": "google_wavenet",
-    "asm": "MCAS",
-    "data": "wikipedia"
+    "tts": "pyttsx3",
+    "audio_player": "playsound"
 }

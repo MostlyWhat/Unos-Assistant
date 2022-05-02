@@ -15,15 +15,6 @@ class Plugin:
         self.contexts = ["web", "search"]
 
     def analyze(self, query):
-        can_process = True
-
-        try:
-            self.request_result(query)
-
-        except Exception as e:
-            crisis.error("Scraper", e)
-            return False
-
         return any((context in query for context in self.contexts))
 
     def process(self, query):
@@ -55,4 +46,4 @@ class Plugin:
             return "According to " + format_output["AbstractSource"] + ", " + format_output["AbstractText"]
 
         crisis.error("Scraper", "No results found")
-        return False
+        return "No results found"

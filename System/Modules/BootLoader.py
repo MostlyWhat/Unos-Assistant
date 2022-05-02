@@ -5,15 +5,13 @@ from pathlib import Path
 
 class Config:
     def __init__(self):
-        # Initial Setup
-        current_directory = Path(os.getcwd())
-
         # Launch Configuration
         with open('Config/launch_config.json') as launch_config_file:
             launch_data = json.load(launch_config_file)
 
             self.launch_mode = launch_data["launch_mode"]
             self.voice_recognition = launch_data["voice_recognition"]
+            self.text_to_speech = launch_data["text_to_speech"]
             self.dev_mode = launch_data["dev_mode"]
 
         # UNOS Configuration
@@ -91,3 +89,11 @@ class Config:
             # RapidAPI Api
             self.rapidapi_api = credentials_data["credentials"]["rapid_api"]["api_key"]
             self.rapidapi_host = credentials_data["credentials"]["rapid_api"]["api_host"]
+
+        # Providers Config
+        with open('Config/providers_config.json') as providers_config_file:
+            providers_data = json.load(providers_config_file)
+
+            self.providers_recognition = providers_data["recognition"]
+            self.providers_text_to_speech = providers_data["tts"]
+            self.providers_audio_player = providers_data["audio_player"]

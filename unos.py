@@ -1,9 +1,11 @@
 import os
+import sys
 import time
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 from System.Modules.Interface import Interface
+from System.Modules.Preburner import Preburner
 from System.Modules.PreChecks import PreChecks
 from System.Modules.Precursor import Boot, Exit, Splash
 
@@ -11,6 +13,7 @@ from System.Modules.Precursor import Boot, Exit, Splash
 config = Config()
 crisis = Crisis()
 prechecks = PreChecks()
+preburner = Preburner()
 boot_text = Boot(configuration=config.launch_mode)
 splash_text = Splash(configuration=config.launch_mode)
 exit_text = Exit(configuration=config.launch_mode)
@@ -28,6 +31,7 @@ print(" ")
 crisis.log("UNOS Assistant Framework",
            "Running Pre-Checks before starting the Interface")
 prechecks.check()
+preburner.start()
 
 # Starting Interface
 while True:
@@ -47,3 +51,4 @@ crisis.log(
     "UNOS Assistant Framework",
     "Exiting UNOS Assistant Framework System")
 print("\n")
+sys.exit()

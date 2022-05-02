@@ -33,11 +33,11 @@ class Splitter():
                 adaptors.append(plugin.name)
 
         if len(adaptors) > 1:
-            print("Multiple adaptors found, please select one:")
+            print("[Temporary Selection] Multiple adaptors found, Please select one:")
             for i, adaptor in enumerate(adaptors):
                 print(f"{i}: {adaptor}")
 
-            choice = int(input("Choice: "))
+            choice = int(input("Choice (Numbers): "))
             adaptors = [adaptors[choice]]
 
         else:

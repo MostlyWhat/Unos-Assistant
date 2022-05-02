@@ -1,4 +1,6 @@
-nltk
+keyboard
+pyttsx3
 numpy
+nltk
 tensorflow
 pyowm

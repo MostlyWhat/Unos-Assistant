@@ -7,5 +7,5 @@ class Plugin:
         return any((context in query for context in self.contexts))
 
     @staticmethod
-    def process(query):
+    def process(self, query):
         return "Processing Here SCAS"
