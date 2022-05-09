@@ -2,7 +2,7 @@ import requests
 
 sender = input("What is your name?\n")
 
-while bot_message != "Bye":
+while True:
 	message = input("What's your message?\n")
 
 	r = requests.post('http://localhost:5002/webhooks/rest/webhook', json={"sender": sender, "message": message})
