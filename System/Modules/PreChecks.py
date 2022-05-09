@@ -36,7 +36,7 @@ class PreChecks():
                 "Success: Code {0}".format(request.status_code))
             return True
 
-        except (requests.ConnectionError, requests.Timeout) as exception:
+        except Exception as exception:
             crisis.log(
                 "PreChecks",
                 "Failed to Connect to the Internet")

@@ -1,7 +1,6 @@
 import multiprocessing
 from threading import Thread
 
-import keyboard
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 from System.Modules.Speaker import Speaker
@@ -14,7 +13,9 @@ from System.Modules.Splitter import Splitter
 # Setting Up Modules
 config = Config()
 crisis = Crisis()
-speaker = Speaker()
+
+if config.text_to_speech is True:
+    speaker = Speaker()
 
 modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
@@ -54,7 +55,8 @@ class cli():
             print(f"[ {unos_name.upper()} ] {splitter_output}")
             
             # Run the Speaker Module in another thread, interruptable
-            speaker.speak(splitter_output)
+            if config.text_to_speech is True:
+                speaker.speak(splitter_output)
         
         except Exception as e:
             crisis.error(

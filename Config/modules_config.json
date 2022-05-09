@@ -6,7 +6,8 @@
             "Time",
             "Weather",
             "Exit",
-            "Scraper"
+            "Scraper",
+            "Afterburner"
         ],
         "fallback_module": "MCAS"
     }
