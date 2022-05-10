@@ -1,4 +1,3 @@
-import keyboard
 import pyttsx3
 from System.Modules.BootLoader import Config
 
@@ -13,8 +12,6 @@ class Speaker():
     def speak(self, text):
         # say method on the engine that passing input text to be spoken
         self.engine.say(text)
-        
-        if keyboard.is_pressed("q"): #If Q key is pressed
-            self.engine.stop()
+
         # run and wait method, it processes the voice commands.
         self.engine.runAndWait()
