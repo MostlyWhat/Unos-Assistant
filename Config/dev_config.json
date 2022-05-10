@@ -1,6 +1,5 @@
 {
     "launch_mode": "cli",
     "voice_recognition": false,
-    "text_to_speech": false,
-    "dev_mode": true
+    "text_to_speech": false
 }

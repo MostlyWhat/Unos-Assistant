@@ -9,10 +9,21 @@ class Config:
         with open('Config/launch_config.json') as launch_config_file:
             launch_data = json.load(launch_config_file)
 
-            self.launch_mode = launch_data["launch_mode"]
-            self.voice_recognition = launch_data["voice_recognition"]
-            self.text_to_speech = launch_data["text_to_speech"]
             self.dev_mode = launch_data["dev_mode"]
+            
+            if self.dev_mode == True:
+                with open('Config/dev_config.json') as dev_config_file:
+                    dev_data = json.load(dev_config_file)
+                    
+                    self.launch_mode = dev_data["launch_mode"]
+                    self.voice_recognition = dev_data["voice_recognition"]
+                    self.text_to_speech = dev_data["text_to_speech"]
+                
+            else:
+                self.launch_mode = launch_data["launch_mode"]
+                self.voice_recognition = launch_data["voice_recognition"]
+                self.text_to_speech = launch_data["text_to_speech"]
+            
 
         # UNOS Configuration
         with open('Config/unos_config.json') as unos_config_file:
