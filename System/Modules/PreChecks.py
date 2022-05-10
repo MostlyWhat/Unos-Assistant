@@ -36,13 +36,13 @@ class PreChecks():
                 "Success: Code {0}".format(request.status_code))
             return True
 
-        except Exception as exception:
+        except Exception:
             crisis.log(
                 "PreChecks",
                 "Failed to Connect to the Internet")
             crisis.log(
                 "PreChecks",
-                f"Error: Code {exception}")
+                f"Error: Code {0}".format(request.status_code))
             return False
 
     @staticmethod

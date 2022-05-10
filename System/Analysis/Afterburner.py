@@ -1,21 +1,23 @@
-from System.Modules.Management import Manager
+from System.Modules.Management import Updater
 
 # Setting Up Modules
-manager = Manager()
+updater = Updater()
 
 class Plugin:
     def __init__(self):
         self.name = "System.Analysis.Afterburner"
-        self.contexts = ["manager"]
+        self.contexts = ["update"]
 
     def analyze(self, query):
         return any((context in query for context in self.contexts))
 
     def process(self, query):
-        command = query.replace("manager regenerate ", "")
-        retain = manager.regen(command)
+        # Remove the first word from the query
+        command = query[7:len(query)]
+        
+        retain = updater.regen(command)
         if retain is True:
             return f"Sucessfully Regenerated the {command} Database"
-        
+    
         else:
             return f"Failed to Regenerate the {command} Database"

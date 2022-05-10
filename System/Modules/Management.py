@@ -76,14 +76,14 @@ training = np.array(training)
 train_x = list(training[:, 0])
 train_y = list(training[:, 1])
 
-class Manager():
+class Updater():
     def regen(self, database):
         if database == "libaries":            
             try:
                 if os.path.exists(f"{config.words_lib}"):
                     os.remove(f"{config.words_lib}")
                     
-                elif os.path.exists(f"{config.classes_lib}"):
+                if os.path.exists(f"{config.classes_lib}"):
                     os.remove(f"{config.classes_lib}")
                 
                 pickle.dump(words, open(f'{config.words_lib}', 'wb'))
@@ -94,7 +94,7 @@ class Manager():
             except Exception:
                 return False
         
-        elif database == "MCAS":
+        elif database == "mcas":
             self.SkyNET_Training()
             self.Strik3r_Training()
             self.Steve_Training()

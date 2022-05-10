@@ -22,7 +22,9 @@ class Splitter():
             self._plugins = [importlib.import_module(
                 f"System.Analysis.{fallback_module}", ".") .Plugin()]
 
-    def analyze(self, query: str):
+    def analyze(self, user_input: str):
+        query = user_input.lower()
+        
         adaptors = []
 
         # Analyze using other plugins
