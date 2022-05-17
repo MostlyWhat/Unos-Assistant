@@ -100,6 +100,22 @@ class Updater():
             self.Steve_Training()
             
             return True
+        
+        elif database == "all":
+            if os.path.exists(f"{config.words_lib}"):
+                    os.remove(f"{config.words_lib}")
+                    
+            if os.path.exists(f"{config.classes_lib}"):
+                os.remove(f"{config.classes_lib}")
+            
+            pickle.dump(words, open(f'{config.words_lib}', 'wb'))
+            pickle.dump(classes, open(f'{config.classes_lib}', 'wb'))
+                
+            self.SkyNET_Training()
+            self.Strik3r_Training()
+            self.Steve_Training()
+            
+            return True
 
         else:
             return False

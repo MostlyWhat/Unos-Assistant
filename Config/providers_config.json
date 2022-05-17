@@ -1,5 +1,5 @@
 {
-    "recognition": "deepspeech",
+    "recognition": "google",
     "tts": "pyttsx3",
     "audio_player": "playsound"
 }

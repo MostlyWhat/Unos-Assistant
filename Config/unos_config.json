@@ -1,7 +1,17 @@
 {
     "name": "UNOS",
-    "version": "beta-2",
+    "version": "beta-3",
     "stability": "Partially Stable",
     "codename": "A.U.T.O",
-    "previous_interation": "SkyNET"
+    "previous_interation": "SkyNET",
+    "wake_commands": [
+        "uno's",
+        "who knows",
+        "nos",
+        "nose",
+        "hey uno's",
+        "hey who knows",
+        "hey nos",
+        "hey nose"
+    ]
 }

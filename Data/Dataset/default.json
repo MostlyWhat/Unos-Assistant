@@ -138,15 +138,6 @@
             ]
         },
         {
-            "tag": "rome",
-            "patterns": [
-                "Where is it going"
-            ],
-            "responses": [
-                "It's coming rome"
-            ]
-        },
-        {
             "tag": "stories",
             "patterns": [
                 "tell me a story?",

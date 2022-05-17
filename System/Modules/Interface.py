@@ -1,9 +1,8 @@
-import multiprocessing
-from threading import Thread
+import concurrent.futures
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
-from System.Modules.Speaker import Speaker
+from System.Modules.Speech import Listener, Speaker
 from System.Modules.Splitter import Splitter
 
 # Module Information
@@ -16,13 +15,17 @@ crisis = Crisis()
 
 if config.text_to_speech is True:
     speaker = Speaker()
+    
+if config.voice_recognition is True:
+    listener = Listener()
 
 modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
+class VoiceInterrupt(Exception):
+    pass
+
 # Interface Modules
-
-
 class Interface():
     def __init__(self, configuration: str, username: str, unos_name: str):
         self.launch_config = configuration
@@ -46,22 +49,31 @@ class Interface():
 class cli():
     def main(self, username: str, unos_name: str):
         try:
+            if config.voice_recognition is True:
+                # Starts a thread to listen for user input
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    executor.submit(listener.listen)
+            
+            # Gets Input from Splitter
             print(" ")
             query = str(input(f"{username}@{unos_name}: "))
             print(" ")
             splitter_output = splitter.analyze(query)
 
-            # Printing the Results
-            print(f"[ {unos_name.upper()} ] {splitter_output}")
-            
-            # Run the Speaker Module in another thread, interruptable
-            if config.text_to_speech is True:
-                speaker.speak(splitter_output)
+            # Outputting the Results
+            self.outputting(unos_name, splitter_output)
         
         except Exception as e:
             crisis.error(
                 "UNOS Assistant Framework", f"An Unknown Error has occurred: {e}")
 
+    def outputting(self, unos_name: str, splitter_output: str):
+        # Printing the Results
+        print(f"[ {unos_name.upper()} ] {splitter_output}")
+        
+        # Run the Speaker Module in another thread, interruptable
+        if config.text_to_speech is True:
+            speaker.speak(splitter_output)
 
 class gui():
     def main(self, username: str, unos_name: str):
