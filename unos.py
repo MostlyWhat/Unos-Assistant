@@ -2,11 +2,10 @@ import os
 import sys
 import time
 
-from System.Modules.BootLoader import Config
+from System.Modules.BootLoader import Config, PreChecks
 from System.Modules.Crisis import Crisis
 from System.Modules.Interface import Interface
 from System.Modules.Preburner import Preburner
-from System.Modules.PreChecks import PreChecks
 from System.Modules.Precursor import Boot, Exit, Splash
 
 # Initialising Modules
