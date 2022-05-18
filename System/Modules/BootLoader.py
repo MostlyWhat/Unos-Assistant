@@ -1,13 +1,5 @@
 import json
-import os
-from pathlib import Path
 
-import requests
-from System.Modules.Crisis import Crisis
-
-# Module Information
-# Module Name: System.Modules.Pre-Checks
-# Module Purpose: To Provide the Pre-Checks for the UNOS Assistant Framework
 
 class Config:
     def __init__(self):
@@ -114,64 +106,3 @@ class Config:
             self.providers_recognition = providers_data["recognition"]
             self.providers_text_to_speech = providers_data["tts"]
             self.providers_audio_player = providers_data["audio_player"]
-
-# Setting Up Configurations
-config = Config()
-crisis = Crisis()
-
-class PreChecks():
-    def check(self):
-        # Check Internet Connection
-        self.InternetCheck()
-        self.InterfaceType()
-
-    @staticmethod
-    def InternetCheck():
-        # Check Internet Connection
-        url = "https://ismyinternetworking.com"
-        timeout = 5
-        try:
-            request = requests.get(url, timeout=timeout)
-            crisis.log(
-                "PreChecks",
-                "Successfully connected to the Internet")
-            crisis.log(
-                "PreChecks",
-                "Success: Code {0}".format(request.status_code))
-            return True
-
-        except Exception:
-            crisis.log(
-                "PreChecks",
-                "Failed to Connect to the Internet")
-            crisis.log("PreChecks", 'Error: Code 0'.format(request.status_code))
-            return False
-
-    @staticmethod
-    def InterfaceType():
-        interface_type = config.launch_mode
-
-        if interface_type == "cli":
-            crisis.log(
-                "Interface",
-                "Loading Command Line Interface")
-
-        elif interface_type == "gui":
-            crisis.log(
-                "Interface",
-                "Loading Graphical User Interface")
-
-        elif interface_type == "web":
-            crisis.log(
-                "Interface",
-                "Loading Web Interface and Server")
-
-        else:
-            crisis.warning(
-                "Interface", "Unknown Interface Configuration")
-            crisis.log(
-                "Interface",
-                "Defaulting back to Command Line Interface")
-            crisis.log(
-                "Interface",
-                "Loading Command Line Interface")
