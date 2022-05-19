@@ -2,17 +2,22 @@
 from pyowm import OWM
 from pyowm.utils import config
 from System.Modules.BootLoader import Config
+from System.Modules.Crisis import Crisis
 
 # Setting Up Configurations
 config = Config()
+crisis = Crisis()
 owm = OWM(str(config.openweathermap_api))
 mgr = owm.weather_manager()
 
 # Search for current weather in London (Great Britain) and get details
-observation = mgr.weather_at_place(
-    f'{config.openweathermap_city}, {config.openweathermap_country}')
-w = observation.weather
+try:
+    observation = mgr.weather_at_place(
+        f'{config.openweathermap_city}, {config.openweathermap_country}')
+    w = observation.weather
 
+except Exception as e:
+    crisis.warning("Weather", "Failed to get weather data: {0}".format(e))
 
 class Plugin:
     def __init__(self):
