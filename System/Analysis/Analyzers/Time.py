@@ -5,7 +5,7 @@ from datetime import datetime
 # Define our default class
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Time"
+        self.name = "Time"
         # Contexts that this plugin can handle
         self.contexts = ["time", "clock", "watch", "alarm"]
 

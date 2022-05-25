@@ -19,15 +19,18 @@ exit_text = Exit(configuration=config.launch_mode)
 interface = Interface(configuration=config.launch_mode,
                       username=config.username, unos_name=config.unos_name)
 
+# Quick Variable
+framework = "UNOS Assistant Framework"
+
 # Print Some Texts
-crisis.log("UNOS Assistant Framework",
+crisis.log(framework,
            "UNOS Assistant Framework has been started")
 boot_text.show()
 time.sleep(1)
 os.system('cls' if os.name == 'nt' else 'clear')
 splash_text.show()
 print(" ")
-crisis.log("UNOS Assistant Framework",
+crisis.log(framework,
            "Running Pre-Checks before starting the Interface")
 prechecks.check()
 preburner.start()
@@ -39,7 +42,7 @@ while True:
 
     except Exception as e:
         crisis.error(
-            "UNOS Assistant Framework", f"An Unknown Error has occurred: {e}")
+            framework, f"An Unknown Error has occurred: {e}")
 
     except KeyboardInterrupt:
         exit_text.show()
@@ -47,7 +50,7 @@ while True:
 
 print("\n")
 crisis.log(
-    "UNOS Assistant Framework",
+    framework,
     "Exiting UNOS Assistant Framework System")
 print("\n")
 sys.exit()

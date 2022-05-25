@@ -5,7 +5,7 @@ updater = Updater()
 
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Afterburner"
+        self.name = "Afterburner"
         self.contexts = ["update"]
 
     def analyze(self, query):
@@ -13,11 +13,11 @@ class Plugin:
 
     def process(self, query):
         # Remove the first word from the query
-        command = query[7:len(query)]
-        
+        command = query[7:]
+
         retain = updater.regen(command)
         if retain is True:
             return f"Sucessfully Regenerated the {command} Database"
-    
+
         else:
             return f"Failed to Regenerate the {command} Database"

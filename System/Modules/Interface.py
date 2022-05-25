@@ -13,9 +13,11 @@ from System.Modules.Splitter import Splitter
 config = Config()
 crisis = Crisis()
 
+# Setup if the user enabled text to speech and if they did not, then disable it
 if config.text_to_speech is True:
     speaker = Speaker()
     
+# Setup if the user enabled voice recognition and if they did not, then disable it
 if config.voice_recognition is True:
     listener = Listener()
 
@@ -23,6 +25,9 @@ modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
 class VoiceInterrupt(Exception):
+    pass
+
+class MidCommandInterrupt(Exception):
     pass
 
 # Interface Modules

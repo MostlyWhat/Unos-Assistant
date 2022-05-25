@@ -28,13 +28,12 @@ classes = pickle.load(open(f'{config.classes_lib}', 'rb'))
 
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.MCAS"
+        self.name = "MCAS"
         self.contexts = []
 
     @staticmethod
     def analyze(query):
-        # Some prints to identify which plugin is been used
-        # True
+        # Set to True because we want to use the fallback module
         return True
 
     @staticmethod

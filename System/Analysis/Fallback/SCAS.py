@@ -1,10 +1,11 @@
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.SCAS"
+        self.name = "SCAS"
         self.contexts = []
 
     def analyze(self, query):
-        return any((context in query for context in self.contexts))
+        # Set to True because we want to use the fallback module
+        return True
 
     @staticmethod
     def process(self, query):

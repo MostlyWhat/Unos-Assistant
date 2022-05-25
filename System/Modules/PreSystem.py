@@ -18,10 +18,6 @@ class Preburner():
       
     def start(self):
       pass
-        # if self.fallback_module == "MCAS":
-        #     crisis.log("Preburner", "Initialising MCAS")
-        #     splitter.analyze("hello")
-        #     crisis.log("Preburner", "MCAS is Online")
 
 class PreChecks():
     def __init__(self):

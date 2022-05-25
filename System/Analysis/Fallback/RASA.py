@@ -8,11 +8,11 @@ crisis = Crisis()
 # Adaptor for Rasa Assistant Server
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Rasa"
+        self.name = "RASA"
         self.contexts = []
 
     def analyze(self, query):
-        # Fallback Plugin
+        # Set to True because we want to use the fallback module
         return True
 
     def process(self, query):
