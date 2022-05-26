@@ -71,11 +71,11 @@ class Plugin:
         if accuracy1 > 0.5 or accuracy2 > 0.5 or accuracy3 > 0.5:
             crisis.log("MCAS", "Pass Accuracy Value of 50%")
             crisis.log(
-                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
             crisis.log(
-                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
             crisis.log(
-                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
+                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
             list_of_intents = intents['intents']
             # All Agree
             if tag1 == tag2 == tag3:
@@ -145,11 +145,11 @@ class Plugin:
         else:
             crisis.log("MCAS", "Failed Accuracy Value of 50%")
             crisis.log(
-                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
             crisis.log(
-                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
             crisis.log(
-                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
+                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
             not_found = ["I cannot answer that", "Different Question Please"]
             result = random.choice(not_found)
 
@@ -158,7 +158,7 @@ class Plugin:
     @staticmethod
     def Core1(bow):
         # SkyNET Core
-        model = load_model(config.MCAS_core1)
+        model = load_model(config.mcas_core1)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
@@ -167,7 +167,7 @@ class Plugin:
     @staticmethod
     def Core2(bow):
         # Strik3r Core
-        model = load_model(config.MCAS_core2)
+        model = load_model(config.mcas_core2)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
@@ -176,7 +176,7 @@ class Plugin:
     @staticmethod
     def Core3(bow):
         # Steve Core
-        model = load_model(config.MCAS_core2)
+        model = load_model(config.mcas_core2)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)

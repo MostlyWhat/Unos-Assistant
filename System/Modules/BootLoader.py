@@ -1,108 +1,138 @@
 import json
+from csv import unregister_dialect
 
 
 class Config:
     def __init__(self):
-        # Launch Configuration
-        with open('Config/launch_config.json') as launch_config_file:
-            launch_data = json.load(launch_config_file)
+        # # Credentials Configuration
+        # with open('Config/credentials_config.json') as credentials_config_file:
+        #     credentials_data = json.load(credentials_config_file)
 
-            self.dev_mode = launch_data["dev_mode"]
+        #     # OpenWeatherMap Api
+        #     self.openweathermap_api = credentials_data["credentials"]["openweathermap"]["api_key"]
+        #     self.openweathermap_city = credentials_data["credentials"]["openweathermap"]["city"]
+        #     self.openweathermap_country = credentials_data["credentials"]["openweathermap"]["country"]
+        #     self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]
+        #     self.openweathermap_lat = credentials_data["credentials"]["openweathermap"]["lat"]
+        #     self.openweathermap_lon = credentials_data["credentials"]["openweathermap"]["lon"]
+
+        #     # RapidAPI Api
+        #     self.rapidapi_api = credentials_data["credentials"]["rapid_api"]["api_key"]
+        #     self.rapidapi_host = credentials_data["credentials"]["rapid_api"]["api_host"]
+
+        # # Providers Config
+        # with open('Config/providers_config.json') as providers_config_file:
+        #     providers_data = json.load(providers_config_file)
+
+        #     self.providers_recognition = providers_data["recognition"]
+        #     self.providers_text_to_speech = providers_data["tts"]
+        #     self.providers_audio_player = providers_data["audio_player"]
+
+        # User Config File Data Setup
+        with open('Config/user_config.json') as user_config_file:
+            user_data = json.load(user_config_file)
             
+            # User Config
+            user_config = user_data["user_config"]
+            self.username = user_config["username"]
+            self.date_of_birth = user_config["date_of_birth"]
+            self.wakeup_commands = user_config["wakeup_commands"]
+            
+            # Launch Config
+            launch_config = user_data["launch_config"]
+            self.dev_mode = launch_config["dev_mode"]
+            
+            # Checks if DevMode is Enabled
             if self.dev_mode == True:
-                with open('Config/dev_config.json') as dev_config_file:
-                    dev_data = json.load(dev_config_file)
-                    
-                    self.launch_mode = dev_data["launch_mode"]
-                    self.voice_recognition = dev_data["voice_recognition"]
-                    self.text_to_speech = dev_data["text_to_speech"]
+                dev_launch_config = user_data["dev_launch_config"]
+                self.launch_mode = dev_launch_config["launch_mode"]
+                self.voice_recognition = dev_launch_config["voice_recognition"]
+                self.text_to_speech = dev_launch_config["text_to_speech"]
                 
             else:
-                self.launch_mode = launch_data["launch_mode"]
-                self.voice_recognition = launch_data["voice_recognition"]
-                self.text_to_speech = launch_data["text_to_speech"]
+                self.launch_mode = launch_config["launch_mode"]
+                self.voice_recognition = launch_config["voice_recognition"]
+                self.text_to_speech = launch_config["text_to_speech"]
+                
+        # System Config File Data Setup
+        with open('Config/system_config.json') as system_config_file:
+            system_data = json.load(system_config_file)
             
-
-        # UNOS Configuration
-        with open('Config/unos_config.json') as unos_config_file:
-            unos_data = json.load(unos_config_file)
-
+            # UNOS Config
+            unos_data = system_data["unos_config"]
             self.unos_name = unos_data["name"]
             self.unos_version = unos_data["version"]
             self.unos_stability = unos_data["stability"]
             self.unos_codename = unos_data["codename"]
             self.unos_previous_interation = unos_data["previous_interation"]
-
-        # Modules Configuration
-        with open('Config/modules_config.json') as modules_config_file:
-            modules_data = json.load(modules_config_file)
-
-            self.modules_location = modules_data["system_modules"]["location"]
-            self.modules = modules_data["system_modules"]["modules"]
-            self.fallback_module = modules_data["system_modules"]["fallback_module"]
-
-        # User Configuration
-        with open('Config/user_config.json') as user_config_file:
-            user_data = json.load(user_config_file)
-
-            self.username = user_data["username"]
-            self.date_of_birth = user_data["date_of_birth"]
-
-        # Libaries Configuration
-        with open('Config/libraries_config.json') as libraries_config_file:
-            libraries_data = json.load(libraries_config_file)
-
-            self.classes_lib = libraries_data["libraries"]["classes"]
-            self.words_lib = libraries_data["libraries"]["words"]
-
-            self.default_dataset = libraries_data["dataset"]["default"]
-
-        # MCAS Configuration
-        with open('Config/MCAS_config.json') as MCAS_config_file:
-            MCAS_data = json.load(MCAS_config_file)
-
-            self.MCAS_core1_location = MCAS_data["Cores"]["core_1"]
-            self.MCAS_core2_location = MCAS_data["Cores"]["core_2"]
-            self.MCAS_core3_location = MCAS_data["Cores"]["core_3"]
-
-            with open(f'System/Cores/{self.MCAS_core1_location}') as core1_file:
-                MCAS_core1_data = json.load(core1_file)
-
-                self.MCAS_core1 = f'System/Cores/{MCAS_core1_data["info"]["name"]}/{MCAS_core1_data["info"]["filename"]}'
-                self.MCAS_core1_name = MCAS_core1_data["info"]["name"]
-
-            with open(f'System/Cores/{self.MCAS_core2_location}') as core2_file:
-                MCAS_core2_data = json.load(core2_file)
-
-                self.MCAS_core2 = f'System/Cores/{MCAS_core2_data["info"]["name"]}/{MCAS_core2_data["info"]["filename"]}'
-                self.MCAS_core2_name = MCAS_core2_data["info"]["name"]
-
-            with open(f'System/Cores/{self.MCAS_core3_location}') as core3_file:
-                MCAS_core3_data = json.load(core3_file)
-
-                self.MCAS_core3 = f'System/Cores/{MCAS_core3_data["info"]["name"]}/{MCAS_core3_data["info"]["filename"]}'
-                self.MCAS_core3_name = MCAS_core3_data["info"]["name"]
-
-        # Credentials Configuration
-        with open('Config/credentials_config.json') as credentials_config_file:
-            credentials_data = json.load(credentials_config_file)
-
-            # OpenWeatherMap Api
-            self.openweathermap_api = credentials_data["credentials"]["openweathermap"]["api_key"]
-            self.openweathermap_city = credentials_data["credentials"]["openweathermap"]["city"]
-            self.openweathermap_country = credentials_data["credentials"]["openweathermap"]["country"]
-            self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]
-            self.openweathermap_lat = credentials_data["credentials"]["openweathermap"]["lat"]
-            self.openweathermap_lon = credentials_data["credentials"]["openweathermap"]["lon"]
-
-            # RapidAPI Api
-            self.rapidapi_api = credentials_data["credentials"]["rapid_api"]["api_key"]
-            self.rapidapi_host = credentials_data["credentials"]["rapid_api"]["api_host"]
-
-        # Providers Config
-        with open('Config/providers_config.json') as providers_config_file:
-            providers_data = json.load(providers_config_file)
-
+            
+            # Providers Config
+            providers_data = system_data["providers_config"]
             self.providers_recognition = providers_data["recognition"]
             self.providers_text_to_speech = providers_data["tts"]
             self.providers_audio_player = providers_data["audio_player"]
+            
+            # Libraries Config
+            libraries_config = system_data["libraries_config"]
+            libraries_data = libraries_config["libraries"]
+            self.classes_lib = libraries_data["classes"]
+            self.words_lib = libraries_data["words"]
+            
+            # Datasets Config
+            datasets_data = libraries_config["datasets"]
+            self.default_dataset = datasets_data["default"]
+            self.mcas_dataset  = datasets_data["mcas"]
+            
+            # Modules Config
+            modules_config = system_data["modules_config"]
+            analyzers_data = modules_config["analyzers_config"]
+            self.analyzers_location = analyzers_data["location"]
+            self.analyzers_modules = analyzers_data["modules"]
+            
+            fallback_data = modules_config["fallback_config"]
+            self.fallback_location = fallback_data["location"]
+            self.fallback_module = fallback_data["module"]
+            
+            # MCAS Cores Config
+            mcas_config = system_data["mcas_config"]
+            mcas_data = mcas_config["Cores"]
+            self.mcas_core1_location = mcas_data["core_1"]
+            self.mcas_core2_location = mcas_data["core_2"]
+            self.mcas_core3_location = mcas_data["core_3"]
+
+            with open(f'System/Cores/{self.mcas_core1_location}') as core1_file:
+                mcas_core1_data = json.load(core1_file)
+
+                self.mcas_core1 = f'System/Cores/{mcas_core1_data["info"]["name"]}/{mcas_core1_data["info"]["filename"]}'
+                self.mcas_core1_name = mcas_core1_data["info"]["name"]
+
+            with open(f'System/Cores/{self.mcas_core2_location}') as core2_file:
+                mcas_core2_data = json.load(core2_file)
+
+                self.mcas_core2 = f'System/Cores/{mcas_core2_data["info"]["name"]}/{mcas_core2_data["info"]["filename"]}'
+                self.mcas_core2_name = mcas_core2_data["info"]["name"]
+
+            with open(f'System/Cores/{self.mcas_core3_location}') as core3_file:
+                mcas_core3_data = json.load(core3_file)
+
+                self.mcas_core3 = f'System/Cores/{mcas_core3_data["info"]["name"]}/{mcas_core3_data["info"]["filename"]}'
+                self.mcas_core3_name = mcas_core3_data["info"]["name"]
+            
+        # Credentials Config File Data Setup
+        with open('Config/credentials_config.json') as credentials_config_file:
+            credentials_config = json.load(credentials_config_file)
+            credentials_data = credentials_config["credentials"]
+
+            # OpenWeatherMap Api
+            openweathermap_data = credentials_data["openweathermap"]
+            self.openweathermap_api = openweathermap_data["api_key"]
+            self.openweathermap_city = openweathermap_data["city"]
+            self.openweathermap_country = openweathermap_data["country"]
+            self.openweathermap_units = openweathermap_data["units"]
+            self.openweathermap_lat = openweathermap_data["lat"]
+            self.openweathermap_lon = openweathermap_data["lon"]
+
+            # RapidAPI Api
+            rapidapi_data = credentials_data["rapid_api"]
+            self.rapidapi_api = rapidapi_data["api_key"]
+            self.rapidapi_host = rapidapi_data["api_host"]

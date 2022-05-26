@@ -9,12 +9,10 @@ from System.Modules.Splitter import Splitter
 # Initialising Modules
 config = Config()
 crisis = Crisis()
-modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
-splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
 class Preburner():
     def __init__(self):
-      self.fallback_module = config.fallback_module
+      pass
       
     def start(self):
       pass

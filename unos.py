@@ -41,8 +41,10 @@ while True:
         interface.start()
 
     except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         crisis.error(
-            framework, f"An Unknown Error has occurred: {e}")
+            framework, f"The Error '{e}' has occurred in '{fname}' on line '{exc_tb.tb_lineno}'")
 
     except KeyboardInterrupt:
         exit_text.show()

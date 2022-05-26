@@ -16,15 +16,15 @@
             "classes": "Data/Library/classes.pk1",
             "words": "Data/Library/words.pk1"
         },
-        "dataset": {
-            "default": "Data/Dataset/default.json"
+        "datasets": {
+            "default": "Data/Dataset/default.json",
+            "mcas": "Data/Dataset/mcas.json"
         }
     },
     "modules_config": {
         "analyzers_config": {
             "location": "System.Analysis.Analyzers",
             "modules": [
-                "SCAS",
                 "Time",
                 "Weather",
                 "Exit",
@@ -37,7 +37,7 @@
             "module": "MCAS"
         }
     },
-    "MCAS_config": {
+    "mcas_config": {
         "Cores": {
             "core_1": "SkyNET/SkyNET.config.json",
             "core_2": "Strik3r/Strik3r.config.json",

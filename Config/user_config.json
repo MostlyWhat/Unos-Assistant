@@ -2,7 +2,7 @@
     "user_config": {
         "username": "Anonymous",
         "date_of_birth": "1st January 1970",
-        "wake_commands": [
+        "wakeup_commands": [
             "uno's",
             "who knows",
             "nos",

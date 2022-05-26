@@ -1,4 +1,6 @@
 import concurrent.futures
+import os
+import sys
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
@@ -21,7 +23,7 @@ if config.text_to_speech is True:
 if config.voice_recognition is True:
     listener = Listener()
 
-modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
+modules = [f"{config.analyzers_location}.{modules}" for modules in config.analyzers_modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
 class VoiceInterrupt(Exception):
@@ -69,8 +71,10 @@ class cli():
             self.outputting(unos_name, splitter_output)
         
         except Exception as e:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             crisis.error(
-                "UNOS Assistant Framework", f"An Unknown Error has occurred: {e}")
+                "Interface", f"The Error: {e} has occurred in '{fname}' on line '{exc_tb.tb_lineno}'")
 
     def outputting(self, unos_name: str, splitter_output: str):
         # Printing the Results
