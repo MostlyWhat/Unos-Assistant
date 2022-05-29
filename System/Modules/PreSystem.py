@@ -45,7 +45,7 @@ class PreChecks():
             crisis.log(
                 "PreChecks",
                 "Failed to Connect to the Internet")
-            crisis.log("PreChecks", 'Error: Code 0'.format(request.status_code))
+            crisis.log("PreChecks", 'Error: Code {0}'.format(request.status_code))
             return False
 
     @staticmethod

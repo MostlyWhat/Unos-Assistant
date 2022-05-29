@@ -1,12 +1,19 @@
+import argparse
+import json
+import os
+import queue
+import sys
+
 import keyboard
 import pyaudio
 import pyttsx3
 import requests
+import sounddevice as sd
+import vosk
 from audioplayer import AudioPlayer
 from google.cloud import speech
 from google.cloud import texttospeech as tts
 from pkg_resources import yield_lines
-from six.moves import queue
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 
@@ -15,22 +22,27 @@ crisis = Crisis()
 
 #Main Configurations
 language_code = 'en-US'
-WAKEUP_COMMANDS = ["uno's", "who knows", "nos", "nose", "hey uno's", "hey who knows", "hey nos", "hey nose"]
-
-# Audio Recording Parameters
+WAKEUP_COMMANDS = config.wakeup_commands
 RATE = 16000
-CHUNK = int(RATE / 10)  # 100ms
+CHUNK = RATE // 10
 
-client = speech.SpeechClient()
-config_speech = speech.RecognitionConfig(
-    encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-    sample_rate_hertz=RATE,
-    language_code=language_code,
-)
+# Vosk Configurations
+if config.providers_recognition == "vosk":
+    q = queue.Queue()
+    model = vosk.Model(lang="en-us")
 
-streaming_config = speech.StreamingRecognitionConfig(
-    config=config_speech, interim_results=True
-)
+# Google Audio Recording Parameters
+if config.providers_recognition == "google" or config.providers_text_to_speech == "google":
+    client = speech.SpeechClient()
+    config_speech = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=RATE,
+        language_code=language_code,
+    )
+
+    streaming_config = speech.StreamingRecognitionConfig(
+        config=config_speech, interim_results=True
+    )
 
 class Speaker():
     def __init__(self):
@@ -62,48 +74,57 @@ class Listener():  # Listener class to get the input from the user
         # init function to get an engine instance for the speech synthesis
         pass
     
-    def listen(self):
-        try:
-            #Recognition of Audio requests
-            while True:
-                listening = self.RecognizeUNOS()
-                
-                if listening == True:
-                    user_response = self.RecognizeAudio()
-                    
-                    keyboard.write(user_response)
-                    keyboard.press_and_release('enter')
+    def listenForUNOS(self):
+        #Recognition of Audio requests
+        while True:
+            wakeup = self.RecognizeUNOS()
             
-        except Exception as e:
-            crisis.error("Speech", f"Error Recognising the Speech: {e}")
+            if wakeup is True:
+                return True
+    
+    def listenForCommand(self):
+        return self.RecognizeAudio()
     
     def RecognizeUNOS(self):
-        with MicrophoneStream(RATE, CHUNK) as stream:
-            audio_generator = stream.generator()
-            requests = (
-                speech.StreamingRecognizeRequest(audio_content=content)
-                for content in audio_generator
-            )
-
-            responses = client.streaming_recognize(streaming_config, requests)
-
-            num_chars_printed = 0
-
-            # Now, put the transcription responses to use.
-            for response in responses:
-                # Once the transcription has settled, the first result will contain the
-                # is_final result. The other results will be for subsequent portions of
-                # the audio.
-                for result in response.results:
-                    transcript = (result.alternatives[0].transcript)
-                    overwrite_chars = " " * (num_chars_printed - len(transcript))
-
-                    if result.is_final:
-                        user_response = (transcript + overwrite_chars)
-
-                        if user_response in WAKEUP_COMMANDS:
-                            return True
+        # Recognition of UNOS requests        
+        if config.providers_recognition == "google":
+            user_response = GoogleRecognizer.RecognizeAudio(self)
+        
+        else:
+            user_response = VoskRecognizer.RecognizeAudio(self)
+            
+        if user_response in WAKEUP_COMMANDS:
+            return True
     
+    def RecognizeAudio(self):
+        #Recognition of Audio requests
+        if config.providers_recognition == "google":
+            user_response = GoogleRecognizer.RecognizeAudio(self)
+        
+        else:
+            user_response = VoskRecognizer.RecognizeAudio(self)
+            
+        return user_response
+
+# Real-time Audio Stream to get the audio input from the user
+class VoskRecognizer:
+    def RecognizeAudio(self):
+        #Recognition of Audio requests
+        with sd.RawInputStream(samplerate=RATE, blocksize = 8000, dtype='int16', channels=1, callback=VoskRecognizer.callback):
+            rec = vosk.KaldiRecognizer(model, RATE)
+            while True:
+                data = q.get()
+                if rec.AcceptWaveform(data):
+                    result = json.loads(rec.Result())
+                    return result["text"]
+                    
+    def callback(indata, frames, time, status):
+        """This is called (from a separate thread) for each audio block."""
+        if status:
+            print(status, file=sys.stderr)
+        q.put(bytes(indata))
+
+class GoogleRecognizer:
     def RecognizeAudio(self):
         #Recognition of Audio requests
         with MicrophoneStream(RATE, CHUNK) as stream:
@@ -123,13 +144,13 @@ class Listener():  # Listener class to get the input from the user
                 # is_final result. The other results will be for subsequent portions of
                 # the audio.
                 for result in response.results:
-                    transcript = (result.alternatives[0].transcript)
-                    overwrite_chars = " " * (num_chars_printed - len(transcript))
-
                     if result.is_final:
+                        transcript = (result.alternatives[0].transcript)
+                        overwrite_chars = " " * (num_chars_printed - len(transcript))
+
                         user_response = (transcript + overwrite_chars)
                         return str(user_response.lower())
-                    
+
 #Getting the MicrophoneStream Data (Source: Google Cloud)
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""

@@ -4,30 +4,6 @@ from csv import unregister_dialect
 
 class Config:
     def __init__(self):
-        # # Credentials Configuration
-        # with open('Config/credentials_config.json') as credentials_config_file:
-        #     credentials_data = json.load(credentials_config_file)
-
-        #     # OpenWeatherMap Api
-        #     self.openweathermap_api = credentials_data["credentials"]["openweathermap"]["api_key"]
-        #     self.openweathermap_city = credentials_data["credentials"]["openweathermap"]["city"]
-        #     self.openweathermap_country = credentials_data["credentials"]["openweathermap"]["country"]
-        #     self.openweathermap_units = credentials_data["credentials"]["openweathermap"]["units"]
-        #     self.openweathermap_lat = credentials_data["credentials"]["openweathermap"]["lat"]
-        #     self.openweathermap_lon = credentials_data["credentials"]["openweathermap"]["lon"]
-
-        #     # RapidAPI Api
-        #     self.rapidapi_api = credentials_data["credentials"]["rapid_api"]["api_key"]
-        #     self.rapidapi_host = credentials_data["credentials"]["rapid_api"]["api_host"]
-
-        # # Providers Config
-        # with open('Config/providers_config.json') as providers_config_file:
-        #     providers_data = json.load(providers_config_file)
-
-        #     self.providers_recognition = providers_data["recognition"]
-        #     self.providers_text_to_speech = providers_data["tts"]
-        #     self.providers_audio_player = providers_data["audio_player"]
-
         # User Config File Data Setup
         with open('Config/user_config.json') as user_config_file:
             user_data = json.load(user_config_file)

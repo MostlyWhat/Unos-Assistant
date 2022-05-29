@@ -7,7 +7,7 @@
         "previous_interation": "SkyNET"
     },
     "providers_config": {
-        "recognition": "google",
+        "recognition": "vosk",
         "tts": "pyttsx3",
         "audio_player": "playsound"
     },
