@@ -91,7 +91,8 @@ class cli_speech():
             # If the wakeup call is detected, then ask for input
             if listen is True:
                 if config.text_to_speech is True:
-                    speaker.speak("What can I do for you?")
+                    speaker.speak("Yes?")
+                    
                 print(f"\n[ {unos_name.upper()} ] Listening for Command...")
                 user_response = listener.listenForCommand()
                 

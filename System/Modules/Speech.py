@@ -81,6 +81,9 @@ class Listener():  # Listener class to get the input from the user
             
             if wakeup is True:
                 return True
+            
+            else:
+                crisis.log("Speech", "Wakeup Failed")
     
     def listenForCommand(self):
         return self.RecognizeAudio()
