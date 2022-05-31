@@ -19,12 +19,19 @@ crisis = Crisis()
 
 # Setting Up Modules
 lemmatizer = WordNetLemmatizer()
-intents = json.loads(open(f"{config.default_dataset}").read())
 words = pickle.load(open(f'{config.words_lib}', 'rb'))
 classes = pickle.load(open(f'{config.classes_lib}', 'rb'))
 
-# Fallback Plugin for Splitter System
+try:
+    intents = json.loads(open(f"{config.mcas_dataset}").read())
 
+# Except File Not Found Error 
+except Exception as e:
+    with open(f"{config.default_dataset}", "r") as default_dataset, open(f"{config.mcas_dataset}", "w") as mcas_dataset:
+        mcas_dataset.write(default_dataset.read())
+    intents = json.loads(open(f"{config.mcas_dataset}").read())
+
+# Fallback Plugin for Splitter System
 
 class Plugin:
     def __init__(self):
@@ -68,7 +75,7 @@ class Plugin:
         accuracy3 = float(core3[0]['probability'])
 
         # Check if all cores has accuracy more than 50%
-        if accuracy1 > 0.5 or accuracy2 > 0.5 or accuracy3 > 0.5:
+        if accuracy1 >= 0.9 or accuracy2 >= 0.9 or accuracy3 >= 0.9:
             crisis.log("MCAS", "Pass Accuracy Value of 50%")
             crisis.log(
                 f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
@@ -77,6 +84,7 @@ class Plugin:
             crisis.log(
                 f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
             list_of_intents = intents['intents']
+            
             # All Agree
             if tag1 == tag2 == tag3:
                 crisis.log("MCAS", "All Agree")
@@ -150,8 +158,12 @@ class Plugin:
                 f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
             crisis.log(
                 f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
-            not_found = ["I cannot answer that", "Different Question Please"]
-            result = random.choice(not_found)
+            
+            # Returns the Unknown Intent as Answer
+            list_of_intents = intents['intents']
+            for i in list_of_intents:
+                if i['tag'] == "unknown":
+                    result = random.choice(i['responses'])
 
         return result
 

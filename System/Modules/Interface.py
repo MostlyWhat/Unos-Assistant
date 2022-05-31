@@ -34,7 +34,7 @@ class Interface():
         self.unos_name = unos_name
 
     def start(self):
-        if self.launch_config == "cli" and config.text_to_speech is True:
+        if self.launch_config == "cli" and config.voice_recognition is True:
             cli_interface = cli_speech()
             cli_interface.main(self.username, self.unos_name)
             

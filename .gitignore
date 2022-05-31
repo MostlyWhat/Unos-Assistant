@@ -8,3 +8,4 @@ Config/credentials_config.json
 unos-system.log
 !.gitignore
 credentials.json
+.deta/

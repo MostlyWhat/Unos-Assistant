@@ -27,7 +27,7 @@ RATE = 16000
 CHUNK = RATE // 10
 
 # Vosk Configurations
-if config.providers_recognition == "vosk":
+if config.voice_recognition is True and config.providers_recognition == "vosk":
     q = queue.Queue()
     model = vosk.Model(lang="en-us")
 

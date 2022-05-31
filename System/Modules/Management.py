@@ -35,12 +35,19 @@ lemmatizer = WordNetLemmatizer()
 
 # Setting Up Configurations
 lemmatizer = WordNetLemmatizer()
-intents = json.loads(open(f'{config.default_dataset}').read())
 words = []
 classes = []
 documents = []
 ignore_letters = ['?', '!', '.', ',']
 training = []
+
+# Load Database
+try:
+    intents = json.loads(open(f"{config.mcas_dataset}").read())
+
+# Except File Not Found Error 
+except Exception as e:
+    intents = json.loads(open(f"{config.default_dataset}").read())
 
 for intent in intents['intents']:
     for pattern in intent['patterns']:
@@ -103,7 +110,7 @@ class Updater():
         
         elif database == "all":
             if os.path.exists(f"{config.words_lib}"):
-                    os.remove(f"{config.words_lib}")
+                os.remove(f"{config.words_lib}")
                     
             if os.path.exists(f"{config.classes_lib}"):
                 os.remove(f"{config.classes_lib}")
@@ -122,9 +129,9 @@ class Updater():
     
     def SkyNET_Training(self):
         model = Sequential()
-        model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu')) 
+        model.add(Dense(512, input_shape=(len(train_x[0]),), activation='relu')) 
         model.add(Dropout(0.5)) 
-        model.add(Dense(64, activation='relu')) 
+        model.add(Dense(256, activation='relu')) 
         model.add(Dropout(0.5))
         model.add(Dense(len(train_y[0]), activation='softmax'))
 
@@ -135,13 +142,33 @@ class Updater():
         hist = model.fit(np.array(train_x), np.array(train_y),
                         epochs=200, batch_size=5, verbose=1)
         
-        if os.path.exists(f"{config.MCAS_core1}"):
-            os.remove(f"{config.MCAS_core1}")
+        if os.path.exists(f"{config.mcas_core1}"):
+            os.remove(f"{config.mcas_core1}")
         
-        model.save(f'{config.MCAS_core1}', hist)
+        model.save(f'{config.mcas_core1}', hist)
         
     def Strik3r_Training(self):
         model=Sequential()
+        model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
+        model.add(Dropout(0.5)) 
+        model.add(Dense(64, activation='relu'))
+        model.add(Dropout(0.5)) 
+        model.add(Dense(len(train_y[0]), activation='softmax'))
+
+        sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+        model.compile(loss='categorical_crossentropy',
+                    optimizer=sgd, metrics=['accuracy'])
+
+        hist = model.fit(np.array(train_x), np.array(train_y),
+                        epochs=200, batch_size=5, verbose=1)
+        
+        if os.path.exists(f"{config.mcas_core2}"):
+            os.remove(f"{config.mcas_core2}")
+        
+        model.save(f'{config.mcas_core2}', hist)
+        
+    def Steve_Training(self):
+        model = Sequential() 
         model.add(Dense(64, input_shape=(len(train_x[0]),), activation='relu'))
         model.add(Dropout(0.5)) 
         model.add(Dense(32, activation='relu'))
@@ -157,27 +184,10 @@ class Updater():
         hist = model.fit(np.array(train_x), np.array(train_y),
                         epochs=200, batch_size=5, verbose=1)
         
-        if os.path.exists(f"{config.MCAS_core2}"):
-            os.remove(f"{config.MCAS_core2}")
+        if os.path.exists(f"{config.mcas_core3}"):
+            os.remove(f"{config.mcas_core3}")
         
-        model.save(f'{config.MCAS_core2}', hist)
-        
-    def Steve_Training(self):
-        model = Sequential() 
-        model.add(Dense(10, input_shape=(len(train_x[0]),), activation='relu')) 
-        model.add(Dense(8, activation='relu')) 
-        model.add(Dense(8, activation='relu')) 
-        model.add(Dense(6, activation='relu')) 
-        model.add(Dense(len(train_y[0]), activation='softmax'))
+        model.save(f'{config.mcas_core3}', hist)
 
-        sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-        model.compile(loss='categorical_crossentropy',
-                    optimizer=sgd, metrics=['accuracy'])
-
-        hist = model.fit(np.array(train_x), np.array(train_y),
-                        epochs=200, batch_size=5, verbose=1)
-        
-        if os.path.exists(f"{config.MCAS_core3}"):
-            os.remove(f"{config.MCAS_core3}")
-        
-        model.save(f'{config.MCAS_core3}', hist)
+class Autofixer:
+    pass

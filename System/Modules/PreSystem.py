@@ -36,16 +36,12 @@ class PreChecks():
             crisis.log(
                 "PreChecks",
                 "Successfully connected to the Internet")
-            crisis.log(
-                "PreChecks",
-                "Success: Code {0}".format(request.status_code))
             return True
 
         except Exception:
             crisis.log(
                 "PreChecks",
                 "Failed to Connect to the Internet")
-            crisis.log("PreChecks", 'Error: Code {0}'.format(request.status_code))
             return False
 
     @staticmethod
