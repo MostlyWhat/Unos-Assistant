@@ -25,6 +25,7 @@
         "analyzers_config": {
             "location": "System.Analysis.Analyzers",
             "modules": [
+                "Math",
                 "Time",
                 "Weather",
                 "Exit",
