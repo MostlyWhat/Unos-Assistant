@@ -73,16 +73,20 @@ class Plugin:
         accuracy1 = float(core1[0]['probability'])
         accuracy2 = float(core2[0]['probability'])
         accuracy3 = float(core3[0]['probability'])
+        
+        accuracy1_percent = round(accuracy1 * 100, 2)
+        accuracy2_percent = round(accuracy2 * 100, 2)
+        accuracy3_percent = round(accuracy3 * 100, 2)
 
         # Check if all cores has accuracy more than 50%
         if accuracy1 >= 0.9 or accuracy2 >= 0.9 or accuracy3 >= 0.9:
             crisis.log("MCAS", "Pass Accuracy Value of 50%")
             crisis.log(
-                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1_percent}%")
             crisis.log(
-                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2_percent}%")
             crisis.log(
-                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
+                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3_percent}%")
             list_of_intents = intents['intents']
             
             # All Agree

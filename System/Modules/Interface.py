@@ -68,10 +68,8 @@ class cli():
             self.outputting(unos_name, splitter_output)
         
         except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             crisis.error(
-                "Interface", f"The Error: {e} has occurred in '{fname}' on line '{exc_tb.tb_lineno}'")
+                "Interface", f"The Error: {e} has occurred")
 
     def outputting(self, unos_name: str, splitter_output: str):
         # Printing the Results

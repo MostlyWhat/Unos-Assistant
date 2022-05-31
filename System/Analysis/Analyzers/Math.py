@@ -1,5 +1,7 @@
 from mathparse import mathparse
+from System.Modules.Crisis import Crisis
 
+crisis = Crisis()
 
 class Plugin:
     def __init__(self):
@@ -13,13 +15,14 @@ class Plugin:
         if processing == False:
             return False
         
+        crisis.log("Math", "Passed the Math Expression Analysis")
         return True
 
     def process(self, query):
         expression = mathparse.extract_expression(query, language="ENG")
         
         try:
-            result = mathparse.parse(expression, language="ENG")
+            result = str(mathparse.parse(expression, language="ENG"))
             return "The result is " + result
             
         except mathparse.PostfixTokenEvaluationException:
