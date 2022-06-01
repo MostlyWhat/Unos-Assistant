@@ -131,7 +131,7 @@ class cli_speech():
     def extra_input(self):
         pass
     
-    def outputting(self, unos_name: str, splitter_output: str):
+    def outputting(self, splitter_output: str):
         # Printing the Results
         print(" ")
         print(f"[ {unos_name.upper()} ] {splitter_output}")
