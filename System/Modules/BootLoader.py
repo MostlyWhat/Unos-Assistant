@@ -71,6 +71,8 @@ class Config:
             
             # MCAS Cores Config
             mcas_config = system_data["mcas_config"]
+            self.mcas_learning = mcas_config["learning"]
+            
             mcas_data = mcas_config["Cores"]
             self.mcas_core1_location = mcas_data["core_1"]
             self.mcas_core2_location = mcas_data["core_2"]

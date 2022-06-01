@@ -87,6 +87,7 @@ class Plugin:
                 f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2_percent}%")
             crisis.log(
                 f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3_percent}%")
+            
             list_of_intents = intents['intents']
             
             # All Agree
@@ -94,6 +95,12 @@ class Plugin:
                 crisis.log("MCAS", "All Agree")
                 for i in list_of_intents:
                     if i['tag'] == tag1:
+                        # Optional Training
+                        if config.mcas_learning is True:
+                            if query not in i['patterns']:
+                                i['patterns'].append(query)
+                                self.learning()
+                        
                         result = random.choice(i['responses'])
                         break
 
@@ -135,6 +142,12 @@ class Plugin:
                         "MCAS", "Core 1 and 2 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
@@ -143,6 +156,12 @@ class Plugin:
                         "MCAS", "Core 2 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag2:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
@@ -151,6 +170,12 @@ class Plugin:
                         "MCAS", "Core 1 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag3:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
@@ -197,3 +222,7 @@ class Plugin:
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
+
+    def learning(self):
+        with open(f"{config.mcas_dataset}", "w") as mcas_dataset:
+            mcas_dataset.write(json.dumps(intents, indent=4))
