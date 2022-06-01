@@ -28,9 +28,9 @@
                 "Math",
                 "Time",
                 "Weather",
-                "Exit",
                 "Scraper",
-                "Afterburner"
+                "Manager",
+                "Exit"
             ]
         },
         "fallback_config": {

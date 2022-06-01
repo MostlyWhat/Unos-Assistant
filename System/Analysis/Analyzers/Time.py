@@ -10,7 +10,11 @@ class Plugin:
         self.contexts = ["time", "clock", "watch", "alarm"]
 
     def analyze(self, query):
-        return any((context in query for context in self.contexts))
+        if "times" not in query:
+            return any((context in query for context in self.contexts))
+        
+        else:
+            return False
 
     @staticmethod
     def process(query):

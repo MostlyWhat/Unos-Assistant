@@ -11,17 +11,14 @@ config = Config()
 
 
 class Boot():
-    def __init__(self, configuration: str):
-        self.launch_config = configuration
-
     def show(self):
-        # if self.launch_config == "cli":
+        # if config.launch_config == "cli":
         #     self.cli()
 
-        # elif self.launch_config == "gui":
+        # elif config.launch_config == "gui":
         #     self.gui()
 
-        # elif self.launch_config == "web":
+        # elif config.launch_config == "web":
         #     self.web()
 
         # else:
@@ -52,17 +49,14 @@ class Boot():
 
 
 class Splash():
-    def __init__(self, configuration: str):
-        self.launch_config = configuration
-
     def show(self):
-        # if self.launch_config == "cli":
+        # if config.launch_config == "cli":
         #     self.cli()
 
-        # elif self.launch_config == "gui":
+        # elif config.launch_config == "gui":
         #     self.gui()
 
-        # elif self.launch_config == "web":
+        # elif config.launch_config == "web":
         #     self.web()
 
         # else:
@@ -99,17 +93,14 @@ class Splash():
 
 
 class Exit():
-    def __init__(self, configuration: str):
-        self.launch_config = configuration
-
     def show(self):
-        # if self.launch_config == "cli":
+        # if config.launch_config == "cli":
         #     self.cli()
 
-        # elif self.launch_config == "gui":
+        # elif config.launch_config == "gui":
         #     self.gui()
 
-        # elif self.launch_config == "web":
+        # elif config.launch_config == "web":
         #     self.web()
 
         # else:

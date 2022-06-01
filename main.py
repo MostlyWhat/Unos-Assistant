@@ -13,11 +13,10 @@ config = Config()
 crisis = Crisis()
 prechecks = PreChecks()
 preburner = Preburner()
-boot_text = Boot(configuration=config.launch_mode)
-splash_text = Splash(configuration=config.launch_mode)
-exit_text = Exit(configuration=config.launch_mode)
-interface = Interface(configuration=config.launch_mode,
-                      username=config.username, unos_name=config.unos_name)
+boot_text = Boot()
+splash_text = Splash()
+exit_text = Exit()
+interface = Interface()
 
 # Quick Variable
 framework = "UNOS Assistant Framework"

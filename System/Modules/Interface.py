@@ -1,6 +1,4 @@
 import concurrent.futures
-import os
-import sys
 
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
@@ -26,37 +24,49 @@ if config.voice_recognition is True:
 modules = [f"{config.analyzers_location}.{modules}" for modules in config.analyzers_modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
+# Quick Variables
+unos_name = config.unos_name
+username = config.username
+launch_config = config.launch_mode
+
 # Interface Modules
 class Interface():
-    def __init__(self, configuration: str, username: str, unos_name: str):
-        self.launch_config = configuration
-        self.username = username
-        self.unos_name = unos_name
-
     def start(self):
-        if self.launch_config == "cli" and config.voice_recognition is True:
+        if launch_config == "cli" and config.voice_recognition is True:
             cli_interface = cli_speech()
-            cli_interface.main(self.username, self.unos_name)
-            
-        elif self.launch_config == "cli":
-            cli_interface = cli()
-            cli_interface.main(self.username, self.unos_name)
+            cli_interface.main()
 
-        elif self.launch_config == "gui":
+        elif launch_config == "gui":
             gui_interface = gui()
-            gui_interface.main(self.username, self.unos_name)
+            gui_interface.main()
 
-        elif self.launch_config == "web":
+        elif launch_config == "web":
             web_interface = web()
-            web_interface.main(self.username, self.unos_name)
+            web_interface.main()
             
         else:
             cli_interface = cli()
-            cli_interface.main(self.username, self.unos_name)
+            cli_interface.main()
+            
+    def moreinfo(self):
+        if launch_config == "cli" and config.voice_recognition is True:
+            cli_interface = cli_speech()
+            return cli_interface.extra_input()
 
+        elif launch_config == "gui":
+            gui_interface = gui()
+            return gui_interface.extra_input()
+
+        elif launch_config == "web":
+            web_interface = web()
+            return web_interface.extra_input()
+            
+        else:
+            cli_interface = cli()
+            return cli_interface.extra_input()
 
 class cli():
-    def main(self, username: str, unos_name: str):
+    def main(self):
         try:            
             # Gets Input from Splitter
             print(" ")
@@ -65,13 +75,26 @@ class cli():
             splitter_output = splitter.analyze(query)
 
             # Outputting the Results
-            self.outputting(unos_name, splitter_output)
+            self.outputting(splitter_output)
         
         except Exception as e:
             crisis.error(
                 "Interface", f"The Error: {e} has occurred")
 
-    def outputting(self, unos_name: str, splitter_output: str):
+    def extra_input(self):
+        extrainput_request = "I'm sorry, can you provide me with a category?"
+        
+        if config.text_to_speech is True:
+            speaker.speak(extrainput_request)
+        
+        self.outputting(extrainput_request)
+        print(" ")
+        response = str(input(f"{username}@{unos_name}: "))
+        print(" ")
+        
+        return response
+
+    def outputting(self, splitter_output: str):
         # Printing the Results
         print(f"[ {unos_name.upper()} ] {splitter_output}")
         
@@ -80,7 +103,7 @@ class cli():
             speaker.speak(splitter_output)
 
 class cli_speech():
-    def main(self, username: str, unos_name: str):
+    def main(self):
         try:
             # Listen for Wakeup Call
             print(f"\n[ {unos_name.upper()} ] Listening for Wakeup Command...")
@@ -99,14 +122,15 @@ class cli_speech():
                 splitter_output = splitter.analyze(user_response)
 
                 # Outputting the Results
-                self.outputting(unos_name, splitter_output)
+                self.outputting(splitter_output)
         
         except Exception as e:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             crisis.error(
-                "Interface", f"The Error: {e} has occurred in '{fname}' on line '{exc_tb.tb_lineno}'")
+                "Interface", f"The Error: {e} has occurred")
 
+    def extra_input(self):
+        pass
+    
     def outputting(self, unos_name: str, splitter_output: str):
         # Printing the Results
         print(" ")
@@ -117,10 +141,21 @@ class cli_speech():
             speaker.speak(splitter_output)
 
 class gui():
-    def main(self, username: str, unos_name: str):
+    def main(self):
         pass
 
+    def extra_input(self):
+        pass
+    
+    def outputting(self):
+        pass
 
 class web():
-    def main(self, username: str, unos_name: str):
+    def main(self):
+        pass
+
+    def extra_input(self):
+        pass
+    
+    def outputting(self):
         pass

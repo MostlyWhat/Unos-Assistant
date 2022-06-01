@@ -107,17 +107,6 @@
             ]
         },
         {
-            "tag": "talk",
-            "patterns": [
-                "can you sing",
-                "can you talk"
-            ],
-            "responses": [
-                "Yeah surely",
-                "do you want me to sing"
-            ]
-        },
-        {
             "tag": "alive",
             "patterns": [
                 "are you alive",
@@ -171,7 +160,8 @@
                 "Why did the bicycle cross the road? Because it was two-tired",
                 "Why did the pelican refuse to pay his respects? Because he was a little chicken",
                 "What did the judge say when the jury panel decided the case was invalid? You are the opposite of a valid case",
-                "What do you call a cow with no legs? Ground beef"
+                "What do you call a cow with no legs? Ground beef",
+                "What's a cat favorite show? A Mew-sical"
             ]
         },
         {

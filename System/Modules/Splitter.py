@@ -43,15 +43,12 @@ class Splitter():
 
         return selected_adaptor.process(query)
 
-    def multipleAdaptors(self, adaptors):
-        print("[Temporary Selection] Multiple adaptors found, Please select one:")
-        for i, adaptor in enumerate(adaptors):
-            print(f"{i}: {adaptor}")
-
-        choice = int(input("Choice (Numbers): "))
-        adaptors = [adaptors[choice]]
+    def multipleAdaptors(self, adaptors):        
+        from System.Modules.Interface import Interface
+        context = Interface().moreinfo()
         
-        return adaptors
-
-    def moreContext(self):
-        pass
+        for adaptor in adaptors:
+            check = importlib.import_module(f"{str(adaptor)}", ".").Plugin().analyze(context)
+            
+            if check is True:
+                return [adaptor]

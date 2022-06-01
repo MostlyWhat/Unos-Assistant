@@ -78,9 +78,9 @@ class Plugin:
         accuracy2_percent = round(accuracy2 * 100, 2)
         accuracy3_percent = round(accuracy3 * 100, 2)
 
-        # Check if all cores has accuracy more than 50%
-        if accuracy1 >= 0.9 or accuracy2 >= 0.9 or accuracy3 >= 0.9:
-            crisis.log("MCAS", "Pass Accuracy Value of 50%")
+        # Check if all cores has accuracy more than 60%
+        if accuracy1 >= 0.6 or accuracy2 >= 0.6 or accuracy3 >= 0.6:
+            crisis.log("MCAS", "Pass Accuracy Value of 60%")
             crisis.log(
                 f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1_percent}%")
             crisis.log(
@@ -155,7 +155,7 @@ class Plugin:
                             break
 
         else:
-            crisis.log("MCAS", "Failed Accuracy Value of 50%")
+            crisis.log("MCAS", "Failed Accuracy Value of 60%")
             crisis.log(
                 f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
             crisis.log(

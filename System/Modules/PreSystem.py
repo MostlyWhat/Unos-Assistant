@@ -24,6 +24,7 @@ class PreChecks():
     def check(self):
         # Check Internet Connection
         self.InternetCheck()
+        self.Configurations()
         self.InterfaceType()
 
     @staticmethod
@@ -72,3 +73,42 @@ class PreChecks():
             crisis.log(
                 "Interface",
                 "Loading Command Line Interface")
+
+    @staticmethod
+    def Configurations():
+        dev_mode = config.dev_mode
+        
+        # Checking if the dev_mode is enabled
+        if dev_mode is True:
+            crisis.log(
+                "PreChecks",
+                "Development Mode is Enabled")
+
+        else:
+            crisis.log(
+                "PreChecks",
+                "Development Mode is Disabled")
+
+        # Checking on what features are enabled
+        text_to_speech = config.text_to_speech
+        voice_recognition = config.voice_recognition
+        
+        if text_to_speech is True:
+            crisis.log(
+                "PreChecks",
+                "Text to Speech is Enabled")
+            
+        else:
+            crisis.log(
+                "PreChecks",
+                "Text to Speech is Disabled")
+            
+        if voice_recognition is True:
+            crisis.log(
+                "PreChecks",
+                "Voice Recognition is Enabled")
+            
+        else:
+            crisis.log(
+                "PreChecks",
+                "Voice Recognition is Disabled")
