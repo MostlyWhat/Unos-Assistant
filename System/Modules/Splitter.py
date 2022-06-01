@@ -9,6 +9,7 @@ class Splitter():
     def __init__(self, fallback_module: str, plugins: list = None):
         if plugins is None:
             plugins = []
+            
         self.fallback_module = fallback_module
         # Checking if plugin were set
         if plugins != []:
@@ -20,11 +21,9 @@ class Splitter():
         else:
             # If no plugin were set we use our default
             self._plugins = [importlib.import_module(
-                f"System.Analysis.{fallback_module}", ".") .Plugin()]
+                f"{config.fallback_location}.{self.fallback_module}", ".") .Plugin()]
 
-    def analyze(self, user_input: str):
-        query = user_input.lower()
-        
+    def analyze(self, query: str):        
         adaptors = []
 
         # Analyze using other plugins
@@ -32,21 +31,24 @@ class Splitter():
             responses = plugin.analyze(query)
 
             if responses is True:
-                adaptors.append(plugin.name)
+                adaptors.append(f"{config.analyzers_location}.{plugin.name}")
 
         if len(adaptors) > 1:
-            print("[Temporary Selection] Multiple adaptors found, Please select one:")
-            for i, adaptor in enumerate(adaptors):
-                print(f"{i}: {adaptor}")
-
-            choice = int(input("Choice (Numbers): "))
-            adaptors = [adaptors[choice]]
+            adaptors = self.multipleAdaptors(adaptors)
 
         else:
-            adaptors.append(f"System.Analysis.{self.fallback_module}")
+            adaptors.append(f"{config.fallback_location}.{self.fallback_module}")
 
-
-        selected_adaptor = importlib.import_module(
-            str(adaptors[0]), ".").Plugin()
+        selected_adaptor = importlib.import_module(f"{str(adaptors[0])}", ".").Plugin()
 
         return selected_adaptor.process(query)
+
+    def multipleAdaptors(self, adaptors):        
+        from System.Modules.Interface import Interface
+        context = Interface().moreinfo()
+        
+        for adaptor in adaptors:
+            check = importlib.import_module(f"{str(adaptor)}", ".").Plugin().analyze(context)
+            
+            if check is True:
+                return [adaptor]

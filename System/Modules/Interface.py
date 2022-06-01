@@ -13,47 +13,61 @@ from System.Modules.Splitter import Splitter
 config = Config()
 crisis = Crisis()
 
+# Setup if the user enabled text to speech and if they did not, then disable it
 if config.text_to_speech is True:
     speaker = Speaker()
     
+# Setup if the user enabled voice recognition and if they did not, then disable it
 if config.voice_recognition is True:
     listener = Listener()
 
-modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
+modules = [f"{config.analyzers_location}.{modules}" for modules in config.analyzers_modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
-class VoiceInterrupt(Exception):
-    pass
+# Quick Variables
+unos_name = config.unos_name
+username = config.username
+launch_config = config.launch_mode
 
 # Interface Modules
 class Interface():
-    def __init__(self, configuration: str, username: str, unos_name: str):
-        self.launch_config = configuration
-        self.username = username
-        self.unos_name = unos_name
-
     def start(self):
-        if self.launch_config == "cli" or self.launch_config not in ["gui", "web"]:
-            cli_interface = cli()
-            cli_interface.main(self.username, self.unos_name)
+        if launch_config == "cli" and config.voice_recognition is True:
+            cli_interface = cli_speech()
+            cli_interface.main()
 
-        elif self.launch_config == "gui":
+        elif launch_config == "gui":
             gui_interface = gui()
-            gui_interface.main(self.username, self.unos_name)
+            gui_interface.main()
 
-        else:
+        elif launch_config == "web":
             web_interface = web()
-            web_interface.main(self.username, self.unos_name)
+            web_interface.main()
+            
+        else:
+            cli_interface = cli()
+            cli_interface.main()
+            
+    def moreinfo(self):
+        if launch_config == "cli" and config.voice_recognition is True:
+            cli_interface = cli_speech()
+            return cli_interface.extra_input()
 
+        elif launch_config == "gui":
+            gui_interface = gui()
+            return gui_interface.extra_input()
+
+        elif launch_config == "web":
+            web_interface = web()
+            return web_interface.extra_input()
+            
+        else:
+            cli_interface = cli()
+            return cli_interface.extra_input()
 
 class cli():
-    def main(self, username: str, unos_name: str):
-        try:
-            if config.voice_recognition is True:
-                # Starts a thread to listen for user input
-                with concurrent.futures.ThreadPoolExecutor() as executor:
-                    executor.submit(listener.listen)
-            
+    def main(self):
+        try:            
             # Gets Input from Splitter
             print(" ")
             query = str(input(f"{username}@{unos_name}: "))
@@ -61,13 +75,26 @@ class cli():
             splitter_output = splitter.analyze(query)
 
             # Outputting the Results
-            self.outputting(unos_name, splitter_output)
+            self.outputting(splitter_output)
         
         except Exception as e:
             crisis.error(
-                "UNOS Assistant Framework", f"An Unknown Error has occurred: {e}")
+                "Interface", f"The Error: {e} has occurred")
 
-    def outputting(self, unos_name: str, splitter_output: str):
+    def extra_input(self):
+        extrainput_request = "I'm sorry, can you provide me with a category?"
+        
+        if config.text_to_speech is True:
+            speaker.speak(extrainput_request)
+        
+        self.outputting(extrainput_request)
+        print(" ")
+        response = str(input(f"{username}@{unos_name}: "))
+        print(" ")
+        
+        return response
+
+    def outputting(self, splitter_output: str):
         # Printing the Results
         print(f"[ {unos_name.upper()} ] {splitter_output}")
         
@@ -75,11 +102,60 @@ class cli():
         if config.text_to_speech is True:
             speaker.speak(splitter_output)
 
+class cli_speech():
+    def main(self):
+        try:
+            # Listen for Wakeup Call
+            print(f"\n[ {unos_name.upper()} ] Listening for Wakeup Command...")
+            listen = listener.listenForUNOS()
+            
+            # If the wakeup call is detected, then ask for input
+            if listen is True:
+                if config.text_to_speech is True:
+                    speaker.speak("Yes?")
+                    
+                print(f"\n[ {unos_name.upper()} ] Listening for Command...")
+                user_response = listener.listenForCommand()
+                
+                # Send the Input to Splitter for Analysis
+                print(f"\n[ {unos_name.upper()} ] {username} responded with: {user_response}")
+                splitter_output = splitter.analyze(user_response)
+
+                # Outputting the Results
+                self.outputting(splitter_output)
+        
+        except Exception as e:
+            crisis.error(
+                "Interface", f"The Error: {e} has occurred")
+
+    def extra_input(self):
+        pass
+    
+    def outputting(self, splitter_output: str):
+        # Printing the Results
+        print(" ")
+        print(f"[ {unos_name.upper()} ] {splitter_output}")
+        
+        # Run the Speaker Module in another thread, interruptable
+        if config.text_to_speech is True:
+            speaker.speak(splitter_output)
+
 class gui():
-    def main(self, username: str, unos_name: str):
+    def main(self):
         pass
 
+    def extra_input(self):
+        pass
+    
+    def outputting(self):
+        pass
 
 class web():
-    def main(self, username: str, unos_name: str):
+    def main(self):
+        pass
+
+    def extra_input(self):
+        pass
+    
+    def outputting(self):
         pass

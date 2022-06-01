@@ -19,22 +19,28 @@ crisis = Crisis()
 
 # Setting Up Modules
 lemmatizer = WordNetLemmatizer()
-intents = json.loads(open(f"{config.default_dataset}").read())
 words = pickle.load(open(f'{config.words_lib}', 'rb'))
 classes = pickle.load(open(f'{config.classes_lib}', 'rb'))
 
-# Fallback Plugin for Splitter System
+try:
+    intents = json.loads(open(f"{config.mcas_dataset}").read())
 
+# Except File Not Found Error 
+except Exception as e:
+    with open(f"{config.default_dataset}", "r") as default_dataset, open(f"{config.mcas_dataset}", "w") as mcas_dataset:
+        mcas_dataset.write(default_dataset.read())
+    intents = json.loads(open(f"{config.mcas_dataset}").read())
+
+# Fallback Plugin for Splitter System
 
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.MCAS"
+        self.name = "MCAS"
         self.contexts = []
 
     @staticmethod
     def analyze(query):
-        # Some prints to identify which plugin is been used
-        # True
+        # Set to True because we want to use the fallback module
         return True
 
     @staticmethod
@@ -67,22 +73,34 @@ class Plugin:
         accuracy1 = float(core1[0]['probability'])
         accuracy2 = float(core2[0]['probability'])
         accuracy3 = float(core3[0]['probability'])
+        
+        accuracy1_percent = round(accuracy1 * 100, 2)
+        accuracy2_percent = round(accuracy2 * 100, 2)
+        accuracy3_percent = round(accuracy3 * 100, 2)
 
-        # Check if all cores has accuracy more than 50%
-        if accuracy1 > 0.5 or accuracy2 > 0.5 or accuracy3 > 0.5:
-            crisis.log("MCAS", "Pass Accuracy Value of 50%")
+        # Check if all cores has accuracy more than 60%
+        if accuracy1 >= 0.6 or accuracy2 >= 0.6 or accuracy3 >= 0.6:
+            crisis.log("MCAS", "Pass Accuracy Value of 60%")
             crisis.log(
-                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1_percent}%")
             crisis.log(
-                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2_percent}%")
             crisis.log(
-                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
+                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3_percent}%")
+            
             list_of_intents = intents['intents']
+            
             # All Agree
             if tag1 == tag2 == tag3:
                 crisis.log("MCAS", "All Agree")
                 for i in list_of_intents:
                     if i['tag'] == tag1:
+                        # Optional Training
+                        if config.mcas_learning is True:
+                            if query not in i['patterns']:
+                                i['patterns'].append(query)
+                                self.learning()
+                        
                         result = random.choice(i['responses'])
                         break
 
@@ -124,6 +142,12 @@ class Plugin:
                         "MCAS", "Core 1 and 2 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag1:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
@@ -132,6 +156,12 @@ class Plugin:
                         "MCAS", "Core 2 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag2:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
@@ -140,26 +170,36 @@ class Plugin:
                         "MCAS", "Core 1 and 3 Agree")
                     for i in list_of_intents:
                         if i['tag'] == tag3:
+                            # Optional Training
+                            if config.mcas_learning is True:
+                                if query not in i['patterns']:
+                                    i['patterns'].append(query)
+                                    self.learning()
+                                    
                             result = random.choice(i['responses'])
                             break
 
         else:
-            crisis.log("MCAS", "Failed Accuracy Value of 50%")
+            crisis.log("MCAS", "Failed Accuracy Value of 60%")
             crisis.log(
-                f"{config.MCAS_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
+                f"{config.mcas_core1_name}", f"Selected {tag1} with a confidence of {accuracy1}")
             crisis.log(
-                f"{config.MCAS_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
+                f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
             crisis.log(
-                f"{config.MCAS_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
-            not_found = ["I cannot answer that", "Different Question Please"]
-            result = random.choice(not_found)
+                f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
+            
+            # Returns the Unknown Intent as Answer
+            list_of_intents = intents['intents']
+            for i in list_of_intents:
+                if i['tag'] == "unknown":
+                    result = random.choice(i['responses'])
 
         return result
 
     @staticmethod
     def Core1(bow):
         # SkyNET Core
-        model = load_model(config.MCAS_core1)
+        model = load_model(config.mcas_core1)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
@@ -168,7 +208,7 @@ class Plugin:
     @staticmethod
     def Core2(bow):
         # Strik3r Core
-        model = load_model(config.MCAS_core2)
+        model = load_model(config.mcas_core2)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
@@ -177,8 +217,12 @@ class Plugin:
     @staticmethod
     def Core3(bow):
         # Steve Core
-        model = load_model(config.MCAS_core2)
+        model = load_model(config.mcas_core2)
         res = model.predict(np.array([bow]))[0]
         results = [[i, r] for i, r in enumerate(res)]
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
+
+    def learning(self):
+        with open(f"{config.mcas_dataset}", "w") as mcas_dataset:
+            mcas_dataset.write(json.dumps(intents, indent=4))

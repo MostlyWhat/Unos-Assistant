@@ -13,7 +13,7 @@ Intended Usage: Put into root folder and input query
 username = "mostlywhat"
 unos_name = "splitter"
 config = Config()
-modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
+modules = [f"{config.analyzers_location}.{modules}" for modules in config.analyzers_modules]
 splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
 while True:

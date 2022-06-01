@@ -1,4 +1,4 @@
-from System.Analysis.Scraper import Plugin
+from System.Analysis.Analyzers.Scraper import Plugin
 from System.Modules.BootLoader import Config
 
 config = Config()

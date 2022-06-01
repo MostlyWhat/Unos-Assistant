@@ -1,0 +1,49 @@
+{
+    "unos_config": {
+        "name": "UNOS",
+        "version": "beta-4",
+        "stability": "Partially Stable",
+        "codename": "A.U.T.O",
+        "previous_interation": "SkyNET"
+    },
+    "providers_config": {
+        "recognition": "vosk",
+        "tts": "pyttsx3",
+        "audio_player": "playsound"
+    },
+    "libraries_config": {
+        "libraries": {
+            "classes": "Data/Library/classes.pk1",
+            "words": "Data/Library/words.pk1"
+        },
+        "datasets": {
+            "default": "Data/Dataset/default.json",
+            "mcas": "Data/Dataset/mcas.json"
+        }
+    },
+    "modules_config": {
+        "analyzers_config": {
+            "location": "System.Analysis.Analyzers",
+            "modules": [
+                "Math",
+                "Time",
+                "Weather",
+                "Scraper",
+                "Manager",
+                "Exit"
+            ]
+        },
+        "fallback_config": {
+            "location": "System.Analysis.Fallback",
+            "module": "MCAS"
+        }
+    },
+    "mcas_config": {
+        "learning": true,
+        "Cores": {
+            "core_1": "SkyNET/SkyNET.config.json",
+            "core_2": "Strik3r/Strik3r.config.json",
+            "core_3": "Steve/Steve.config.json"
+        }
+    }
+}

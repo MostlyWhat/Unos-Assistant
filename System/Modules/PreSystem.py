@@ -9,19 +9,13 @@ from System.Modules.Splitter import Splitter
 # Initialising Modules
 config = Config()
 crisis = Crisis()
-modules = [f"{config.modules_location}.{modules}" for modules in config.modules]
-splitter = Splitter(plugins=modules, fallback_module=config.fallback_module)
 
 class Preburner():
     def __init__(self):
-      self.fallback_module = config.fallback_module
+      pass
       
     def start(self):
       pass
-        # if self.fallback_module == "MCAS":
-        #     crisis.log("Preburner", "Initialising MCAS")
-        #     splitter.analyze("hello")
-        #     crisis.log("Preburner", "MCAS is Online")
 
 class PreChecks():
     def __init__(self):
@@ -30,6 +24,7 @@ class PreChecks():
     def check(self):
         # Check Internet Connection
         self.InternetCheck()
+        self.Configurations()
         self.InterfaceType()
 
     @staticmethod
@@ -42,16 +37,12 @@ class PreChecks():
             crisis.log(
                 "PreChecks",
                 "Successfully connected to the Internet")
-            crisis.log(
-                "PreChecks",
-                "Success: Code {0}".format(request.status_code))
             return True
 
         except Exception:
             crisis.log(
                 "PreChecks",
                 "Failed to Connect to the Internet")
-            crisis.log("PreChecks", 'Error: Code 0'.format(request.status_code))
             return False
 
     @staticmethod
@@ -82,3 +73,42 @@ class PreChecks():
             crisis.log(
                 "Interface",
                 "Loading Command Line Interface")
+
+    @staticmethod
+    def Configurations():
+        dev_mode = config.dev_mode
+        
+        # Checking if the dev_mode is enabled
+        if dev_mode is True:
+            crisis.log(
+                "PreChecks",
+                "Development Mode is Enabled")
+
+        else:
+            crisis.log(
+                "PreChecks",
+                "Development Mode is Disabled")
+
+        # Checking on what features are enabled
+        text_to_speech = config.text_to_speech
+        voice_recognition = config.voice_recognition
+        
+        if text_to_speech is True:
+            crisis.log(
+                "PreChecks",
+                "Text to Speech is Enabled")
+            
+        else:
+            crisis.log(
+                "PreChecks",
+                "Text to Speech is Disabled")
+            
+        if voice_recognition is True:
+            crisis.log(
+                "PreChecks",
+                "Voice Recognition is Enabled")
+            
+        else:
+            crisis.log(
+                "PreChecks",
+                "Voice Recognition is Disabled")

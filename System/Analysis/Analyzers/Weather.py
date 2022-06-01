@@ -21,7 +21,7 @@ except Exception as e:
 
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Weather"
+        self.name = "Weather"
         self.contexts = ["weather", "air", "temperature",
                          "humidity", "wind", "pressure", "rain", "clouds", "forecast", "cloud"]
 

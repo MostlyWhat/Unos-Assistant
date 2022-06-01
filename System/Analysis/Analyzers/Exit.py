@@ -7,10 +7,9 @@ from System.Modules.BootLoader import Config
 # Setting Up Configurations
 config = Config()
 
-
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Exit"
+        self.name = "Exit"
         self.contexts = ["exit", "quit", "shutdown", "shut down"]
 
     def analyze(self, query):

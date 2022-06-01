@@ -11,7 +11,7 @@ crisis = Crisis()
 
 class Plugin:
     def __init__(self):
-        self.name = "System.Analysis.Scraper"
+        self.name = "Scraper"
         self.contexts = ["web", "search"]
 
     def analyze(self, query):
