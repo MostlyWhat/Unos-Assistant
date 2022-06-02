@@ -1,10 +1,7 @@
-import os
-import subprocess
 
 import requests
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
-from System.Modules.Splitter import Splitter
 
 # Initialising Modules
 config = Config()
