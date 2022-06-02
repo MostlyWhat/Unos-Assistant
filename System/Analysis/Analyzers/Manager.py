@@ -20,7 +20,8 @@ class Plugin:
             command = query.split(" ")[1]
             return self.protocol(command)
 
-    def update(self, command):
+    @staticmethod
+    def update(command):
         retrain = updater.regen(command)
         if retrain is True:
             return f"Sucessfully Regenerated the {command} Database"

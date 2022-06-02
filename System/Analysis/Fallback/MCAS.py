@@ -223,6 +223,7 @@ class Plugin:
         results.sort(key=lambda x: x[1], reverse=True)
         return [{'intent': classes[r[0]], 'probability': str(r[1])} for r in results]
 
-    def learning(self):
+    @staticmethod
+    def learning():
         with open(f"{config.mcas_dataset}", "w") as mcas_dataset:
             mcas_dataset.write(json.dumps(intents, indent=4))

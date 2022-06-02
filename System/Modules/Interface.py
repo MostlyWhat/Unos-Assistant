@@ -31,7 +31,8 @@ launch_config = config.launch_mode
 
 # Interface Modules
 class Interface():
-    def start(self):
+    @staticmethod
+    def start():
         if launch_config == "cli" and config.voice_recognition is True:
             cli_interface = cli_speech()
             cli_interface.main()
@@ -48,7 +49,8 @@ class Interface():
             cli_interface = cli()
             cli_interface.main()
             
-    def moreinfo(self):
+    @staticmethod
+    def moreinfo():
         if launch_config == "cli" and config.voice_recognition is True:
             cli_interface = cli_speech()
             return cli_interface.extra_input()
@@ -94,7 +96,8 @@ class cli():
         
         return response
 
-    def outputting(self, splitter_output: str):
+    @staticmethod
+    def outputting(splitter_output: str):
         # Printing the Results
         print(f"[ {unos_name.upper()} ] {splitter_output}")
         
@@ -131,7 +134,8 @@ class cli_speech():
     def extra_input(self):
         pass
     
-    def outputting(self, splitter_output: str):
+    @staticmethod
+    def outputting(splitter_output: str):
         # Printing the Results
         print(" ")
         print(f"[ {unos_name.upper()} ] {splitter_output}")

@@ -10,11 +10,13 @@ class Plugin:
         self.name = "RASA"
         self.contexts = []
 
-    def analyze(self, query):
+    @staticmethod
+    def analyze(query):
         # Set to True because we want to use the fallback module
         return True
 
-    def process(self, query):
+    @staticmethod
+    def process(query):
         sender = "Unos"
         try:
             r = requests.post('http://localhost:5002/webhooks/rest/webhook', json={"sender": sender, "message": query})
