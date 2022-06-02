@@ -28,7 +28,7 @@ class Boot():
 
     @staticmethod
     def cli():
-        if config.dev_mode == True:
+        if config.dev_mode is True:
             return None
         
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -110,7 +110,7 @@ class Exit():
 
     @staticmethod
     def cli():
-        if config.dev_mode == True:
+        if config.dev_mode is True:
             return None
         
         os.system('cls' if os.name == 'nt' else 'clear')

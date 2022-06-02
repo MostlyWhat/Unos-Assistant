@@ -14,7 +14,7 @@ class Plugin:
     def analyze(self, query):
         processing = self.process(query)
 
-        if processing == False:
+        if processing is False:
             return False
         
         crisis.log("Math", "Passed the Math Expression Analysis")

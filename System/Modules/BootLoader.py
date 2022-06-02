@@ -19,7 +19,7 @@ class Config:
             self.dev_mode = launch_config["dev_mode"]
             
             # Checks if DevMode is Enabled
-            if self.dev_mode == True:
+            if self.dev_mode is True:
                 dev_launch_config = user_data["dev_launch_config"]
                 self.launch_mode = dev_launch_config["launch_mode"]
                 self.voice_recognition = dev_launch_config["voice_recognition"]
