@@ -1,19 +1,12 @@
-import argparse
 import json
-import os
 import queue
 import sys
-
-import keyboard
 import pyaudio
 import pyttsx3
 import requests
 import sounddevice as sd
 import vosk
-from audioplayer import AudioPlayer
 from google.cloud import speech
-from google.cloud import texttospeech as tts
-from pkg_resources import yield_lines
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 

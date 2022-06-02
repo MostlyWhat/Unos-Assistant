@@ -8,7 +8,7 @@ import numpy as np
 from nltk.stem import WordNetLemmatizer
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
-from tensorflow.keras.layers import Activation, Dense, Dropout
+from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import SGD
 

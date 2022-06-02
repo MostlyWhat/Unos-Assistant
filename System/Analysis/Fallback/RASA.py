@@ -1,6 +1,5 @@
 import requests
 from System.Modules.Crisis import Crisis
-from urllib3 import HTTPConnectionPool
 
 crisis = Crisis()
 

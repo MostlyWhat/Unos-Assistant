@@ -1,5 +1,4 @@
 import json
-from csv import unregister_dialect
 
 
 class Config:

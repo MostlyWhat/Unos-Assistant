@@ -2,7 +2,6 @@
 
 import argparse
 import json
-import os
 import queue
 import sys
 
