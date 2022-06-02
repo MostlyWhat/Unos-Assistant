@@ -23,7 +23,8 @@ class Plugin:
 
         return self.request_result(question)
 
-    def request_result(self, query):
+    @staticmethod
+    def request_result(query):
         question = query.replace(" ", "%20")
 
         conn = http.client.HTTPSConnection(config.rapidapi_host)

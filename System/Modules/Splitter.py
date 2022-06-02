@@ -43,7 +43,8 @@ class Splitter():
 
         return selected_adaptor.process(query)
 
-    def multipleAdaptors(self, adaptors):        
+    @staticmethod
+    def multipleAdaptors(adaptors):        
         from System.Modules.Interface import Interface
         context = Interface().moreinfo()
         

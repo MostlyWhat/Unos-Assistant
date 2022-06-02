@@ -19,7 +19,8 @@ class Plugin:
         crisis.log("Math", "Passed the Math Expression Analysis")
         return True
 
-    def process(self, query):
+    @staticmethod
+    def process(query):
         expression = mathparse.extract_expression(query, language="ENG")
         
         try:

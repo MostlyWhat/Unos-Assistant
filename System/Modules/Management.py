@@ -127,7 +127,8 @@ class Updater():
         else:
             return False
     
-    def SkyNET_Training(self):
+    @staticmethod
+    def SkyNET_Training():
         model = Sequential()
         model.add(Dense(512, input_shape=(len(train_x[0]),), activation='relu')) 
         model.add(Dropout(0.5)) 
@@ -147,7 +148,8 @@ class Updater():
         
         model.save(f'{config.mcas_core1}', hist)
         
-    def Strik3r_Training(self):
+    @staticmethod
+    def Strik3r_Training():
         model=Sequential()
         model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
         model.add(Dropout(0.5)) 
@@ -167,7 +169,8 @@ class Updater():
         
         model.save(f'{config.mcas_core2}', hist)
         
-    def Steve_Training(self):
+    @staticmethod
+    def Steve_Training():
         model = Sequential() 
         model.add(Dense(64, input_shape=(len(train_x[0]),), activation='relu'))
         model.add(Dropout(0.5)) 

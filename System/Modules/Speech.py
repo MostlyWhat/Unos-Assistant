@@ -110,7 +110,8 @@ class Listener():  # Listener class to get the input from the user
 
 # Real-time Audio Stream to get the audio input from the user
 class VoskRecognizer:
-    def RecognizeAudio(self):
+    @staticmethod
+    def RecognizeAudio():
         #Recognition of Audio requests
         with sd.RawInputStream(samplerate=RATE, blocksize = 8000, dtype='int16', channels=1, callback=VoskRecognizer.callback):
             rec = vosk.KaldiRecognizer(model, RATE)
@@ -127,7 +128,8 @@ class VoskRecognizer:
         q.put(bytes(indata))
 
 class GoogleRecognizer:
-    def RecognizeAudio(self):
+    @staticmethod
+    def RecognizeAudio():
         #Recognition of Audio requests
         with MicrophoneStream(RATE, CHUNK) as stream:
             audio_generator = stream.generator()

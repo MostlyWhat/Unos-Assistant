@@ -3,7 +3,8 @@ class Plugin:
         self.name = "SCAS"
         self.contexts = []
 
-    def analyze(self, query):
+    @staticmethod
+    def analyze(query):
         # Set to True because we want to use the fallback module
         return True
 
