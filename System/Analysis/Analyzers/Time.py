@@ -12,7 +12,7 @@ class Plugin:
     def analyze(self, query):
         if "times" not in query:
             return any((context in query for context in self.contexts))
-        
+
         else:
             return False
 

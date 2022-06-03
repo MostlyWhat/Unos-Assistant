@@ -89,44 +89,44 @@ class Updater():
             try:
                 if os.path.exists(f"{config.words_lib}"):
                     os.remove(f"{config.words_lib}")
-                    
+
                 if os.path.exists(f"{config.classes_lib}"):
                     os.remove(f"{config.classes_lib}")
-                
+
                 pickle.dump(words, open(f'{config.words_lib}', 'wb'))
                 pickle.dump(classes, open(f'{config.classes_lib}', 'wb'))
-                
+
                 return True
-            
+
             except Exception:
                 return False
-        
+
         elif database == "mcas":
             self.SkyNET_Training()
             self.Strik3r_Training()
             self.Steve_Training()
-            
+
             return True
-        
+
         elif database == "all":
             if os.path.exists(f"{config.words_lib}"):
                 os.remove(f"{config.words_lib}")
-                    
+
             if os.path.exists(f"{config.classes_lib}"):
                 os.remove(f"{config.classes_lib}")
-            
+
             pickle.dump(words, open(f'{config.words_lib}', 'wb'))
             pickle.dump(classes, open(f'{config.classes_lib}', 'wb'))
-                
+
             self.SkyNET_Training()
             self.Strik3r_Training()
             self.Steve_Training()
-            
+
             return True
 
         else:
             return False
-    
+
     @staticmethod
     def SkyNET_Training():
         model = Sequential()
@@ -142,12 +142,12 @@ class Updater():
 
         hist = model.fit(np.array(train_x), np.array(train_y),
                         epochs=200, batch_size=5, verbose=1)
-        
+
         if os.path.exists(f"{config.mcas_core1}"):
             os.remove(f"{config.mcas_core1}")
-        
+
         model.save(f'{config.mcas_core1}', hist)
-        
+
     @staticmethod
     def Strik3r_Training():
         model=Sequential()
@@ -163,12 +163,12 @@ class Updater():
 
         hist = model.fit(np.array(train_x), np.array(train_y),
                         epochs=200, batch_size=5, verbose=1)
-        
+
         if os.path.exists(f"{config.mcas_core2}"):
             os.remove(f"{config.mcas_core2}")
-        
+
         model.save(f'{config.mcas_core2}', hist)
-        
+
     @staticmethod
     def Steve_Training():
         model = Sequential() 
@@ -186,10 +186,10 @@ class Updater():
 
         hist = model.fit(np.array(train_x), np.array(train_y),
                         epochs=200, batch_size=5, verbose=1)
-        
+
         if os.path.exists(f"{config.mcas_core3}"):
             os.remove(f"{config.mcas_core3}")
-        
+
         model.save(f'{config.mcas_core3}', hist)
 
 class Autofixer:

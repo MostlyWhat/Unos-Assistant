@@ -10,14 +10,14 @@ crisis = Crisis()
 class Preburner():
     def __init__(self):
       pass
-      
+
     def start(self):
       pass
 
 class PreChecks():
     def __init__(self):
         self.config = Config()
-    
+
     def check(self):
         # Check Internet Connection
         self.InternetCheck()
@@ -74,7 +74,7 @@ class PreChecks():
     @staticmethod
     def Configurations():
         dev_mode = config.dev_mode
-        
+
         # Checking if the dev_mode is enabled
         if dev_mode is True:
             crisis.log(
@@ -89,22 +89,22 @@ class PreChecks():
         # Checking on what features are enabled
         text_to_speech = config.text_to_speech
         voice_recognition = config.voice_recognition
-        
+
         if text_to_speech is True:
             crisis.log(
                 "PreChecks",
                 "Text to Speech is Enabled")
-            
+
         else:
             crisis.log(
                 "PreChecks",
                 "Text to Speech is Disabled")
-            
+
         if voice_recognition is True:
             crisis.log(
                 "PreChecks",
                 "Voice Recognition is Enabled")
-            
+
         else:
             crisis.log(
                 "PreChecks",

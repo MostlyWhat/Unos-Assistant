@@ -73,7 +73,7 @@ class Plugin:
         accuracy1 = float(core1[0]['probability'])
         accuracy2 = float(core2[0]['probability'])
         accuracy3 = float(core3[0]['probability'])
-        
+
         accuracy1_percent = round(accuracy1 * 100, 2)
         accuracy2_percent = round(accuracy2 * 100, 2)
         accuracy3_percent = round(accuracy3 * 100, 2)
@@ -87,9 +87,9 @@ class Plugin:
                 f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2_percent}%")
             crisis.log(
                 f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3_percent}%")
-            
+
             list_of_intents = intents['intents']
-            
+
             # All Agree
             if tag1 == tag2 == tag3:
                 crisis.log("MCAS", "All Agree")
@@ -100,7 +100,7 @@ class Plugin:
                             if query not in i['patterns']:
                                 i['patterns'].append(query)
                                 self.learning()
-                        
+
                         result = random.choice(i['responses'])
                         break
 
@@ -147,7 +147,7 @@ class Plugin:
                                 if query not in i['patterns']:
                                     i['patterns'].append(query)
                                     self.learning()
-                                    
+
                             result = random.choice(i['responses'])
                             break
 
@@ -161,7 +161,7 @@ class Plugin:
                                 if query not in i['patterns']:
                                     i['patterns'].append(query)
                                     self.learning()
-                                    
+
                             result = random.choice(i['responses'])
                             break
 
@@ -175,7 +175,7 @@ class Plugin:
                                 if query not in i['patterns']:
                                     i['patterns'].append(query)
                                     self.learning()
-                                    
+
                             result = random.choice(i['responses'])
                             break
 
@@ -187,7 +187,7 @@ class Plugin:
                 f"{config.mcas_core2_name}", f"Selected {tag2} with a confidence of {accuracy2}")
             crisis.log(
                 f"{config.mcas_core3_name}", f"Selected {tag3} with a confidence of {accuracy3}")
-            
+
             # Returns the Unknown Intent as Answer
             list_of_intents = intents['intents']
             for i in list_of_intents:

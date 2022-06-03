@@ -30,7 +30,7 @@ class Boot():
     def cli():
         if config.dev_mode is True:
             return None
-        
+
         os.system('cls' if os.name == 'nt' else 'clear')
 
         boot_sequence = open("System/Extras/boot_sequence.txt")
@@ -112,7 +112,7 @@ class Exit():
     def cli():
         if config.dev_mode is True:
             return None
-        
+
         os.system('cls' if os.name == 'nt' else 'clear')
 
         with open("System/Extras/unos_logo.txt") as boot_sequence:

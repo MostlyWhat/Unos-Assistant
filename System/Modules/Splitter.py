@@ -9,7 +9,7 @@ class Splitter():
     def __init__(self, fallback_module: str, plugins: list = None):
         if plugins is None:
             plugins = []
-            
+
         self.fallback_module = fallback_module
         # Checking if plugin were set
         if plugins != []:
@@ -47,9 +47,9 @@ class Splitter():
     def multipleAdaptors(adaptors):        
         from System.Modules.Interface import Interface
         context = Interface().moreinfo()
-        
+
         for adaptor in adaptors:
             check = importlib.import_module(f"{str(adaptor)}", ".").Plugin().analyze(context)
-            
+
             if check is True:
                 return [adaptor]
