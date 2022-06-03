@@ -42,11 +42,11 @@ class Speaker():
         # init function to get an engine instance for the speech synthesis
         # if config.providers_text_to_speech == "pyttsx3":
         #     self.engine = pyttsx3.init()
-    
+
         # else:
         #     self.engine = pyttsx3.init()
         self.engine = pyttsx3.init()
-    
+
     def speak(self, text):
         # if config.providers_text_to_speech == "pyttsx3":
         #     # say method on the engine that passing input text to be spoken
@@ -54,14 +54,14 @@ class Speaker():
 
         #     # run and wait method, it processes the voice commands.
         #     self.engine.runAndWait()
-    
+
         # else:
         #     # say method on the engine that passing input text to be spoken
         #     self.engine.say(text)
 
         #     # run and wait method, it processes the voice commands.
         #     self.engine.runAndWait()
-        
+
         # say method on the engine that passing input text to be spoken
         self.engine.say(text)
 
@@ -72,40 +72,40 @@ class Listener():  # Listener class to get the input from the user
     def __init__(self):
         # init function to get an engine instance for the speech synthesis
         pass
-    
+
     def listenForUNOS(self):
         #Recognition of Audio requests
         while True:
             wakeup = self.RecognizeUNOS()
-            
+
             if wakeup is True:
                 return True
-            
+
             else:
                 crisis.log("Speech", "Wakeup Failed")
-    
+
     def listenForCommand(self):
         return self.RecognizeAudio()
-    
+
     def RecognizeUNOS(self):
         # Recognition of UNOS requests        
         if config.providers_recognition == "google":
             user_response = GoogleRecognizer.RecognizeAudio(self)
-        
+
         else:
             user_response = VoskRecognizer.RecognizeAudio(self)
-            
+
         if user_response in WAKEUP_COMMANDS:
             return True
-    
+
     def RecognizeAudio(self):
         #Recognition of Audio requests
         if config.providers_recognition == "google":
             user_response = GoogleRecognizer.RecognizeAudio(self)
-        
+
         else:
             user_response = VoskRecognizer.RecognizeAudio(self)
-            
+
         return user_response
 
 # Real-time Audio Stream to get the audio input from the user
@@ -120,7 +120,7 @@ class VoskRecognizer:
                 if rec.AcceptWaveform(data):
                     result = json.loads(rec.Result())
                     return result["text"]
-                    
+
     def callback(indata, frames, time, status):
         """This is called (from a separate thread) for each audio block."""
         if status:

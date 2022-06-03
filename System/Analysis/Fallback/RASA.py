@@ -23,7 +23,7 @@ class Plugin:
 
             for i in r.json():
                 bot_message = i['text']
-                
+
             return bot_message
 
         except Exception as e:

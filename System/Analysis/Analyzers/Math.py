@@ -15,17 +15,17 @@ class Plugin:
 
         if processing is False:
             return False
-        
+
         crisis.log("Math", "Passed the Math Expression Analysis")
         return True
 
     @staticmethod
     def process(query):
         expression = mathparse.extract_expression(query, language="ENG")
-        
+
         try:
             result = str(mathparse.parse(expression, language="ENG"))
             return "The result is " + result
-            
+
         except mathparse.PostfixTokenEvaluationException:
             return False
