@@ -11,6 +11,7 @@ audioplayer
 vosk
 sounddevice
 mathparse
+gradio
 # PyAudio can be installed from here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 # A binary can be found in System/Extras/Pyaudio
 # Use ex. pip install PyAudio-0.2.11.whl to install it

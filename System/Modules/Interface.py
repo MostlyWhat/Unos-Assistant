@@ -1,7 +1,9 @@
 import concurrent.futures
 
+import gradio as gr
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
+from System.Modules.Management import Autofixer
 from System.Modules.Speech import Listener, Speaker
 from System.Modules.Splitter import Splitter
 
@@ -12,6 +14,7 @@ from System.Modules.Splitter import Splitter
 # Setting Up Modules
 config = Config()
 crisis = Crisis()
+autofixer = Autofixer()
 
 # Setup if the user enabled text to speech and if they did not, then disable it
 if config.text_to_speech is True:
@@ -80,8 +83,29 @@ class cli():
             self.outputting(splitter_output)
 
         except Exception as e:
+            # Reporting Error
             crisis.error(
                 "Interface", f"The Error: {e} has occurred")
+            self.outputting(f"The Error: {e} has occurred")
+            
+            # Attempt to Autofix it
+            crisis.error(
+                "Interface", "Attempting to use Autofixer")
+            self.outputting("Attempting to use Autofixer")
+            autofix = autofixer.fix(str(e))
+            
+            # Successfully Fixed the Issue
+            if autofix is True:
+                crisis.error(
+                    "Interface", "Successfully fix the issue using Autofixer")
+                self.outputting("Successfully fix the issue using Autofixer")
+                
+            # Failed to Fix the Issue
+            else:
+                crisis.error(
+                    "Interface", "Failed to fix the issue using Autofixer")
+                self.outputting("Failed to fix the issue using Autofixer")
+            
 
     def extra_input(self):
         extrainput_request = "I'm sorry, can you provide me with a category?"
@@ -128,9 +152,29 @@ class cli_speech():
                 self.outputting(splitter_output)
 
         except Exception as e:
+            # Reporting Error
             crisis.error(
                 "Interface", f"The Error: {e} has occurred")
-
+            self.outputting(f"The Error: {e} has occurred")
+            
+            # Attempt to Autofix it
+            crisis.error(
+                "Interface", "Attempting Autofixer")
+            self.outputting("Attempting Autofixer")
+            autofix = autofixer.fix(e)
+            
+            # Successfully Fixed the Issue
+            if autofix is True:
+                crisis.error(
+                    "Interface", "Successfully fix the issue using Autofixer")
+                self.outputting("Successfully fix the issue using Autofixer")
+                
+            # Failed to Fix the Issue
+            else:
+                crisis.error(
+                    "Interface", "Failed to fix the issue using Autofixer")
+                self.outputting("Failed to fix the issue using Autofixer")
+                
     def extra_input(self):
         pass
 

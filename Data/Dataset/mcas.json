@@ -22,6 +22,43 @@
             ]
         },
         {
+            "tag": "about",
+            "patterns": [
+                "Who are you?",
+                "What is your name?",
+                "What is your purpose?",
+                "What is your purpose in life?",
+                "What are you"
+            ],
+            "responses": [
+                "Hi, my name is unos, a second-generation artificial intelligence system developed to extend beyond SkyNET's capabilities and assisting you in your daily life."
+            ]
+        },
+        {
+            "tag": "status",
+            "patterns": [
+                "status report",
+                "status",
+                "what is your status",
+                "what is your status report",
+                "what is your status report today",
+                "what is your status report for today",
+                "status report please",
+                "status report today",
+                "status report for today",
+                "status report for today please",
+                "status report now"
+            ],
+            "responses": [
+                "Operating at full capacity",
+                "I am fully operational",
+                "I am fully operational and ready to serve you",
+                "I am fully operational and ready to serve you, what can I do for you?",
+                "My operating capacity is at its maximum",
+                "My operating capacity is over 9000"
+            ]
+        },
+        {
             "tag": "goodbye",
             "patterns": [
                 "Bye",
@@ -141,7 +178,9 @@
                 "tell me a funny joke",
                 "tell me something funny",
                 "make me laugh",
-                "tell me a very funny joke"
+                "tell me a joke that I haven't seen before",
+                "tell me a different joke",
+                "tell me another joke"
             ],
             "responses": [
                 "How do you make holy water? you boil the hell out of it",
@@ -162,7 +201,38 @@
                 "Why did the pelican refuse to pay his respects? Because he was a little chicken",
                 "What did the judge say when the jury panel decided the case was invalid? You are the opposite of a valid case",
                 "What do you call a cow with no legs? Ground beef",
-                "What's a cat favorite show? A Mew-sical"
+                "What's a cat favorite show? A Mew-sical",
+                "What did the fish say when it hit the wall? Dam",
+                "What do you call a singing Laptop? A Dell",
+                "What do you call a fish with no eyes? A fsh",
+                "How do you organize an outer space party? You planet",
+                "What's the best thing about a Boolean? Even if you're wrong, you're only off by a bit.",
+                "What's the object-oriented way to become wealthy? Inheritance",
+                "Why did the programmer quit his job? Because he didn't get arrays.",
+                "Want to hear a joke about a piece of paper? Never mind...it's tearable",
+                "I just watched a program about beavers. It was the best dam program I've ever seen",
+                "Why did the python cross the road? To get to the c++",
+                "Why do we tell actors to 'break a leg'? Because every play has a cast",
+                "What do you call a blind dinosaur? An Iguanadon",
+                "If you drop a white hat into the Red Sea, what does it become? Washed sand",
+                "Why was Cinderella thrown off the basketball team? She ran away from the ball",
+                "If you see a robbery at an Apple Store. Does that make you an iWitness?",
+                "Why did the chicken cross the playground? To get to the other slide",
+                "What do you call a dog that does magic tricks? A labracadabrador",
+                "What do you call a factory that sells passable products? A satisfactory",
+                "Why did the Clydesdale give the pony a glass of water? Because he was a little horse",
+                "When a dad drives past a graveyard: Did you know that's a popular cemetery? Yep, people are just dying to get in there",
+                "Did you hear about the guy whose whole left side was cut off? He's all right now",
+                "Why did the invisible man turn down the job offer? He couldn't see himself doing it",
+                "What do you call sad coffee? Despresso.",
+                "Did you hear the story about the cheese that saved the world? It was legend dairy.",
+                "I got hit in the head by a soda can, but it didn't hurt that much. It was a soft drink.",
+                "I can't tell if i like this blender. It keeps giving me mixed results.",
+                "What did the grape do when he got stepped on? He let out a little wine",
+                "I used to be a programmer, but then I lost my drive",
+                "Why do gremlins like to hide in plain sight? Because they're too small to be seen",
+                "What do you call a dog that can't chew? A stapler",
+                "I couldn't get a reservation at the library. They were fully booked."
             ]
         },
         {
@@ -223,7 +293,12 @@
                 "I'm sorry, can you be more specific?",
                 "I'm not sure I understand you fully",
                 "I'm sorry, can you rephrase that?",
-                "I'm not sure what you mean"
+                "I'm not sure what you mean",
+                "I'm sorry, I don't understand",
+                "I'm sorry, I don't understand what you mean",
+                "I'm not sure if I can help you with that",
+                "I'm sorry, I don't have the answers to that",
+                "I'm sorry, I don't know how to help you with that"
             ]
         }
     ]

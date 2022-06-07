@@ -16,7 +16,7 @@
     "launch_config": {
         "launch_mode": "cli",
         "voice_recognition": false,
-        "text_to_speech": false,
+        "text_to_speech": true,
         "dev_mode": true
     },
     "dev_launch_config": {

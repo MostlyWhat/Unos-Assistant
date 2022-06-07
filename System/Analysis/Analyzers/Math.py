@@ -24,6 +24,7 @@ class Plugin:
         expression = mathparse.extract_expression(query, language="ENG")
 
         try:
+
             result = str(mathparse.parse(expression, language="ENG"))
             return "The result is " + result
 

@@ -2,6 +2,7 @@ import json
 import os
 import pickle
 import random
+from pathlib import Path
 
 import nltk
 import numpy as np
@@ -13,7 +14,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import SGD
 
 # Module Information
-# Module Name: System.Modules.Trainer
+# Module Name: System.Modules.Management
 # Module Purpose: To Provide the Training for the AI System of UNOS Assistant Framework such as MCAS and SCAS
 
 """
@@ -84,15 +85,9 @@ train_x = list(training[:, 0])
 train_y = list(training[:, 1])
 
 class Updater():
-    def regen(self, database):
+    def update(self, database):
         if database == "libaries":            
             try:
-                if os.path.exists(f"{config.words_lib}"):
-                    os.remove(f"{config.words_lib}")
-
-                if os.path.exists(f"{config.classes_lib}"):
-                    os.remove(f"{config.classes_lib}")
-
                 pickle.dump(words, open(f'{config.words_lib}', 'wb'))
                 pickle.dump(classes, open(f'{config.classes_lib}', 'wb'))
 
@@ -115,6 +110,8 @@ class Updater():
             if os.path.exists(f"{config.classes_lib}"):
                 os.remove(f"{config.classes_lib}")
 
+            Path("/Data/Library").mkdir(parents=True, exist_ok=True)
+            
             pickle.dump(words, open(f'{config.words_lib}', 'wb'))
             pickle.dump(classes, open(f'{config.classes_lib}', 'wb'))
 
@@ -127,12 +124,49 @@ class Updater():
         else:
             return False
 
+    def clear(self, database):
+        if database == "libraries":
+            if os.path.exists(f"{config.words_lib}"):
+                os.remove(f"{config.words_lib}")
+
+            if os.path.exists(f"{config.classes_lib}"):
+                os.remove(f"{config.classes_lib}")
+                
+            if os.path.exists(f"{config.mcas_dataset}"):
+                os.remove(f"{config.mcas_dataset}")
+                
+            return True
+        
+        elif database == "all":
+            if os.path.exists(f"{config.words_lib}"):
+                os.remove(f"{config.words_lib}")
+
+            if os.path.exists(f"{config.classes_lib}"):
+                os.remove(f"{config.classes_lib}")
+                
+            if os.path.exists(f"{config.mcas_dataset}"):
+                os.remove(f"{config.mcas_dataset}")
+            
+            if os.path.exists(f"{config.mcas_core1}"):
+                os.remove(f"{config.mcas_core1}")
+            
+            if os.path.exists(f"{config.mcas_core2}"):
+                os.remove(f"{config.mcas_core2}")
+            
+            if os.path.exists(f"{config.mcas_core3}"):
+                os.remove(f"{config.mcas_core3}")
+            return True
+        
+        return False
+    
     @staticmethod
     def SkyNET_Training():
         model = Sequential()
-        model.add(Dense(512, input_shape=(len(train_x[0]),), activation='relu')) 
+        model.add(Dense(256, input_shape=(len(train_x[0]),), activation='relu')) 
         model.add(Dropout(0.5)) 
-        model.add(Dense(256, activation='relu')) 
+        model.add(Dense(128, activation='relu')) 
+        model.add(Dropout(0.5))
+        model.add(Dense(64, activation='relu')) 
         model.add(Dropout(0.5))
         model.add(Dense(len(train_y[0]), activation='softmax'))
 
@@ -193,4 +227,26 @@ class Updater():
         model.save(f'{config.mcas_core3}', hist)
 
 class Autofixer:
-    pass
+    def fix(self, error:str):
+        # Define Types of Errors
+        missing_lib = ["words.pk1", "classes.pk1"]
+        missing_model = ["Sequential", "model.h5"]
+        
+        # Check if missing_lib is in error
+        if any(x in error for x in missing_lib):
+            crisis.log("Autofixer", "Fixing missing libraries...")
+            Updater.update(self, "libraries")
+            crisis.log("Autofixer", "Libraries fixed.")
+            return True
+        
+        # Check if missing_model is in error
+        elif any(x in error for x in missing_model):
+            crisis.log("Autofixer", "Fixing missing models...")
+            Updater.update(self, "mcas")
+            crisis.log("Autofixer", "Models retrained.")
+            return True
+        
+        # Return False if no fixes were found
+        else:
+            crisis.error("Autofixer", "No fixes found.")
+            return False

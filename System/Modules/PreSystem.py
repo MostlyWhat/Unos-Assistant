@@ -15,9 +15,6 @@ class Preburner():
       pass
 
 class PreChecks():
-    def __init__(self):
-        self.config = Config()
-
     def check(self):
         # Check Internet Connection
         self.InternetCheck()
