@@ -1,6 +1,7 @@
 import json
 import queue
 import sys
+
 import pyaudio
 import pyttsx3
 import requests
@@ -90,10 +91,10 @@ class Listener():  # Listener class to get the input from the user
     def RecognizeUNOS(self):
         # Recognition of UNOS requests        
         if config.providers_recognition == "google":
-            user_response = GoogleRecognizer.RecognizeAudio(self)
+            user_response = GoogleRecognizer.RecognizeAudio()
 
         else:
-            user_response = VoskRecognizer.RecognizeAudio(self)
+            user_response = VoskRecognizer.RecognizeAudio()
 
         if user_response in WAKEUP_COMMANDS:
             return True
@@ -101,10 +102,10 @@ class Listener():  # Listener class to get the input from the user
     def RecognizeAudio(self):
         #Recognition of Audio requests
         if config.providers_recognition == "google":
-            user_response = GoogleRecognizer.RecognizeAudio(self)
+            user_response = GoogleRecognizer.RecognizeAudio()
 
         else:
-            user_response = VoskRecognizer.RecognizeAudio(self)
+            user_response = VoskRecognizer.RecognizeAudio()
 
         return user_response
 

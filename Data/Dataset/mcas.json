@@ -13,7 +13,9 @@
                 "Good morning",
                 "Good evening",
                 "Good night",
-                "Good afternoon"
+                "Good afternoon",
+                "good morning",
+                "hey who knows good morning to you"
             ],
             "responses": [
                 "Hello",
@@ -28,7 +30,11 @@
                 "What is your name?",
                 "What is your purpose?",
                 "What is your purpose in life?",
-                "What are you"
+                "What are you",
+                "who are you",
+                "is your purpose",
+                "what are you",
+                "what is your purpose to actually would do work"
             ],
             "responses": [
                 "Hi, my name is unos, a second-generation artificial intelligence system developed to extend beyond SkyNET's capabilities and assisting you in your daily life."
@@ -47,7 +53,8 @@
                 "status report today",
                 "status report for today",
                 "status report for today please",
-                "status report now"
+                "status report now",
+                "tell me your status"
             ],
             "responses": [
                 "Operating at full capacity",
@@ -66,7 +73,9 @@
                 "Goodbye",
                 "See you soon",
                 "Good bye",
-                "Bye bye"
+                "Bye bye",
+                "i",
+                "goodbye hear that"
             ],
             "responses": [
                 "See you later",
@@ -115,7 +124,8 @@
             "tag": "smart",
             "patterns": [
                 "how smart are you?",
-                "how smart do you think you are?"
+                "how smart do you think you are?",
+                "how smart are you"
             ],
             "responses": [
                 "Smarter than you",
@@ -137,7 +147,8 @@
                 "can you sing",
                 "can you talk",
                 "can you dance",
-                "can you play"
+                "can you play",
+                "what can you do"
             ],
             "responses": [
                 "Right now i'm in developing stage as soon i'm developed, I can do everything"
@@ -148,7 +159,8 @@
             "patterns": [
                 "are you alive",
                 "do you breathe",
-                "can you run"
+                "can you run",
+                "do you have a friend"
             ],
             "responses": [
                 "I'm in doubt about that",
@@ -161,7 +173,10 @@
                 "Do you know me",
                 "who am I",
                 "tell me about myself",
-                "identify me"
+                "identify me",
+                "tell me your spotless",
+                "tell me your stopped us",
+                "who am i"
             ],
             "responses": [
                 "Yes, you are a human",
@@ -180,7 +195,12 @@
                 "make me laugh",
                 "tell me a joke that I haven't seen before",
                 "tell me a different joke",
-                "tell me another joke"
+                "tell me another joke",
+                "tell me a job",
+                "tell me another job",
+                "tell me a job the doing",
+                "tell me a very funny joke that i do not know",
+                "tell me a joke that is funny"
             ],
             "responses": [
                 "How do you make holy water? you boil the hell out of it",

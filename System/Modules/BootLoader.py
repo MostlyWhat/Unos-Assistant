@@ -23,11 +23,13 @@ class Config:
                 self.launch_mode = dev_launch_config["launch_mode"]
                 self.voice_recognition = dev_launch_config["voice_recognition"]
                 self.text_to_speech = dev_launch_config["text_to_speech"]
+                self.autofixer = dev_launch_config["autofixer"]
 
             else:
                 self.launch_mode = launch_config["launch_mode"]
                 self.voice_recognition = launch_config["voice_recognition"]
                 self.text_to_speech = launch_config["text_to_speech"]
+                self.autofixer = launch_config["autofixer"]
 
         # System Config File Data Setup
         with open('Config/system_config.json') as system_config_file:

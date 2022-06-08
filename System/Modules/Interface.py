@@ -88,23 +88,24 @@ class cli():
                 "Interface", f"The Error: {e} has occurred")
             self.outputting(f"The Error: {e} has occurred")
             
-            # Attempt to Autofix it
-            crisis.error(
-                "Interface", "Attempting to use Autofixer")
-            self.outputting("Attempting to use Autofixer")
-            autofix = autofixer.fix(str(e))
-            
-            # Successfully Fixed the Issue
-            if autofix is True:
+            if config.autofixer is True:
+                # Attempt to Autofix it
                 crisis.error(
-                    "Interface", "Successfully fix the issue using Autofixer")
-                self.outputting("Successfully fix the issue using Autofixer")
+                    "Interface", "Attempting to use Autofixer")
+                self.outputting("Attempting to use Autofixer")
+                autofix = autofixer.fix(str(e))
                 
-            # Failed to Fix the Issue
-            else:
-                crisis.error(
-                    "Interface", "Failed to fix the issue using Autofixer")
-                self.outputting("Failed to fix the issue using Autofixer")
+                # Successfully Fixed the Issue
+                if autofix is True:
+                    crisis.error(
+                        "Interface", "Successfully fix the issue using Autofixer")
+                    self.outputting("Successfully fix the issue using Autofixer")
+                    
+                # Failed to Fix the Issue
+                else:
+                    crisis.error(
+                        "Interface", "Failed to fix the issue using Autofixer")
+                    self.outputting("Failed to fix the issue using Autofixer")
             
 
     def extra_input(self):
@@ -157,23 +158,24 @@ class cli_speech():
                 "Interface", f"The Error: {e} has occurred")
             self.outputting(f"The Error: {e} has occurred")
             
-            # Attempt to Autofix it
-            crisis.error(
-                "Interface", "Attempting Autofixer")
-            self.outputting("Attempting Autofixer")
-            autofix = autofixer.fix(e)
-            
-            # Successfully Fixed the Issue
-            if autofix is True:
+            if config.autofixer is True:
+                # Attempt to Autofix it
                 crisis.error(
-                    "Interface", "Successfully fix the issue using Autofixer")
-                self.outputting("Successfully fix the issue using Autofixer")
+                    "Interface", "Attempting Autofixer")
+                self.outputting("Attempting Autofixer")
+                autofix = autofixer.fix(e)
                 
-            # Failed to Fix the Issue
-            else:
-                crisis.error(
-                    "Interface", "Failed to fix the issue using Autofixer")
-                self.outputting("Failed to fix the issue using Autofixer")
+                # Successfully Fixed the Issue
+                if autofix is True:
+                    crisis.error(
+                        "Interface", "Successfully fix the issue using Autofixer")
+                    self.outputting("Successfully fix the issue using Autofixer")
+                    
+                # Failed to Fix the Issue
+                else:
+                    crisis.error(
+                        "Interface", "Failed to fix the issue using Autofixer")
+                    self.outputting("Failed to fix the issue using Autofixer")
                 
     def extra_input(self):
         pass
