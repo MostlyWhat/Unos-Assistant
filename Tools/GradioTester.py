@@ -1,15 +1,22 @@
 import gradio as gr
 
 
-def greet(name, is_morning, temperature):
-    salutation = "Good morning" if is_morning else "Good evening"
-    greeting = f"{salutation} {name}. It is {temperature} degrees today"
-    celsius = (temperature - 32) * 5 / 9
-    return greeting, round(celsius, 2)
+def update(name):
+    return f"Welcome to Gradio, {name}!"
 
-demo = gr.Interface(
-    fn=greet,
-    inputs=["text", "checkbox", gr.Slider(0, 100)],
-    outputs=["text", "number"],
-)
-demo.launch()
+demo = gr.Blocks()
+
+with demo:
+    gr.Markdown(
+    """
+    # Hello World!
+    Start typing below to see the output.
+    """)
+    inp = gr.Textbox(placeholder="What is your name?")
+    out = gr.Textbox()
+
+    inp.change(fn=update, 
+               inputs=inp, 
+               outputs=out)
+
+demo.launch(share=True)

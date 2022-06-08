@@ -72,40 +72,44 @@ class Interface():
 
 class cli():
     def main(self):
-        try:            
-            # Gets Input from Splitter
-            print(" ")
-            query = str(input(f"{username}@{unos_name}: "))
-            print(" ")
-            splitter_output = splitter.analyze(query)
+        while True:
+            try:            
+                # Gets Input from Splitter
+                print(" ")
+                query = str(input(f"{username}@{unos_name}: "))
+                print(" ")
+                splitter_output = splitter.analyze(query)
 
-            # Outputting the Results
-            self.outputting(splitter_output)
+                # Outputting the Results
+                self.outputting(splitter_output)
 
-        except Exception as e:
-            # Reporting Error
-            crisis.error(
-                "Interface", f"The Error: {e} has occurred")
-            self.outputting(f"The Error: {e} has occurred")
-            
-            if config.autofixer is True:
-                # Attempt to Autofix it
+            except KeyboardInterrupt:
+                break
+
+            except Exception as e:
+                # Reporting Error
                 crisis.error(
-                    "Interface", "Attempting to use Autofixer")
-                self.outputting("Attempting to use Autofixer")
-                autofix = autofixer.fix(str(e))
+                    "Interface", f"The Error: {e} has occurred")
+                self.outputting(f"The Error: {e} has occurred")
                 
-                # Successfully Fixed the Issue
-                if autofix is True:
+                if config.autofixer is True:
+                    # Attempt to Autofix it
                     crisis.error(
-                        "Interface", "Successfully fix the issue using Autofixer")
-                    self.outputting("Successfully fix the issue using Autofixer")
+                        "Interface", "Attempting to use Autofixer")
+                    self.outputting("Attempting to use Autofixer")
+                    autofix = autofixer.fix(str(e))
                     
-                # Failed to Fix the Issue
-                else:
-                    crisis.error(
-                        "Interface", "Failed to fix the issue using Autofixer")
-                    self.outputting("Failed to fix the issue using Autofixer")
+                    # Successfully Fixed the Issue
+                    if autofix is True:
+                        crisis.error(
+                            "Interface", "Successfully fix the issue using Autofixer")
+                        self.outputting("Successfully fix the issue using Autofixer")
+                        
+                    # Failed to Fix the Issue
+                    else:
+                        crisis.error(
+                            "Interface", "Failed to fix the issue using Autofixer")
+                        self.outputting("Failed to fix the issue using Autofixer")
             
 
     def extra_input(self):
@@ -132,50 +136,54 @@ class cli():
 
 class cli_speech():
     def main(self):
-        try:
-            # Listen for Wakeup Call
-            print(f"\n[ {unos_name.upper()} ] Listening for Wakeup Command...")
-            listen = listener.listenForUNOS()
+        while True:
+            try:
+                # Listen for Wakeup Call
+                print(f"\n[ {unos_name.upper()} ] Listening for Wakeup Command...")
+                listen = listener.listenForUNOS()
 
-            # If the wakeup call is detected, then ask for input
-            if listen is True:
-                if config.text_to_speech is True:
-                    speaker.speak("Yes?")
+                # If the wakeup call is detected, then ask for input
+                if listen is True:
+                    if config.text_to_speech is True:
+                        speaker.speak("Yes?")
 
-                print(f"\n[ {unos_name.upper()} ] Listening for Command...")
-                user_response = listener.listenForCommand()
+                    print(f"\n[ {unos_name.upper()} ] Listening for Command...")
+                    user_response = listener.listenForCommand()
 
-                # Send the Input to Splitter for Analysis
-                print(f"\n[ {unos_name.upper()} ] {username} responded with: {user_response}")
-                splitter_output = splitter.analyze(user_response)
+                    # Send the Input to Splitter for Analysis
+                    print(f"\n[ {unos_name.upper()} ] {username} responded with: {user_response}")
+                    splitter_output = splitter.analyze(user_response)
 
-                # Outputting the Results
-                self.outputting(splitter_output)
+                    # Outputting the Results
+                    self.outputting(splitter_output)
 
-        except Exception as e:
-            # Reporting Error
-            crisis.error(
-                "Interface", f"The Error: {e} has occurred")
-            self.outputting(f"The Error: {e} has occurred")
-            
-            if config.autofixer is True:
-                # Attempt to Autofix it
+            except KeyboardInterrupt:
+                break
+
+            except Exception as e:
+                # Reporting Error
                 crisis.error(
-                    "Interface", "Attempting Autofixer")
-                self.outputting("Attempting Autofixer")
-                autofix = autofixer.fix(e)
+                    "Interface", f"The Error: {e} has occurred")
+                self.outputting(f"The Error: {e} has occurred")
                 
-                # Successfully Fixed the Issue
-                if autofix is True:
+                if config.autofixer is True:
+                    # Attempt to Autofix it
                     crisis.error(
-                        "Interface", "Successfully fix the issue using Autofixer")
-                    self.outputting("Successfully fix the issue using Autofixer")
+                        "Interface", "Attempting Autofixer")
+                    self.outputting("Attempting Autofixer")
+                    autofix = autofixer.fix(e)
                     
-                # Failed to Fix the Issue
-                else:
-                    crisis.error(
-                        "Interface", "Failed to fix the issue using Autofixer")
-                    self.outputting("Failed to fix the issue using Autofixer")
+                    # Successfully Fixed the Issue
+                    if autofix is True:
+                        crisis.error(
+                            "Interface", "Successfully fix the issue using Autofixer")
+                        self.outputting("Successfully fix the issue using Autofixer")
+                        
+                    # Failed to Fix the Issue
+                    else:
+                        crisis.error(
+                            "Interface", "Failed to fix the issue using Autofixer")
+                        self.outputting("Failed to fix the issue using Autofixer")
                 
     def extra_input(self):
         pass
@@ -202,10 +210,44 @@ class gui():
 
 class web():
     def main(self):
-        pass
+        interface = gr.Blocks()
+
+        with interface:
+            gr.Markdown(
+                f"""
+                # {config.unos_name} Assistant Web Interface
+                
+                ## UNOS Assistant Information
+                Assistant Name: {config.unos_name}
+                Assistant Codename: {config.unos_codename} 
+                Assistant Version: {config.unos_version}
+                Assistant Stability: {config.unos_stability}
+                Assistant Predecessor: {config.unos_previous_interation}
+                
+                ## Warning the Interface is still in it's experimental stages. Voice Recognition and Text to Speech has been disabled.
+                
+                Welcome {config.username}, Start typing below and then click Submit to see the output.
+                """)
+            with gr.Column():
+                input_box = gr.Textbox(label="Query", placeholder="Who are you?")
+                context_box = gr.Textbox(label="Context (Not Required)", placeholder="About")
+                output_box = gr.Textbox(label="Output")
+                
+            btn = gr.Button("Submit")
+            btn.click(fn=self.process, inputs=[input_box, context_box], outputs=output_box)
+
+        interface.launch(share = True)
+
+    def process(self, query, context_text):
+        # Global a Variable
+        global context
+        context = context_text
+        
+        # Process information using Splitter
+        splitter_output = splitter.analyze(query)
+        
+        # Returns Information back to Output
+        return splitter_output
 
     def extra_input(self):
-        pass
-
-    def outputting(self):
-        pass
+        return context

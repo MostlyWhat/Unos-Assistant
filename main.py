@@ -34,8 +34,7 @@ crisis.log(framework,
 prechecks.check()
 preburner.start()
 
-# Starting Interface
-while True:
+def main():
     try:
         interface.start()
 
@@ -47,8 +46,11 @@ while True:
 
     except KeyboardInterrupt:
         exit_text.show()
-        break
 
+# Starting Interface
+main()
+
+# Exit Program
 print("\n")
 crisis.log(
     framework,
