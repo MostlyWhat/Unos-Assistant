@@ -14,8 +14,7 @@
                 "Good evening",
                 "Good night",
                 "Good afternoon",
-                "good morning",
-                "hey who knows good morning to you"
+                "is geometry dash a good game?"
             ],
             "responses": [
                 "Hello",
@@ -31,13 +30,16 @@
                 "What is your purpose?",
                 "What is your purpose in life?",
                 "What are you",
-                "who are you",
-                "is your purpose",
-                "what are you",
-                "what is your purpose to actually would do work"
+                "what is your system stats",
+                "what are you supposed to be doing"
             ],
             "responses": [
-                "Hi, my name is unos, a second-generation artificial intelligence system developed to extend beyond SkyNET's capabilities and assisting you in your daily life."
+                "Hi, my name is unos, a second-generation artificial intelligence system",
+                "Hi, I'm unos, a second-generation artificial intelligence system",
+                "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you",
+                "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
+                "Hi, my name is unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
+                "Hi, I'm SkyNET, the first-generation artificial intelligence system. I'm here to help you from yourself. How can I help you?"
             ]
         },
         {
@@ -53,8 +55,7 @@
                 "status report today",
                 "status report for today",
                 "status report for today please",
-                "status report now",
-                "tell me your status"
+                "status report now"
             ],
             "responses": [
                 "Operating at full capacity",
@@ -73,9 +74,7 @@
                 "Goodbye",
                 "See you soon",
                 "Good bye",
-                "Bye bye",
-                "i",
-                "goodbye hear that"
+                "Bye bye"
             ],
             "responses": [
                 "See you later",
@@ -101,12 +100,21 @@
             ]
         },
         {
-            "tag": "permission",
+            "tag": "question",
             "patterns": [
+                "Is pokemon good?",
+                "Is earth real?",
+                "Is earth round?",
+                "Do you think humans are smarter than robots?",
                 "can someone go to the bathroom",
                 "can someone help me",
                 "can someone help me with my homework",
-                "can someone play video games"
+                "can someone play video games",
+                "Is geometry dash a good game?",
+                "Are we alone in the universe",
+                "Is Joe Biden a good president?",
+                "is bee a good president?",
+                "is geometry dash a good game?"
             ],
             "responses": [
                 "No, absolutely not",
@@ -125,7 +133,10 @@
             "patterns": [
                 "how smart are you?",
                 "how smart do you think you are?",
-                "how smart are you"
+                "how intelligent are you?",
+                "how intelligent do you think you are?",
+                "how smart you?",
+                "how are you today?"
             ],
             "responses": [
                 "Smarter than you",
@@ -151,7 +162,10 @@
                 "what can you do"
             ],
             "responses": [
-                "Right now i'm in developing stage as soon i'm developed, I can do everything"
+                "Right now i'm in developing stage as soon i'm developed, I can do everything",
+                "Soon, I'm still under development and is not yet ready",
+                "Not now, as my responses are quite limited",
+                "I can probably do everything"
             ]
         },
         {
@@ -159,8 +173,7 @@
             "patterns": [
                 "are you alive",
                 "do you breathe",
-                "can you run",
-                "do you have a friend"
+                "can you run"
             ],
             "responses": [
                 "I'm in doubt about that",
@@ -173,10 +186,7 @@
                 "Do you know me",
                 "who am I",
                 "tell me about myself",
-                "identify me",
-                "tell me your spotless",
-                "tell me your stopped us",
-                "who am i"
+                "identify me"
             ],
             "responses": [
                 "Yes, you are a human",
@@ -192,16 +202,7 @@
                 "make me laugh",
                 "tell me a funny joke",
                 "tell me something funny",
-                "make me laugh",
-                "tell me a joke that I haven't seen before",
-                "tell me a different joke",
-                "tell me another joke",
-                "tell me a job",
-                "tell me another job",
-                "tell me a job the doing",
-                "tell me a very funny joke that i do not know",
-                "tell me a joke that is funny",
-                "tell me a joek"
+                "make me laugh"
             ],
             "responses": [
                 "How do you make holy water? you boil the hell out of it",
@@ -242,7 +243,7 @@
                 "What do you call a dog that does magic tricks? A labracadabrador",
                 "What do you call a factory that sells passable products? A satisfactory",
                 "Why did the Clydesdale give the pony a glass of water? Because he was a little horse",
-                "When a dad drives past a graveyard: Did you know that's a popular cemetery? Yep, people are just dying to get in there",
+                "Did you know that's a popular cemetery? Yep, people are just dying to get in there",
                 "Did you hear about the guy whose whole left side was cut off? He's all right now",
                 "Why did the invisible man turn down the job offer? He couldn't see himself doing it",
                 "What do you call sad coffee? Despresso.",
@@ -253,7 +254,8 @@
                 "I used to be a programmer, but then I lost my drive",
                 "Why do gremlins like to hide in plain sight? Because they're too small to be seen",
                 "What do you call a dog that can't chew? A stapler",
-                "I couldn't get a reservation at the library. They were fully booked."
+                "I couldn't get a reservation at the library. They were fully booked.",
+                ""
             ]
         },
         {
@@ -277,7 +279,10 @@
                 "How good are Newcastle",
                 "Who will win the premier league",
                 "Who is the best football player",
-                "Who is the best football player in the world"
+                "Who is the best football player in the world",
+                "are we alone in the universe?",
+                "what is the meaning of life",
+                "what is the meaning of life?"
             ],
             "responses": [
                 "Newcastle 'til I die",

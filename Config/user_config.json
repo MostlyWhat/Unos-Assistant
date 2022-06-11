@@ -21,7 +21,7 @@
         "dev_mode": true
     },
     "dev_launch_config": {
-        "launch_mode": "web",
+        "launch_mode": "cli",
         "voice_recognition": false,
         "text_to_speech": true,
         "autofixer": true

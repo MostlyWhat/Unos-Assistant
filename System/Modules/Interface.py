@@ -90,7 +90,7 @@ class cli():
                 # Reporting Error
                 crisis.error(
                     "Interface", f"The Error: {e} has occurred")
-                self.outputting(f"The Error: {e} has occurred")
+                self.outputting("An error has occurred, please check logs")
                 
                 if config.autofixer is True:
                     # Attempt to Autofix it
@@ -164,7 +164,7 @@ class cli_speech():
                 # Reporting Error
                 crisis.error(
                     "Interface", f"The Error: {e} has occurred")
-                self.outputting(f"The Error: {e} has occurred")
+                self.outputting("An error has occurred, please check logs")
                 
                 if config.autofixer is True:
                     # Attempt to Autofix it
@@ -239,15 +239,37 @@ class web():
         interface.launch(share = True)
 
     def process(self, query, context_text):
-        # Global a Variable
-        global context
-        context = context_text
+        try:
+            # Global a Variable
+            global context
+            context = context_text
+            
+            # Process information using Splitter
+            splitter_output = splitter.analyze(query)
+            
+            # Returns Information back to Output
+            return splitter_output
         
-        # Process information using Splitter
-        splitter_output = splitter.analyze(query)
-        
-        # Returns Information back to Output
-        return splitter_output
+        except Exception as e:
+            # Reporting Error
+            crisis.error(
+                "Interface", f"The Error: {e} has occurred")
+            
+            if config.autofixer is True:
+                # Attempt to Autofix it
+                crisis.error(
+                    "Interface", "Attempting Autofixer")
+                autofix = autofixer.fix(e)
+                
+                # Successfully Fixed the Issue
+                if autofix is True:
+                    crisis.error(
+                        "Interface", "Successfully fix the issue using Autofixer")
+                    
+                # Failed to Fix the Issue
+                else:
+                    crisis.error(
+                        "Interface", "Failed to fix the issue using Autofixer")
 
     def extra_input(self):
         return context

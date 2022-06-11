@@ -12,7 +12,7 @@ crisis = Crisis()
 class Plugin:
     def __init__(self):
         self.name = "Scraper"
-        self.contexts = ["web", "search"]
+        self.contexts = ["search"]
 
     def analyze(self, query):
         return any((context in query for context in self.contexts))

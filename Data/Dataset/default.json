@@ -31,7 +31,12 @@
                 "What are you"
             ],
             "responses": [
-                "Hi, my name is unos, a second-generation artificial intelligence system developed to extend beyond SkyNET's capabilities and assisting you in your daily life."
+                "Hi, my name is unos, a second-generation artificial intelligence system",
+                "Hi, I'm unos, a second-generation artificial intelligence system",
+                "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you",
+                "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
+                "Hi, my name is unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
+                "Hi, I'm SkyNET, the first-generation artificial intelligence system. I'm here to help you from yourself. How can I help you?"
             ]
         },
         {
@@ -92,12 +97,19 @@
             ]
         },
         {
-            "tag": "permission",
+            "tag": "question",
             "patterns": [
+                "Is pokemon good?",
+                "Is earth real?",
+                "Is earth round?",
+                "Do you think humans are smarter than robots?",
                 "can someone go to the bathroom",
                 "can someone help me",
                 "can someone help me with my homework",
-                "can someone play video games"
+                "can someone play video games",
+                "Is geometry dash a good game?",
+                "Are we alone in the universe",
+                "Is Joe Biden a good president?"
             ],
             "responses": [
                 "No, absolutely not",
@@ -115,7 +127,9 @@
             "tag": "smart",
             "patterns": [
                 "how smart are you?",
-                "how smart do you think you are?"
+                "how smart do you think you are?",
+                "how intelligent are you?",
+                "how intelligent do you think you are?"
             ],
             "responses": [
                 "Smarter than you",
@@ -140,7 +154,10 @@
                 "can you play"
             ],
             "responses": [
-                "Right now i'm in developing stage as soon i'm developed, I can do everything"
+                "Right now i'm in developing stage as soon i'm developed, I can do everything",
+                "Soon, I'm still under development and is not yet ready",
+                "Not now, as my responses are quite limited",
+                "I can probably do everything"
             ]
         },
         {

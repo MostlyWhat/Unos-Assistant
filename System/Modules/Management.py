@@ -35,7 +35,6 @@ crisis = Crisis()
 lemmatizer = WordNetLemmatizer()
 
 # Setting Up Configurations
-lemmatizer = WordNetLemmatizer()
 words = []
 classes = []
 documents = []
@@ -124,7 +123,8 @@ class Updater():
         else:
             return False
 
-    def clear(self, database):
+    @staticmethod
+    def clear(database):
         if database == "libraries":
             if os.path.exists(f"{config.words_lib}"):
                 os.remove(f"{config.words_lib}")
@@ -230,19 +230,20 @@ class Autofixer:
     def fix(self, error:str):
         # Define Types of Errors
         missing_lib = ["words.pk1", "classes.pk1"]
-        missing_model = ["Sequential", "model.h5"]
+        missing_model = ["model.h5"]
+        error_model = ["sequential"]
         
         # Check if missing_lib is in error
         if any(x in error for x in missing_lib):
             crisis.log("Autofixer", "Fixing missing libraries...")
-            Updater.update(self, "libraries")
+            Updater.update("libraries")
             crisis.log("Autofixer", "Libraries fixed.")
             return True
         
         # Check if missing_model is in error
         elif any(x in error for x in missing_model):
             crisis.log("Autofixer", "Fixing missing models...")
-            Updater.update(self, "mcas")
+            Updater.update("mcas")
             crisis.log("Autofixer", "Models retrained.")
             return True
         
