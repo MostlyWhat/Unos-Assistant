@@ -231,7 +231,7 @@ class Autofixer:
         # Define Types of Errors
         missing_lib = ["words.pk1", "classes.pk1"]
         missing_model = ["model.h5"]
-        error_model = ["sequential"]
+        mismatch_model = ["sequential"]
         
         # Check if missing_lib is in error
         if any(x in error for x in missing_lib):
@@ -245,6 +245,13 @@ class Autofixer:
             crisis.log("Autofixer", "Fixing missing models...")
             Updater.update("mcas")
             crisis.log("Autofixer", "Models retrained.")
+            return True
+        
+        # Check if mismatchr_model is in error
+        elif any(x in error for x in mismatch_model):
+            crisis.log("Autofixer", "Detected Model Mismatch...")
+            Updater.update("all")
+            crisis.log("Autofixer", "Libraries have been generated and Models retrained.")
             return True
         
         # Return False if no fixes were found

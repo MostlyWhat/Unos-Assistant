@@ -7,7 +7,7 @@
         "previous_interation": "SkyNET"
     },
     "providers_config": {
-        "recognition": "vosk",
+        "recognition": "google",
         "tts": "pyttsx3",
         "audio_player": "playsound"
     },
@@ -17,8 +17,8 @@
             "words": "Data/Library/words.pk1"
         },
         "datasets": {
-            "default": "Data/Dataset/default.json",
-            "mcas": "Data/Dataset/mcas.json"
+            "default": "Data/Datasets/default.json",
+            "mcas": "Data/Datasets/mcas.json"
         }
     },
     "modules_config": {

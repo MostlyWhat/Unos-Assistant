@@ -1,6 +1,7 @@
-import http.client
 import json
 
+import requests
+from bs4 import BeautifulSoup
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 
@@ -27,24 +28,44 @@ class Plugin:
     def request_result(query):
         question = query.replace(" ", "%20")
 
-        conn = http.client.HTTPSConnection(config.rapidapi_host)
-
         headers = {
-            "X-RapidAPI-Host": config.rapidapi_host,
-            "X-RapidAPI-Key": config.rapidapi_api
+            'User-agent':
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582"
         }
 
-        conn.request(
-            "GET", f"/?q={question}&callback=process_duckduckgo&no_html=1&no_redirect=1&skip_disambig=1&format=json", headers=headers)
+        params = {
+            'q': question,
+            'source': 'web'
+        }
+        
+        html = requests.get('https://search.brave.com/search', headers=headers, params=params)
+        soup = BeautifulSoup(html.text, 'lxml')
 
-        res = conn.getresponse()
-        data = res.read()
+        data = []
 
-        output = data.decode("utf-8")
-        format_output = json.loads(output[19:len(output)-2])
+        for result, sitelinks in zip(soup.select('.snippet.fdb'), soup.select('.deep-results-buttons .deep-link')):
+            try:
+                # removes "X time ago" -> split by \n -> removes all whitespaces to the LEFT of the string
+                snippet = result.select_one('.snippet-content .snippet-description').text.strip().split('\n')[1].lstrip()
+            except:
+                snippet = None
 
-        if format_output["AbstractText"] != "":
-            return "According to " + format_output["AbstractSource"] + ", " + format_output["AbstractText"]
+            if snippet is not None:
+                # Cut the snippet to 2 sentence
+                snippet = snippet.split('.')[0] + '.'
+                
+                data.append({
+                    'snippet': snippet,
+                })
+                
+        returned = json.dumps(data)
+        processing = json.loads(returned)
+        first_result = processing[1]['snippet']
+        
+        if first_result is not None:
+            crisis.error("Scraper", "Results Found")
+            return first_result
 
-        crisis.error("Scraper", "No results found")
-        return "No results found"
+        else:
+            crisis.error("Scraper", "No results found")
+            return "No results found"

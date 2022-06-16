@@ -1,17 +1,21 @@
-keyboard
 pyttsx3
 numpy
 nltk
 tensorflow
 pyowm
-SpeechRecognition
-google-cloud-speech
-google-cloud-texttospeech
 audioplayer
 vosk
 sounddevice
 mathparse
-gradio
+
+# Enables the use of web interface
+#gradio
+
+# Enables the use of the Google API
+# google-cloud-speech
+# google-cloud-texttospeech
+
+# Enables the use of voice recognition through pyaudio
 # PyAudio can be installed from here: https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 # A binary can be found in System/Extras/Pyaudio
 # Use ex. pip install PyAudio-0.2.11.whl to install it

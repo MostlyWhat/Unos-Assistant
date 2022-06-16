@@ -1,7 +1,5 @@
 import json
-import site
 
-import lxml
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,7 +12,7 @@ headers = {
 
 params = {
     'q': query,
-    'source': 'web'
+    'source': 'desktop'
 }
 
 # Collect all the results from the search engine
@@ -39,6 +37,15 @@ def get_organic_results():
                 'snippet': snippet,
             })
       
-    print(json.dumps(data, indent=2, ensure_ascii=False))
+    return_data = json.dumps(data, indent=2)  
+    
+    # # load return_data into a json object
+    # return_data = json.loads(return_data)
+    
+    # # collect the first snippet from return_data
+    # first_snippet = return_data[0]['snippet']
+    
+    # print(first_snippet)
+    print(return_data)
 
 get_organic_results()

@@ -5,6 +5,7 @@ from System.Modules.BootLoader import Config
 # Module Information
 # Module Name: System.Module.Crisis
 # Module Purpose: To Provide the Crisis Management for the UNOS Assistant Framework
+# Note: Should have been named existential crisis!
 
 # Setting Up Configurations
 config = Config()

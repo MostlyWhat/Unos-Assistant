@@ -36,7 +36,7 @@
                 "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you",
                 "Hi, I'm unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
                 "Hi, my name is unos, a second-generation artificial intelligence system. I'm here to help you. How can I help you?",
-                "Hi, I'm SkyNET, the first-generation artificial intelligence system. I'm here to help you from yourself. How can I help you?"
+                "Hi, I'm Sky Net, the first-generation artificial intelligence system. I'm here to help you from yourself. How can I help you?"
             ]
         },
         {
@@ -109,7 +109,9 @@
                 "can someone play video games",
                 "Is geometry dash a good game?",
                 "Are we alone in the universe",
-                "Is Joe Biden a good president?"
+                "Is Joe Biden a good president?",
+                "Do birds lay eggs?",
+                "Do you like to play video games?",
             ],
             "responses": [
                 "No, absolutely not",
@@ -212,8 +214,6 @@
                 "Why did the scarecrow win an award? Because he was outstanding in his field",
                 "Why do chicken coops only have two doors? Because if they had four, they would be chicken sedans",
                 "Why did the bicycle cross the road? Because it was two-tired",
-                "Why did the pelican refuse to pay his respects? Because he was a little chicken",
-                "What did the judge say when the jury panel decided the case was invalid? You are the opposite of a valid case",
                 "What do you call a cow with no legs? Ground beef",
                 "What's a cat favorite show? A Mew-sical",
                 "What did the fish say when it hit the wall? Dam",
@@ -235,7 +235,7 @@
                 "What do you call a dog that does magic tricks? A labracadabrador",
                 "What do you call a factory that sells passable products? A satisfactory",
                 "Why did the Clydesdale give the pony a glass of water? Because he was a little horse",
-                "When a dad drives past a graveyard: Did you know that's a popular cemetery? Yep, people are just dying to get in there",
+                "Did you know that's a popular cemetery? Yep, people are just dying to get in there",
                 "Did you hear about the guy whose whole left side was cut off? He's all right now",
                 "Why did the invisible man turn down the job offer? He couldn't see himself doing it",
                 "What do you call sad coffee? Despresso.",

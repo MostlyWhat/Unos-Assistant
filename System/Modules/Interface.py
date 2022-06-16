@@ -258,7 +258,7 @@ class web():
             if config.autofixer is True:
                 # Attempt to Autofix it
                 crisis.error(
-                    "Interface", "Attempting Autofixer")
+                    "Interface", "Attempting to use Autofixer")
                 autofix = autofixer.fix(e)
                 
                 # Successfully Fixed the Issue
