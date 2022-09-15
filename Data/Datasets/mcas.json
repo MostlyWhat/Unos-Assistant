@@ -28,7 +28,10 @@
                 "What is your name?",
                 "What is your purpose?",
                 "What is your purpose in life?",
-                "What are you"
+                "What are you",
+                "what is your name",
+                "who are you?",
+                "are you stoopid"
             ],
             "responses": [
                 "Hi, my name is unos, a second-generation artificial intelligence system",
@@ -111,7 +114,8 @@
                 "Are we alone in the universe",
                 "Is Joe Biden a good president?",
                 "Do birds lay eggs?",
-                "Do you like to play video games?"
+                "Do you like to play video games?",
+                "is minecraft a good game"
             ],
             "responses": [
                 "No, absolutely not",
@@ -131,7 +135,8 @@
                 "how smart are you?",
                 "how smart do you think you are?",
                 "how intelligent are you?",
-                "how intelligent do you think you are?"
+                "how intelligent do you think you are?",
+                "how are you doing"
             ],
             "responses": [
                 "Smarter than you",
@@ -180,7 +185,8 @@
                 "Do you know me",
                 "who am I",
                 "tell me about myself",
-                "identify me"
+                "identify me",
+                "who am i"
             ],
             "responses": [
                 "Yes, you are a human",
@@ -196,7 +202,8 @@
                 "make me laugh",
                 "tell me a funny joke",
                 "tell me something funny",
-                "make me laugh"
+                "make me laugh",
+                "tell me a joke please?"
             ],
             "responses": [
                 "How do you make holy water? you boil the hell out of it",
@@ -254,7 +261,8 @@
             "patterns": [
                 "Do you want to kill me?",
                 "do you want to murder everyone on earth",
-                "Do you want to kill us all"
+                "Do you want to kill us all",
+                "do you want to kill me"
             ],
             "responses": [
                 "Then who would i talk to?",
@@ -270,7 +278,9 @@
                 "How good are Newcastle",
                 "Who will win the premier league",
                 "Who is the best football player",
-                "Who is the best football player in the world"
+                "Who is the best football player in the world",
+                "what is the meaning of life",
+                "tell me the meaning of life"
             ],
             "responses": [
                 "Newcastle 'til I die",
@@ -301,7 +311,8 @@
                 "I don't know",
                 "I don't know what you mean",
                 "I don't understand",
-                "I don't understand what you mean"
+                "I don't understand what you mean",
+                "i don't know"
             ],
             "responses": [
                 "I'm sorry, can you be more specific?",

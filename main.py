@@ -2,6 +2,9 @@ import os
 import sys
 import time
 
+# Bootup Time
+time_start = time.time()
+
 from System.Modules.BootLoader import Config
 from System.Modules.Crisis import Crisis
 from System.Modules.Interface import Interface
@@ -34,6 +37,11 @@ crisis.log(framework,
 prechecks.check()
 preburner.start()
 
+# Bootup End
+time_end = time.time()
+time_elasped = round(time_end - time_start, 2)
+crisis.log(framework, f"Startup took {time_elasped} seconds.")
+
 def main():
     try:
         interface.start()
@@ -51,9 +59,7 @@ def main():
 main()
 
 # Exit Program
-print("\n")
 crisis.log(
     framework,
     "Exiting UNOS Assistant Framework System")
-print("\n")
 sys.exit()

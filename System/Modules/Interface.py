@@ -1,4 +1,5 @@
 import concurrent.futures
+import time
 
 import gradio as gr
 from System.Modules.BootLoader import Config
@@ -78,10 +79,16 @@ class cli():
                 print(" ")
                 query = str(input(f"{username}@{unos_name}: "))
                 print(" ")
+                
+                # Time Elasped & Processing
+                time_start = time.time()
                 splitter_output = splitter.analyze(query)
-
+                time_end = time.time()
+                time_elasped = round(time_end - time_start, 2)
+                
                 # Outputting the Results
                 self.outputting(splitter_output)
+                crisis.log("Splitter", f"Finished in {time_elasped} Seconds")
 
             except KeyboardInterrupt:
                 break
