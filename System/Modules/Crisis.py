@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from System.Modules.BootLoader import Config
@@ -9,22 +10,22 @@ from System.Modules.BootLoader import Config
 
 # Setting Up Configurations
 config = Config()
+log_filename = datetime.now().strftime('unos-system_%H_%M_%d%m%Y.log')
 
 # Logging Config
 if config.dev_mode is True:
-    logging.basicConfig(filename="unos-system.log",
+    logging.basicConfig(filename=log_filename,
                         filemode='a',
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S',
                         level=logging.DEBUG)
 
 else:
-    logging.basicConfig(filename="unos-system.log",
+    logging.basicConfig(filename=log_filename,
                         filemode='a',
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S',
                         level=logging.INFO)
-
 
 class Crisis():
     @staticmethod
