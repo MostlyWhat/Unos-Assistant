@@ -1,19 +1,15 @@
-import json
+# Scrapes the first 2 sentences from the first link found on google based on the input
 
+import json
 import requests
 from bs4 import BeautifulSoup
-from System.Modules.BootLoader import Config
-from System.Modules.Crisis import Crisis
 
-# Module Information
-config = Config()
-crisis = Crisis()
-
-
-class Plugin:
+class Scraper:
+    """
+    Scraper class
+    """
     def __init__(self):
-        self.name = "Scraper"
-        self.contexts = ["search"]
+        self.contexts = ["scrape", "search", "google", "brave"]
 
     def analyze(self, query):
         return any((context in query for context in self.contexts))
@@ -69,9 +65,7 @@ class Plugin:
         first_result = processing[1]['snippet']
         
         if first_result is not None:
-            crisis.error("Scraper", "Results Found")
             return first_result
 
         else:
-            crisis.error("Scraper", "No results found")
-            return "No results found"
+            return None

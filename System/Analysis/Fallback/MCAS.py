@@ -32,25 +32,47 @@ except Exception as e:
     intents = json.loads(open(f"{config.mcas_dataset}").read())
 
 # Fallback Plugin for Splitter System
-
+# The class is called Plugin, and it has a method called process.
 class Plugin:
     def __init__(self):
+        """
+        The function __init__() is a constructor that initializes the class
+        """
         self.name = "MCAS"
         self.contexts = []
 
     @staticmethod
     def analyze(query):
+        """
+        If the query is "Hello", then return True. Otherwise, return False
+        
+        :param query: The query that the user entered
+        :return: True
+        """
         # Set to True because we want to use the fallback module
         return True
 
     @staticmethod
     def clean_up_sentence(sentence):
+        """
+        It takes a sentence, tokenizes it, lemmatizes it, and returns the lemmatized sentence
+        
+        :param sentence: The sentence that the chatbot user entered
+        :return: A list of words
+        """
         sentence_words = nltk.word_tokenize(sentence)
         sentence_words = [lemmatizer.lemmatize(
             word) for word in sentence_words]
         return sentence_words
 
     def bag_of_words(self, sentence):
+        """
+        For each word in the sentence, if the word is in the list of words, then the bag of words vector
+        will have a 1 in that position
+        
+        :param sentence: The sentence to be classified
+        :return: A numpy array of 1's and 0's.
+        """
         sentence_words = self.clean_up_sentence(sentence)
         bag = [0] * len(words)
         for w in sentence_words:
@@ -60,6 +82,15 @@ class Plugin:
         return np.array(bag)
 
     def process(self, query):
+        """
+        The function takes the query and processes it through the three cores. It then checks the accuracy
+        of each core and if the accuracy is more than 70%, it will check if all cores agree, if all cores
+        disagree, or if two cores agree and one core disagrees. If the accuracy is less than 70%, it will
+        return the unknown response
+        
+        :param query: The user's input, e.g. "Hello"
+        :return: The result of the query.
+        """
         bow = self.bag_of_words(query)
 
         core1 = self.Core1(bow)

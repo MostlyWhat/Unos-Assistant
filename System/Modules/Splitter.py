@@ -5,8 +5,18 @@ from System.Modules.BootLoader import Config
 # Setting up System Modules
 config = Config()
 
+# > Splitter is a class that splits a string into a list of words
 class Splitter():
     def __init__(self, fallback_module: str, plugins: list = None):
+        """
+        If plugins is not None, then create a list of plugins, otherwise create a list of fallback
+        plugins
+        
+        :param fallback_module: str = "fallback"
+        :type fallback_module: str
+        :param plugins: list = None
+        :type plugins: list
+        """
         if plugins is None:
             plugins = []
 
@@ -24,6 +34,13 @@ class Splitter():
                 f"{config.fallback_location}.{self.fallback_module}", ".") .Plugin()]
 
     def analyze(self, query: str):        
+        """
+        It takes a query, analyzes it using other plugins, and returns the best plugin to use
+        
+        :param query: The query to be analyzed
+        :type query: str
+        :return: The return value of the process method of the selected adaptor.
+        """
         adaptors = []
 
         # Analyze using other plugins
@@ -45,6 +62,13 @@ class Splitter():
 
     @staticmethod
     def multipleAdaptors(adaptors):        
+        """
+        It imports a module from a string, and then calls a function from that module
+        
+        :param adaptors: A list of adaptors to check
+        :return: The adaptor that is being returned is the one that is being used to analyze the
+        context.
+        """
         from System.Modules.Interface import Interface
         context = Interface().moreinfo()
 

@@ -31,7 +31,8 @@
                 "What are you",
                 "what is your name",
                 "who are you?",
-                "are you stoopid"
+                "are you stoopid",
+                "what is my name"
             ],
             "responses": [
                 "Hi, my name is unos, a second-generation artificial intelligence system",
@@ -89,7 +90,8 @@
                 "Thank you",
                 "That's helpful",
                 "That's great",
-                "That's nice"
+                "That's nice",
+                "im not sure whqat you mean"
             ],
             "responses": [
                 "Happy to help!",
@@ -115,7 +117,8 @@
                 "Is Joe Biden a good president?",
                 "Do birds lay eggs?",
                 "Do you like to play video games?",
-                "is minecraft a good game"
+                "is minecraft a good game",
+                "what is a calculator"
             ],
             "responses": [
                 "No, absolutely not",
@@ -136,7 +139,8 @@
                 "how smart do you think you are?",
                 "how intelligent are you?",
                 "how intelligent do you think you are?",
-                "how are you doing"
+                "how are you doing",
+                "how are you doing?"
             ],
             "responses": [
                 "Smarter than you",
@@ -203,7 +207,8 @@
                 "tell me a funny joke",
                 "tell me something funny",
                 "make me laugh",
-                "tell me a joke please?"
+                "tell me a joke please?",
+                "can you tell me a joke?"
             ],
             "responses": [
                 "How do you make holy water? you boil the hell out of it",

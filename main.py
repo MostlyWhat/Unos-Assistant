@@ -43,6 +43,9 @@ time_elasped = round(time_end - time_start, 2)
 crisis.log(framework, f"Startup took {time_elasped} seconds.")
 
 def main():
+    """
+    It starts the interface, and if an error occurs, it will be logged
+    """
     try:
         interface.start()
 
